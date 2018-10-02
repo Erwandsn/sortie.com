@@ -10,4 +10,8 @@ public class DaoFactory {
 		return new SiteDAOImpl();
 	}
 	
+	public static VilleDAOImpl getVilleDao() {
+		return new VilleDAOImpl();
+	}
+	
 }

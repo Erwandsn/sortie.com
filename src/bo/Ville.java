@@ -14,6 +14,10 @@ public class Ville {
         this.longitude = longitude;
     }
 
+    public Ville() {
+    	
+    }
+    
 	public int getId() {
 		return id;
 	}
