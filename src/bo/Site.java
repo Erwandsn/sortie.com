@@ -7,6 +7,10 @@ public class Site {
     public Site( String nom) {
         this.nom = nom;
     }
+    
+    public Site() {
+        
+    }
 
 	public int getId() {
 		return id;

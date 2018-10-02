@@ -6,4 +6,8 @@ public class DaoFactory {
 		return new ParticipantDAOImpl();
 	}
 	
+	public static SiteDAOImpl getSiteDao() {
+		return new SiteDAOImpl();
+	}
+	
 }
