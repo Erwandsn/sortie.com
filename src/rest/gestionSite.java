@@ -1,8 +1,10 @@
 package rest;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -21,11 +23,18 @@ public class gestionSite {
 	public SiteManager getMgr() {
 		return this.mgr;
 	}
+	
+	@GET
+	public ArrayList<Site> getAll(){
+		ArrayList<Site> listSites = new ArrayList<>();
+		listSites = getMgr().getAll();
+		return listSites;
+	}
 			
 	@POST
-	public Site addNote(@FormParam("nomSite") String nomSite) throws ParseException {
+	public Site addNote(@FormParam("nomSite") String nom) throws ParseException {
 		Site unSite = new Site();
-		unSite.setNom(nomSite);
+		unSite.setNom(nom);
 		unSite = getMgr().createSite(unSite);
 		return unSite;
 	}
