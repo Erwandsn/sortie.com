@@ -1,0 +1,3 @@
+$('#annuler').click(function(){
+
+});

@@ -1,63 +1,51 @@
 package bo;
 
 public class Ville {
-    private int id;
-    private String nom;
-    private String rue;
-    private float latitude;
-    private float longitude;
+	private int id;
+	private String nomVille;
+	private String codePostal;
+	
+	
+	public Ville(String nomVille, String codePostal) {
+		super();
+		this.nomVille = nomVille;
+		this.codePostal = codePostal;
+	}
 
-    public Ville(String nom, String rue, float latitude, float longitude) {
-        this.nom = nom;
-        this.rue = rue;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 
-    public Ville() {
-    	
-    }
-    
+	public Ville() {
+		super();
+	}
+
+
 	public int getId() {
 		return id;
 	}
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+
+	public String getNomVille() {
+		return nomVille;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+
+	public void setNomVille(String nomVille) {
+		this.nomVille = nomVille;
 	}
 
-	public String getRue() {
-		return rue;
+
+	public String getCodePostal() {
+		return codePostal;
 	}
 
-	public void setRue(String rue) {
-		this.rue = rue;
-	}
 
-	public float getLatitude() {
-		return latitude;
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
-
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
-
-	public float getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
-
 
    
 }

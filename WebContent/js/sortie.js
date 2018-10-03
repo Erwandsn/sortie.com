@@ -6,11 +6,13 @@ $(document).ready(function(){
 	
 	$('#btnVille').click(function(){
 		$('#gestionSite').hide();
+		$('#accueil').hide();
 		$('#gestionVille').toggle();
 	});
 	
 	$('#btnSite').click(function(){
 		$('#gestionVille').hide();
+		$('#accueil').hide();
 		$('#gestionSite').toggle();
 //		On récupère la liste des Site existants en base de données
 		$.ajax({

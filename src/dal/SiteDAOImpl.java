@@ -11,7 +11,7 @@ import bo.Site;
 public class SiteDAOImpl implements SiteDAO{
 	
 	private final String INSERTONE = "INSERT INTO sites(nom_site) VALUES(?);";
-	private final String GETALL = "SELECT * FROM sites;";
+	private final String GETALL = "SELECT no_site,nom_site FROM sites;";
 
 	@Override
 	public Site createSite(Site unSite) throws SQLException {
