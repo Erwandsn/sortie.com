@@ -1,23 +1,69 @@
 $(document).ready(function(){
 //Display Functions
-	
+	$('#gestion-ville').hide();
 	$('#gestionSite').hide();
-	$('#gestionVille').hide();
+	$('#creation-participant').hide();
 	$('#confirmationSuppression').hide();
+	
+	$('#btnAccueil').click(function(){
+		$('#accueil').show();
+		$('#gestion-ville').hide();
+		$('#gestionSite').hide();
+		$('#creation-participant').hide();
+		$('#confirmationSuppression').hide();
+	
+		$('#li-accueil').addClass('active');
+		$('#li-ville').removeClass('active');
+		$('#li-site').removeClass('active');
+		$('#li-creation-participant').removeClass('active');
+		
 
+	});
+	
 	$('#btnVille').click(function(){
 		$('#accueil').hide();
+		$('#gestion-ville').show();
 		$('#gestionSite').hide();
+		$('#creation-participant').hide();
 		$('#confirmationSuppression').hide();
-		$('#gestionVille').show();
+		
+		$('#li-accueil').removeClass('active');
+		$('#li-ville').addClass('active');
+		$('#li-site').removeClass('active');
+		$('#li-creation-participant').removeClass('active');
+		
+
 	});
 	
 	$('#btnSite').click(function(){
 		$('#accueil').hide();
-		$('#gestionVille').hide();
+		$('#gestion-ville').hide();
 		$('#confirmationSuppression').hide();
 		$('#gestionSite').show();
+		$('#creation-participant').hide();
 		$('#modifSiteArea').hide();
+		
+		$('#li-accueil').removeClass('active');
+		$('#li-ville').removeClass('active');
+		$('#li-site').addClass('active');
+		$('#li-creation-participant').removeClass('active');
+		
+		refreshSiteTable();
+	});
+	
+	$('#btnCreationParticipant').click(function(){
+		$('#accueil').hide();
+		$('#gestion-ville').hide();
+		$('#gestionSite').hide();
+		$('#gestion-ville').hide();
+		$('#creation-participant').show();
+		$('#modifSiteArea').hide();
+		$('#confirmationSuppression').hide();
+		
+		$('#li-accueil').removeClass('active');
+		$('#li-ville').removeClass('active');
+		$('#li-site').removeClass('active');
+		$('#li-creation-participant').addClass('active');
 		refreshSiteTable();
 	});
 

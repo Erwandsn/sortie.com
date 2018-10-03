@@ -50,4 +50,14 @@ public class VilleManager {
 		}
 		return createdVille;
 	}
+	
+	public Ville searchVille(String unVille) {
+		Ville createdVille = new Ville();
+		try {
+			createdVille = getVilleDao().searchVille(unVille);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return createdVille;
+	}
 }

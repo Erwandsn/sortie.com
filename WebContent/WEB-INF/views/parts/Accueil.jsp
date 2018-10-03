@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="accueil">
 	<div class="row form-group">
 		<div class="col-lg-1 col-md-1 col-xs-1">Site</div>
 		<div class="col-lg-4 col-md-4 col-xs-4">
@@ -41,7 +41,7 @@
 			<div class="form-check">
 				<input type="checkbox" class="form-check-input" id="sortie-passee">
 				<label class="form-check-label" for="sortie-passee">Sorties
-					passï¿½es.</label>
+					passées.</label>
 			</div>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-2">
@@ -107,7 +107,7 @@
 	</div>
 	<div class="row form-group">
 		<div class="col-lg-4 col-md-4 col-xs-4">
-			<button type="button" class="btn btn-primary">Crï¿½er une
+			<button type="button" class="btn btn-primary">Créer une
 				sortie</button>
 		</div>
 	</div>

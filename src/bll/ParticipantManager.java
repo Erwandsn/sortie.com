@@ -34,7 +34,7 @@ public class ParticipantManager {
 	public Participant createParticipant(Participant unParticipant) {
 		Participant createdParticipant = new Participant();
 		try {
-			getParticipantDao().createParticipant(unParticipant);
+			createdParticipant = getParticipantDao().createParticipant(unParticipant);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

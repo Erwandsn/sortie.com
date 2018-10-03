@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import bo.Participant;
 
 public class ParticipantDAOImpl implements ParticipantDAO{
-	private final String INSERTONE = "INSERT INTO PARTICIPANTS(pseudo,nom,prenom,telephone,mail,mot_de_passe,ville) VALUES(?);";
+	private final String INSERTONE = "INSERT INTO PARTICIPANTS(pseudo,nom,prenom,telephone,mail,mot_de_passe,ville,administrateur,actif) VALUES(?,?,?,?,?,?,?,?,?);";
 	private final String GETALL ="SELECT * FROM Participants;";
 
 	public ArrayList<Participant> getAll() throws SQLException{
@@ -55,9 +55,12 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 			pstmt.setString(3, unParticipant.getNom());
 			pstmt.setString(4, unParticipant.getTelephone());
 			pstmt.setString(5, unParticipant.getMail());
-			pstmt.setString(6, unParticipant.getMotDePase());
-			pstmt.setString(7, unParticipant.getVille().getNomVille());
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.setString(6, unParticipant.getMotDePasse());
+			pstmt.setInt(7, unParticipant.getVille().getId());
+			pstmt.setBoolean(8, false);
+			pstmt.setBoolean(9, false);
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next())
 			{
 				unParticipant.setId(rs.getInt(1));
