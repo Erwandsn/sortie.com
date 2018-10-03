@@ -1,4 +1,4 @@
-<div class="container col-lg-12 col-md-12 col-xs-12">
+<div class="container col-lg-12 col-md-12 col-xs-12" id='accueil'>
 	<div class="row form-group">
 		<div class="col-lg-1 col-md-1 col-xs-1">Site</div>
 		<div class="col-lg-4 col-md-4 col-xs-4">

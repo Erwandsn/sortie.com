@@ -12,6 +12,8 @@ public class SiteDAOImpl implements SiteDAO{
 	
 	private final String INSERTONE = "INSERT INTO sites(nom_site) VALUES(?);";
 	private final String GETALL = "SELECT * FROM sites;";
+	private final String DELETEONEBYID = "DELETE FROM sites WHERE no_site=?;";
+	private final String UPDATESITE = "UPDATE sites SET nom_site=? where no_site=?";
 
 	@Override
 	public Site createSite(Site unSite) throws SQLException {
@@ -20,7 +22,9 @@ public class SiteDAOImpl implements SiteDAO{
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERTONE, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, unSite.getNom());
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			
 			if(rs.next())
 			{
 				unSite.setId(rs.getInt(1));
@@ -54,6 +58,24 @@ public class SiteDAOImpl implements SiteDAO{
 		}
 		return listeSites;
 	}
+
+	@Override
+	public Boolean deleteOneById(Site unSite) throws SQLException {
+		Boolean state = false;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(DELETEONEBYID);
+			pstmt.setInt(1, unSite.getId());
+			pstmt.executeUpdate();
+			state = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return state;
+	}
 	
 	private Site mapSite(ResultSet rs) {
 		Site unSite = new Site();
@@ -62,6 +84,23 @@ public class SiteDAOImpl implements SiteDAO{
 			unSite.setNom(rs.getString(2));
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		return unSite;
+	}
+
+	@Override
+	public Site updateSite(Site unSite) throws SQLException {
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATESITE);
+			pstmt.setString(1, unSite.getNom());
+			pstmt.setInt(2, unSite.getId());
+			pstmt.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
 		}
 		return unSite;
 	}

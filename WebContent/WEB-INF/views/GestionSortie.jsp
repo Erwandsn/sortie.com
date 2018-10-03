@@ -12,13 +12,9 @@
 <body>
 <div class='container col-md-12'>
 	<%@include file="parts/navbar.jsp" %>
-
-	<%@include file="Accueil.jsp" %>
-	
-	<div id='gestionVille'>
-		<h2>Gestion de ville</h2>
-		<%@include file="GestionVille.jsp" %>
-	</div>
+	<%@include file="parts/confirmSuppr.jsp" %>
+	<%@include file="parts/Accueil.jsp" %>
+	<%@include file="parts/GestionVille.jsp" %>
 	<%@include file="parts/gestionSite.jsp" %>
 </div>
 

@@ -32,11 +32,33 @@ public class SiteManager {
 	
 	public Site createSite(Site unSite) {
 		Site createdSite = new Site();
+		createdSite.setNom(unSite.getNom());
 		try {
-			getSiteDao().createSite(unSite);
+			createdSite.setId(getSiteDao().createSite(unSite).getId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return createdSite;
+	}
+	
+	public Boolean deleteSite(Site unSite) {
+		Boolean state = null;
+		try {
+			 state = getSiteDao().deleteOneById(unSite);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return state;
+	}
+	
+	public Site updateSite(Site unSite) {
+		try {
+			unSite.setNom(getSiteDao().updateSite(unSite).getNom());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return unSite;
 	}
 }
