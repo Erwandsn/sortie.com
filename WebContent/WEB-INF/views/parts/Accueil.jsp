@@ -1,4 +1,4 @@
-<div class="container col-lg-12 col-md-12 col-xs-12" id='accueil'>
+<div class="container-fluid">
 	<div class="row form-group">
 		<div class="col-lg-1 col-md-1 col-xs-1">Site</div>
 		<div class="col-lg-4 col-md-4 col-xs-4">
@@ -41,7 +41,7 @@
 			<div class="form-check">
 				<input type="checkbox" class="form-check-input" id="sortie-passee">
 				<label class="form-check-label" for="sortie-passee">Sorties
-					passées.</label>
+					passï¿½es.</label>
 			</div>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-2">
@@ -51,7 +51,7 @@
 	<div class="row form-group">
 		<div class="col-lg-2 col-md-2 col-xs-2">
 			<input type="date" id="debut" name="debut" value=""
-				placeholder="Début" /> et
+				placeholder="Dï¿½but" /> et
 		</div>
 		<div class="col-lg-4 col-md-4 col-xs-4">
 			<input type="date" id="fin" name="fin" value="" placeholder="Fin" />
@@ -63,7 +63,7 @@
 				<tr>
 					<th scope="col">Nom de la sortie</th>
 					<th scope="col">Date de la sortie</th>
-					<th scope="col">Clôture</th>
+					<th scope="col">Clï¿½ture</th>
 					<th scope="col">Inscrits/ places</th>
 					<th scope="col">Etat</th>
 					<th scope="col">Inscrit</th>
@@ -107,7 +107,7 @@
 	</div>
 	<div class="row form-group">
 		<div class="col-lg-4 col-md-4 col-xs-4">
-			<button type="button" class="btn btn-primary">Créer une
+			<button type="button" class="btn btn-primary">Crï¿½er une
 				sortie</button>
 		</div>
 	</div>

@@ -4,7 +4,7 @@ $(document).ready(function(){
 	$('#gestionSite').hide();
 	$('#gestionVille').hide();
 	$('#confirmationSuppression').hide();
-	
+
 	$('#btnVille').click(function(){
 		$('#accueil').hide();
 		$('#gestionSite').hide();
@@ -20,7 +20,7 @@ $(document).ready(function(){
 		$('#modifSiteArea').hide();
 		refreshSiteTable();
 	});
-	
+
 	$('#btnSupprSite').click(function(){
 		var radioValue = $("input[name='radio']:checked").val();
 		if(radioValue != undefined){
@@ -52,13 +52,13 @@ $(document).ready(function(){
 			alert("Veuillez selectionner un site");
 		}
 	});
-	
+
 	$('#cancelModifSite').click(function(){
 		$('#modifSiteIdArea').html("");
 		$('#modifSiteName').val("");
 		$('#modifSiteArea').hide();
 	});
-	
+
 	$('#btnModifSite').click(function(){
 		var radioValue = $("input[name='radio']:checked").val();
 		if(radioValue != undefined){
@@ -91,7 +91,7 @@ $(document).ready(function(){
 	
 	
 //	AJAX Function
-	
+
 //	Ajout d'un nouveau site
 	$('#submitAddSite').click(function(){
 		var nomSite = $('#addNomSite').val();
@@ -114,7 +114,7 @@ $(document).ready(function(){
 			  }
 		});
 	});
-	
+
 	function refreshSiteTable(){
 		$.ajax({
 		  url: "http://localhost:8080/sortie.com/rest/site",
@@ -137,4 +137,3 @@ $(document).ready(function(){
 		});
 	}
 });
-
