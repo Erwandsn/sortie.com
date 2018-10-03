@@ -40,4 +40,24 @@ public class ParticipantManager {
 		}
 		return createdParticipant;
 	}
+	
+	public Boolean authentification(Participant unParticipant) {
+		Boolean state = false;
+		try {
+			state = getParticipantDao().authentification(unParticipant);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return state;
+	}
+	
+	public Participant getInfoAuthenticatedUser(Participant unParticipant) {
+		Participant user = null;
+		try {
+			user = getParticipantDao().getInfoAuthenticatedUser(unParticipant);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }

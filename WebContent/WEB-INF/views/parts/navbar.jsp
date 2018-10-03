@@ -10,7 +10,7 @@
 	      <li><a href="#" id='btnSite'>Site</a></li>
 	      <li><a href="#">Accueil</a></li>
 	      <li><a href="#">Mon profil</a></li>
-	      <li><a href="#">Se deconnecter</a></li>
+	      <li><a href="/sortie.com/deconnexion">Se deconnecter</a></li>
 	    </ul>
 	  </div>
 	</nav>

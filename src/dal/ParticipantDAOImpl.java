@@ -11,6 +11,7 @@ import bo.Participant;
 public class ParticipantDAOImpl implements ParticipantDAO{
 	private final String INSERTONE = "INSERT INTO PARTICIPANTS(pseudo,nom,prenom,telephone,mail,mot_de_passe,ville) VALUES(?);";
 	private final String GETALL ="SELECT * FROM Participants;";
+	private final String AUTHENTIFICATION = "SELECT * FROM Participants WHERE pseudo=? AND mot_de_passe=?;";
 
 	public ArrayList<Participant> getAll() throws SQLException{
 		ArrayList<Participant> listeParticipant = new ArrayList<>();
@@ -30,17 +31,6 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 		}
 		return listeParticipant;
 
-	}
-
-	private Participant mapPartipant(ResultSet rs) {
-		Participant unParticipant = new Participant();
-		try {
-			unParticipant.setId(rs.getInt(1));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return unParticipant;
 	}
 
 	@Override
@@ -70,4 +60,70 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 		}
 		return unParticipant;
 	}
+	
+	public Boolean authentification(Participant unParticipant) throws SQLException{
+		Boolean state = false;
+		Participant participantAuthentifie = new Participant();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(AUTHENTIFICATION);
+			pstmt.setString(1, unParticipant.getPseudo());
+			pstmt.setString(2, unParticipant.getMotDePase());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				participantAuthentifie = mapPartipant(rs);
+				state = true;
+			}else {
+				state = false;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return state;
+	}
+	
+	@Override
+	public Participant getInfoAuthenticatedUser(Participant unParticipant) throws SQLException {
+		Participant user = new Participant();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(AUTHENTIFICATION);
+			pstmt.setString(1, unParticipant.getPseudo());
+			pstmt.setString(2, unParticipant.getMotDePase());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				user = mapPartipant(rs);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return user;
+	}
+	
+	private Participant mapPartipant(ResultSet rs) {
+		Participant unParticipant = new Participant();
+		try {
+			unParticipant.setId(rs.getInt(1));
+			unParticipant.setPseudo(rs.getString(2));
+			unParticipant.setNom(rs.getString(3));
+			unParticipant.setPrenom(rs.getString(4));
+			unParticipant.setTelephone(rs.getString(5));
+			unParticipant.setMail(rs.getString(6));
+			unParticipant.setAdmin(rs.getBoolean(7));
+			unParticipant.setActif(rs.getBoolean(8));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return unParticipant;
+	}
+
+	
 }

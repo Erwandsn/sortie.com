@@ -12,4 +12,8 @@ public interface ParticipantDAO {
 	
 	public ArrayList<Participant> getAll() throws SQLException;
 	
+	public Boolean authentification(Participant unParticipant) throws SQLException;
+	
+	public Participant getInfoAuthenticatedUser(Participant unParticipant) throws SQLException;
+	
 }

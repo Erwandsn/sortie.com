@@ -1,5 +1,14 @@
+<%@page import="bo.Participant"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%
+	Participant currentUser = null;
+	if(request.getSession().getAttribute("currentUser") != null){
+		currentUser = (Participant)request.getSession().getAttribute("currentUser");
+	}else{
+		response.sendRedirect("/sortie.com/authentification");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +26,6 @@
 	<%@include file="parts/GestionVille.jsp" %>
 	<%@include file="parts/gestionSite.jsp" %>
 </div>
-
 <script src='/sortie.com/js/sortie.js'></script>
 </body>
 </html>
