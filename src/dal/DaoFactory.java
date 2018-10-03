@@ -1,5 +1,6 @@
 package dal;
 
+
 public class DaoFactory {
 	
 	public static ParticipantDAOImpl getParticipantDao() {
@@ -13,6 +14,4 @@ public class DaoFactory {
 	public static VilleDAOImpl getVilleDao() {
 		return new VilleDAOImpl();
 	}
-	
-	
 }
