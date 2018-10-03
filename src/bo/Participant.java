@@ -9,11 +9,12 @@ public class Participant {
     private Boolean admin;
     private Boolean actif;
     private String pseudo;
-    private String motDePase;
+    private String motDePasse;
     private Ville ville;
+    private Site site;
     
 	public Participant(String nom, String prenom, String telephone, String mail, Boolean admin, Boolean actif,
-			String pseudo, String motDePase, Ville ville) {
+			String pseudo, String motDePasse, Ville ville,Site site) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -22,8 +23,9 @@ public class Participant {
 		this.admin = admin;
 		this.actif = actif;
 		this.pseudo = pseudo;
-		this.motDePase = motDePase;
+		this.motDePasse = motDePasse;
 		this.ville = ville;
+		this.site = site;
 	}
 	
 	
@@ -98,12 +100,12 @@ public class Participant {
 		this.pseudo = pseudo;
 	}
 
-	public String getMotDePase() {
-		return motDePase;
+	public String getMotDePasse() {
+		return motDePasse;
 	}
 
-	public void setMotDePase(String motDePase) {
-		this.motDePase = motDePase;
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
 	}
 
 	public Ville getVille() {
@@ -113,6 +115,22 @@ public class Participant {
 	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
+
+
+
+	public Site getSite() {
+		return site;
+	}
+
+
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
+
+
+	
     
 	
 	

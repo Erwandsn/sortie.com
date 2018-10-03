@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid" id="gestion-ville">
 	<div class="row form-group">
 		<div class="col-lg-1 col-md-1 col-xs-1">Filtrer les villes</div>
 	</div>

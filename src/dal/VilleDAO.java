@@ -11,4 +11,6 @@ public interface VilleDAO {
 	public ArrayList<Ville> getAll() throws SQLException;
 	
 	public ArrayList<Ville> searchByNomVille(String nomVille) throws SQLException;
+	
+	public Ville searchVille(String nomVille) throws SQLException;
 }

@@ -91,4 +91,27 @@ public class VilleDAOImpl implements VilleDAO{
 		}
 		return listeVilles;
 	}
+
+	@Override
+	public Ville searchVille(String nomVille) throws SQLException {
+		String GETSEARCH ="SELECT no_ville,nom_ville,code_postal FROM VILLES where nom_ville like '"+nomVille+"%';";
+		Ville ville = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
+//			pstmt.setString(1, "'" + nomVille + "'");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				ville= mapVille(rs);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return ville;
+	}
 }
