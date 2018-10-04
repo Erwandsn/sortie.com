@@ -61,6 +61,7 @@ public class authentification extends HttpServlet {
 			HttpSession session = request.getSession();
 			Participant currentUser = mgr.getInfoAuthenticatedUser(currentParticipant);
 			session.setAttribute("currentUser", currentUser);
+			session.setMaxInactiveInterval(600);
 			System.out.println(currentUser.getPseudo());
 			response.sendRedirect("/sortie.com/index");
 		}else {

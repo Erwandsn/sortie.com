@@ -20,11 +20,14 @@
 </head>
 <body>
 <div class='container col-md-12'>
-	<%@include file="parts/navbar.jsp" %>
+	<%-- <%@include file="parts/navbar.jsp" %> --%>
+	<jsp:include page="/WEB-INF/views/parts/navbar.jsp"/>
 	<%@include file="parts/confirmSuppr.jsp" %>
 	<%@include file="parts/Accueil.jsp" %>
-	<%@include file="parts/GestionVille.jsp" %>
-	<%@include file="parts/gestionSite.jsp" %>
+	<% if(currentUser.getAdmin() == true){ %>
+		<%@include file="parts/GestionVille.jsp" %>
+		<%@include file="parts/gestionSite.jsp" %>
+	<% } %>
 	<%@include file="parts/CreationParticipant.jsp" %>
 </div>
 <script src='/sortie.com/js/sortie.js'></script>
