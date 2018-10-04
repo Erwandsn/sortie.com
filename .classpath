@@ -33,5 +33,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/sqljdbc42.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-codec-1.11.jar"/>
 	<classpathentry kind="output" path="WebContent/build/classes"/>
 </classpath>

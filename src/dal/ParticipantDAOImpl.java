@@ -71,7 +71,7 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(AUTHENTIFICATION);
 			pstmt.setString(1, unParticipant.getPseudo());
-			pstmt.setString(2, unParticipant.getMotDePase());
+			pstmt.setString(2, unParticipant.getMotDePasse());
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next())
 			{
@@ -96,7 +96,7 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(AUTHENTIFICATION);
 			pstmt.setString(1, unParticipant.getPseudo());
-			pstmt.setString(2, unParticipant.getMotDePase());
+			pstmt.setString(2, unParticipant.getMotDePasse());
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next())
 			{

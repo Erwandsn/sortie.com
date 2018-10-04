@@ -55,7 +55,7 @@ public class authentification extends HttpServlet {
 		ParticipantManager mgr = new ParticipantManager();
 		Participant currentParticipant = new Participant();
 		currentParticipant.setPseudo(login);
-		currentParticipant.setMotDePase(shamdp);
+		currentParticipant.setMotDePasse(shamdp);
 		Boolean authentificationState = mgr.authentification(currentParticipant);
 		if(authentificationState == true) {
 			HttpSession session = request.getSession();
