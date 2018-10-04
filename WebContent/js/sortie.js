@@ -4,6 +4,7 @@ $(document).ready(function(){
 	$('#gestionSite').hide();
 	$('#creation-participant').hide();
 	$('#confirmationSuppression').hide();
+	$('#gestion-participant').hide();
 	
 	$('#btnAccueil').click(function(){
 		$('#accueil').show();
@@ -11,11 +12,13 @@ $(document).ready(function(){
 		$('#gestionSite').hide();
 		$('#creation-participant').hide();
 		$('#confirmationSuppression').hide();
+		$('#gestion-participant').hide();
 	
 		$('#li-accueil').addClass('active');
 		$('#li-ville').removeClass('active');
 		$('#li-site').removeClass('active');
 		$('#li-creation-participant').removeClass('active');
+		$('#li-participant').removeClass('active');
 		
 
 	});
@@ -26,11 +29,13 @@ $(document).ready(function(){
 		$('#gestionSite').hide();
 		$('#creation-participant').hide();
 		$('#confirmationSuppression').hide();
+		$('#gestion-participant').hide();
 		
 		$('#li-accueil').removeClass('active');
 		$('#li-ville').addClass('active');
 		$('#li-site').removeClass('active');
 		$('#li-creation-participant').removeClass('active');
+		$('#li-participant').removeClass('active');
 		
 
 	});
@@ -42,11 +47,13 @@ $(document).ready(function(){
 		$('#gestionSite').show();
 		$('#creation-participant').hide();
 		$('#modifSiteArea').hide();
+		$('#gestion-participant').hide();
 		
 		$('#li-accueil').removeClass('active');
 		$('#li-ville').removeClass('active');
 		$('#li-site').addClass('active');
 		$('#li-creation-participant').removeClass('active');
+		$('#li-participant').removeClass('active');
 		
 		refreshSiteTable();
 	});
@@ -59,11 +66,13 @@ $(document).ready(function(){
 		$('#creation-participant').show();
 		$('#modifSiteArea').hide();
 		$('#confirmationSuppression').hide();
+		$('#gestion-participant').hide();
 		
 		$('#li-accueil').removeClass('active');
 		$('#li-ville').removeClass('active');
 		$('#li-site').removeClass('active');
 		$('#li-creation-participant').addClass('active');
+		$('#li-participant').removeClass('active');
 		refreshSiteTable();
 	});
 
@@ -97,6 +106,46 @@ $(document).ready(function(){
 		}else{
 			alert("Veuillez selectionner un site");
 		}
+	});
+	
+	$('#btnParticipant').click(function(){
+		$('#accueil').hide();
+		$('#gestion-ville').hide();
+		$('#gestionSite').hide();
+		$('#creation-participant').hide();
+		$('#confirmationSuppression').hide();
+		$('#gestion-participant').show();
+	
+		$('#li-accueil').removeClass('active');
+		$('#li-ville').removeClass('active');
+		$('#li-site').removeClass('active');
+		$('#li-creation-participant').removeClass('active');
+		$('#li-participant').addClass('active');
+		
+		
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/creationParticipant/"+id,
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				var html = "";
+		   		for( var i = 0; i < data.length; i++) {
+	   				html += '<tr>';
+	   				html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";
+	    	   		html += '<td>' + data[i]["id"] + '</td>';
+	    	   		html += '<td id="sitenom' +data[i]["id"]+ '">' + data[i]["nom"] + '</td>';
+		    	 	html += "</tr>";
+	    	 	}
+		   		html += '<label id="lbl-pseudo">'+data[0]["pseudo"]+'</label>';
+		   		
+	    	 	$('#tableSite').html(html);
+			  }
+			});
+		
+
 	});
 
 	$('#cancelModifSite').click(function(){

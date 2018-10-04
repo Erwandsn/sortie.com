@@ -26,6 +26,7 @@
 	<%@include file="parts/GestionVille.jsp" %>
 	<%@include file="parts/gestionSite.jsp" %>
 	<%@include file="parts/CreationParticipant.jsp" %>
+	<%@include file="parts/GestionParticipant.jsp" %> 
 </div>
 <script src='/sortie.com/js/sortie.js'></script>
 </body>

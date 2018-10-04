@@ -19,17 +19,23 @@ $('#enregistrer').click(function(){
 	var confirmation = $('#confirmation').val();
 	var ville = $('#ville').val();
 	
-	$.ajax({
-		  url: "http://localhost:8080/sortie.com/rest/creationParticipant",
-		  cache: false,
-		  type: "POST",
-		  data: jQuery.param({ pseudo: pseudo, prenom: prenom,nom: nom,telephone: telephone,email: email,motDePasse: motDePasse,confirmation: confirmation, ville: ville}),
-		  beforeSend: function(request) {
-		  	request.setRequestHeader("Accept","application/json");
-		  },
-		  success: function(data){
-			  $('#accueil').show();
-			  $('#creation-participant').hide();
-		  }
-	});
+	if(confirmation === motDePasse){
+		
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/creationParticipant",
+			  cache: false,
+			  type: "POST",
+			  data: jQuery.param({ pseudo: pseudo, prenom: prenom,nom: nom,telephone: telephone,email: email,motDePasse: motDePasse,confirmation: confirmation, ville: ville}),
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  $('#accueil').show();
+				  $('#creation-participant').hide();
+			  }
+		});
+	}else{
+		alert("Les mots de passes ne correspondent pas.");
+	}
+	
 });

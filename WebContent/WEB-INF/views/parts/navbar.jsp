@@ -9,6 +9,7 @@
 		<li class="active" id="li-accueil"><a href=# id="btnAccueil">Accueil</a></li>
 			<li class="" id="li-ville"><a href="#" id='btnVille'>Villes</a></li>
 			<li class="" id="li-site"><a href="#" id='btnSite'>Site</a></li>
+			<li class="" id="li-participant"><a href="#" id='btnParticipant'>Mon profil</a></li>
 			<li class="" id="li-creation-participant"><a href="#" id="btnCreationParticipant" >Inscription</a></li>
 			<li><a href="/sortie.com/deconnexion">Se deconnecter</a></li>
 		</ul>
