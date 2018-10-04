@@ -13,4 +13,10 @@ public interface VilleDAO {
 	public ArrayList<Ville> searchByNomVille(String nomVille) throws SQLException;
 	
 	public Ville searchVille(String nomVille) throws SQLException;
+	
+	public Boolean deleteOneById(Ville unVille) throws SQLException;
+	
+	public Ville updateVille(Ville unVille) throws SQLException;	
+	
+	public Ville ajoutVille(String nomVille, String codePostal) throws SQLException;	
 }

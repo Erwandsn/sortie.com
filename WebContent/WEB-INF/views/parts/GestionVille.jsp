@@ -32,7 +32,7 @@
 				<tbody id='table-ville'>
 				</tbody>
 			</table>
-			<div class='col-md-offset-2 col-md-4'>
+			<div class='col-md-4'>
 				<button type='button' class='btn btn-warning btn-block'
 					id='btnModifVille'>Modifier</button>
 			</div>
@@ -40,6 +40,18 @@
 				<button type='button' class='btn btn-danger btn-block'
 					id='btnSupprVille'>Supprimer</button>
 			</div>
+			<div class='col-md-4'>
+				<button type='button' class='btn btn-success btn-block' id='submitAddVille'>Ajouter</button>
+			</div>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-md-6 '>
+			<form action='' method='POST' class='form-inline'>
+				<div class='form-group'>
+					<button type='button' id='btnValiderVille' class='btn btn-primary'>Valider</button>
+				</div>
+			</form>
 		</div>
 	</div>
 	<div class='row' id='modifVilleArea'>
