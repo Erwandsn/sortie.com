@@ -16,4 +16,6 @@ public interface ParticipantDAO {
 	
 	public Participant getInfoAuthenticatedUser(Participant unParticipant) throws SQLException;
 	
+	public Participant updateParticipant(Participant unParticipant) throws SQLException;
+	
 }

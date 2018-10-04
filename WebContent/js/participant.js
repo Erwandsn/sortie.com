@@ -1,3 +1,10 @@
+$('#modifProfilUser').hide();
+
+$('#btnModifProfil').click(function(){
+	$('#profilUser').hide();
+	$('#modifProfilUser').show();
+});
+
 $('button#btnAnnuler').click(function(){
 	$('#pseudo').val("");
 	$('#prenom').val("");
@@ -9,6 +16,7 @@ $('button#btnAnnuler').click(function(){
 	$('#ville').val("");
 });
 
+
 $('#enregistrer').click(function(){
 	var pseudo = $('#pseudo').val();
 	var prenom = $('#prenom').val();
@@ -18,7 +26,6 @@ $('#enregistrer').click(function(){
 	var motDePasse = $('#motDePasse').val();
 	var confirmation = $('#confirmation').val();
 	var ville = $('#ville').val();
-	
 	$.ajax({
 		  url: "http://localhost:8080/sortie.com/rest/creationParticipant",
 		  cache: false,

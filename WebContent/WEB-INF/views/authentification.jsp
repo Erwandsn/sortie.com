@@ -89,8 +89,10 @@
 			</div>
 			<div class="row form-group">
 				<div class="col-lg-6 col-md-6 col-xs-6">
-					<input class="form-control" id="ville" aria-describedby="villeHelp"
+					<select class="form-control" id="ville" aria-describedby="villeHelp"
 						placeholder="Ville" required>
+						
+					</select>
 				</div>
 			</div>
 			<div class="row form-group col-lg-4 col-md-4 col-xs-4">

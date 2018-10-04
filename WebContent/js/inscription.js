@@ -1,9 +1,28 @@
 $(document).ready(function(){
 	$('#creation-participant').hide();
 	$('#confirmationInscription').hide();
+	
+	
+	
 	$('#inscriptionBtn').click(function(){
 		$('#authentification').hide();
 		$('#creation-participant').show();
+//		On charge la liste déroulante
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/ville",
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  html="<option value='0'>--Choisir une ville--</option>";
+				  for( var i = 0; i < data.length; i++) {
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nomVille'] +"</option>"
+	    	 	}
+				$('#ville').html(html);
+			  }
+		});
 	});
 	
 	$('#btnAnnuler').click(function(){
@@ -29,20 +48,23 @@ $(document).ready(function(){
 			if(motDePasse != confirmation){
 				alert("Les deux mots de passe ne sont pas identiques");
 			}else{
-				alert('tentative d inscription');
-				$.ajax({
-					  url: "http://localhost:8080/sortie.com/rest/creationParticipant",
-					  cache: false,
-					  type: "POST",
-					  data: jQuery.param({ pseudo: pseudo, prenom: prenom,nom: nom,telephone: telephone,email: email,motDePasse: motDePasse,confirmation: confirmation, ville: ville}),
-					  beforeSend: function(request) {
-					  	request.setRequestHeader("Accept","application/json");
-					  },
-					  success: function(data){
-						  $('#creation-participant').hide();
-						  $('#confirmationInscription').show();
-					  }
-				});
+				if(ville=="0"){
+					alert('Veuillez choisir une ville');
+				}else{
+					$.ajax({
+						url: "http://localhost:8080/sortie.com/rest/creationParticipant",
+						cache: false,
+						type: "POST",
+						data: jQuery.param({ pseudo: pseudo, prenom: prenom,nom: nom,telephone: telephone,email: email,motDePasse: motDePasse,confirmation: confirmation, ville: ville}),
+						beforeSend: function(request) {
+							request.setRequestHeader("Accept","application/json");
+						},
+						success: function(data){
+							$('#creation-participant').hide();
+							$('#confirmationInscription').show();
+						}
+					});
+				}
 			}
 		}else{
 			alert("Pour compléter votre inscription, veuillez compléter tous les champs");

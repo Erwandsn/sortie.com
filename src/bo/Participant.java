@@ -12,6 +12,7 @@ public class Participant {
     private String motDePasse;
     private Ville ville;
     private Site site;
+    private String photo;
     
 	public Participant(String nom, String prenom, String telephone, String mail, Boolean admin, Boolean actif,
 			String pseudo, String motDePasse, Ville ville,Site site) {
@@ -28,14 +29,17 @@ public class Participant {
 		this.site = site;
 	}
 	
-	
-
 	public Participant() {
 		super();
 	}
 
+	public String getPhoto() {
+		return photo;
+	}
 
-
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public int getId() {
 		return id;
 	}

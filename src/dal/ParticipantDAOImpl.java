@@ -7,11 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bo.Participant;
+import bo.Ville;
 
 public class ParticipantDAOImpl implements ParticipantDAO{
 	private final String INSERTONE = "INSERT INTO PARTICIPANTS(pseudo,nom,prenom,telephone,mail,mot_de_passe,ville,administrateur,actif) VALUES(?,?,?,?,?,?,?,?,?);";
 	private final String GETALL ="SELECT * FROM Participants;";
 	private final String AUTHENTIFICATION = "SELECT * FROM Participants WHERE pseudo=? AND mot_de_passe=?;";
+	private final String GETUSERVILLE = "SELECT no_ville, nom_ville, code_postal\n" + 
+										"FROM participants, villes\n" + 
+										"WHERE villes.no_ville = participants.ville\n" + 
+										"AND no_participant=?";
+	private final String UPDATEUSER = "UPDATE participants set nom=? prenom=? telephone=? mail=? photo=? WHERE no_participant=?;";
 
 	public ArrayList<Participant> getAll() throws SQLException{
 		ArrayList<Participant> listeParticipant = new ArrayList<>();
@@ -109,6 +115,55 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 			e.printStackTrace();
 			throw new SQLException();
 		}
+		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETUSERVILLE);
+			pstmt.setInt(1, user.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				Ville laVille = new Ville();
+				laVille.setId(rs.getInt(1));
+				laVille.setNomVille(rs.getString(2));
+				laVille.setCodePostal(rs.getString(3));
+				user.setVille(laVille);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return user;
+	}
+	
+	@Override
+	public Participant updateParticipant(Participant unParticipant) throws SQLException {
+		Participant user = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATEUSER);
+			pstmt.setString(1, unParticipant.getNom());
+			pstmt.setString(2, unParticipant.getPrenom());
+			pstmt.setString(3, unParticipant.getTelephone());
+			pstmt.setString(4, unParticipant.getMail());
+			if(unParticipant.getPhoto() != null) {
+				pstmt.setString(5, null);
+			}else {
+				pstmt.setString(5, unParticipant.getPhoto());
+			}
+			pstmt.setInt(6, unParticipant.getId());
+			int nbLigne  = pstmt.executeUpdate();
+			if(nbLigne == 1) {
+				user = unParticipant;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
 		return user;
 	}
 	
@@ -123,11 +178,10 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 			unParticipant.setMail(rs.getString(6));
 			unParticipant.setAdmin(rs.getBoolean(7));
 			unParticipant.setActif(rs.getBoolean(8));
+			unParticipant.setPhoto(rs.getString(12));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return unParticipant;
 	}
-
-	
 }

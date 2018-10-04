@@ -60,4 +60,14 @@ public class ParticipantManager {
 		}
 		return user;
 	}
+	
+	public Participant updateParticipant(Participant unParticipant) {
+		Participant user = null;
+		try {
+			user = getParticipantDao().updateParticipant(unParticipant);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }

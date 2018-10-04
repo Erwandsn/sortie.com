@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 import bll.ParticipantManager;
 import bll.VilleManager;
 import bo.Participant;
+import bo.Ville;
 import dal.VilleDAO;
 import dal.VilleDAOImpl;
 
@@ -36,7 +38,7 @@ public class GestionParticipant {
 			
 	@POST
 	public Participant addParticipant(@FormParam("pseudo") String pseudo, @FormParam("prenom") String prenom, @FormParam("nom") String nom,@FormParam("telephone") String telephone,
-			@FormParam("email") String email,@FormParam("motDePasse") String motDePasse,@FormParam("ville") String ville) throws ParseException {
+			@FormParam("email") String email,@FormParam("motDePasse") String motDePasse,@FormParam("ville") int ville) throws ParseException {
 		Participant unParticipant = new Participant();
 		unParticipant.setPseudo(pseudo);
 		unParticipant.setPrenom(prenom);
@@ -44,12 +46,22 @@ public class GestionParticipant {
 		unParticipant.setTelephone(telephone);
 		unParticipant.setMail(email);
 		unParticipant.setMotDePasse(motDePasse);
-		VilleManager  manager = new VilleManager();
-		unParticipant.setVille(manager.searchVille(ville));
+		Ville uneVille = new Ville();
+		uneVille.setId(ville);
+		unParticipant.setVille(uneVille);
 		unParticipant = getMgr().createParticipant(unParticipant);
 		boolean vf = false;
 		unParticipant.setAdmin(vf);
 		return unParticipant;
 	}
+	
+	@PUT
+	public Participant updateParticipant(@FormParam("pseudo") String pseudo, @FormParam("prenom") String prenom, @FormParam("nom") String nom,@FormParam("telephone") String telephone,
+			@FormParam("email") String email,@FormParam("motDePasse") String motDePasse) throws ParseException{
+		Participant user = new Participant();
+		
+		return user;
+	}
+	
 	
 }

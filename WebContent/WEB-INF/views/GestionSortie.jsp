@@ -28,8 +28,8 @@
 	<% if(currentUser.getAdmin() == true){ %>
 		<%@include file="parts/GestionVille.jsp" %>
 		<%@include file="parts/gestionSite.jsp" %>
-	<% } %>
-	<%@include file="parts/CreationParticipant.jsp" %>
+	<%}%>
+	<jsp:include page="/WEB-INF/views/parts/CreationParticipant.jsp"/>
 </div>
 <script src='/sortie.com/js/sortie.js'></script>
 </body>
