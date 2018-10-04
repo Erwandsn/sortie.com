@@ -35,7 +35,8 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 
 	@Override
 	public Participant createParticipant(Participant unParticipant) throws SQLException {
-		// TODO Auto-generated method stub
+		// Hashage du mot de passe
+		unParticipant.setMotDePasse(org.apache.commons.codec.digest.DigestUtils.sha256Hex(unParticipant.getMotDePasse()));		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERTONE, PreparedStatement.RETURN_GENERATED_KEYS);
