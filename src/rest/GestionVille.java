@@ -52,6 +52,8 @@ private VilleManager mgr;
 		return unVille;
 	}
 	
+	
+	
 	@DELETE
 	@Path("/delete/{idVille : \\d+}")
 	public Boolean deleteOne(@PathParam("idVille") int idVille) {

@@ -60,4 +60,24 @@ public class VilleManager {
 		}
 		return createdVille;
 	}
+	
+	public Boolean deleteVille(Ville unVille) {
+		Boolean state = null;
+		try {
+			 state = getVilleDao().deleteOneById(unVille);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return state;
+	}
+	
+	public Ville updateVille(Ville unVille) {
+		try {
+			unVille.setNomVille(getVilleDao().updateVille(unVille).getNomVille());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return unVille;
+	}
 }
