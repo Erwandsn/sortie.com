@@ -31,7 +31,7 @@ $(document).ready(function(){
 		$('#li-ville').addClass('active');
 		$('#li-site').removeClass('active');
 		$('#li-creation-participant').removeClass('active');
-		
+		refreshVilleTable();
 
 	});
 	
@@ -179,6 +179,30 @@ $(document).ready(function(){
 	    	 	html += "</tr>";
     	 	}
     	 	$('#tableSite').html(html);
+		  }
+		});
+	}
+	
+	function refreshVilleTable(){
+		$.ajax({
+		  url: "http://localhost:8080/sortie.com/rest/ville",
+		  cache: false,
+		  type: "GET",
+		  beforeSend: function(request) {
+		  	request.setRequestHeader("Accept","application/json");
+		  },
+		  success: function(data){
+			var html = "";
+			console.log("sorties js +"+JSON.stringify(data));
+	   		for( var i = 0; i < data.length; i++) {
+   				html += '<tr>';
+   				html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";
+    	   		html += '<td>' + data[i]["id"] + '</td>';
+    	   		html += '<td id="villenom'+ data[i]["id"] +'">' + data[i]["nomVille"] + '</td>';
+    	   		html += '<td id="codepostal'+ data[i]["id"] +'">' + data[i]["codePostal"] + '</td>';
+	    	 	html += "</tr>";
+    	 	}
+    	 	$('#table-ville').html(html);
 		  }
 		});
 	}

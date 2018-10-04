@@ -60,8 +60,8 @@ public class authentification extends HttpServlet {
 		if(authentificationState == true) {
 			HttpSession session = request.getSession();
 			Participant currentUser = mgr.getInfoAuthenticatedUser(currentParticipant);
-			session.setAttribute("currentUser", currentUser);
 			session.setMaxInactiveInterval(600);
+			session.setAttribute("currentUser", currentUser);
 			System.out.println(currentUser.getPseudo());
 			response.sendRedirect("/sortie.com/index");
 		}else {
