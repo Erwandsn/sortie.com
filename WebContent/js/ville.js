@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$('#modifVilleArea').hide();
-	$('#btnValiderVille').hide();
+	$('#btn-validation').hide();
 	
 //	AJAX Function
 	$('#rechercher').click(function(){
@@ -103,12 +103,12 @@ $(document).ready(function(){
 	});
 	
 	
-//	AJAX Function
+	//	AJAX Function
 
-//	Ajout d'un nouveau ville
+	//	Ajout d'un nouveau ville
 	$('#submitAddVille').click(function(){
-		$('#btnValiderVille').show();
-		$('#submitAddVille').hide();
+		$('#btn-validation').show();
+		$('#btn-modification').hide();
 		var nomVille = $('#addNomVille').val();
 		
 		var html = "<tr>";
@@ -123,9 +123,9 @@ $(document).ready(function(){
 	$('#btnValiderVille').click(function(){
 		var nomVille = $('#ajout-nom-ville').val();
 		var codePostal = $('#ajout-code-postal').val();
-		alert(nomVille+"/ "+codePostal);
+		
 		$.ajax({
-			url: "http://localhost:8080/sortie.com/rest/ville",
+			url: "http://localhost:8080/sortie.com/rest/ville/ajoutVille",
 			cache: false,
 			type: "POST",
 			data: jQuery.param({ nomVille: nomVille,codePostal: codePostal}),
@@ -140,13 +140,14 @@ $(document).ready(function(){
 //				html += '<td>' + data[i]["nomVille"] + '</td>';
 //				html += '<td>' + data[i]["codePostal"] + '</td>';
 //				html += "</tr>";
-//
-//
 //				$('#table-ville').append(html);
 				
 				refreshVilleTable();
 			}
 		});
+		$('#btn-validation').hide();
+		$('#btn-modification').show();
+		
 	});
 	
 	function refreshVilleTable(){
