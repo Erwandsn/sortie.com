@@ -53,6 +53,16 @@ private VilleManager mgr;
 	}
 	
 	
+	@POST
+	@Path("/ajoutVille")
+	public Ville ajoutVille(@FormParam("nomVille") String nom,@FormParam("codePostal") String codePostal) throws ParseException {
+		Ville unVille = new Ville();
+		unVille.setNomVille(nom);
+		unVille.setCodePostal(codePostal);
+		unVille = getMgr().createVille(unVille);
+		return unVille;
+	}
+	
 	
 	@DELETE
 	@Path("/delete/{idVille : \\d+}")

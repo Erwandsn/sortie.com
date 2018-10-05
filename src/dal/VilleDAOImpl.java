@@ -22,9 +22,12 @@ public class VilleDAOImpl implements VilleDAO{
 		// TODO Auto-generated method stub
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERTONE, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = cnx.prepareStatement(INSERTVILLE, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, unVille.getNomVille());
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.setString(2, unVille.getCodePostal());
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			
 			if(rs.next())
 			{
 				unVille.setId(rs.getInt(1));
