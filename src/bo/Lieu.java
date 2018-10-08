@@ -16,6 +16,12 @@ public class Lieu {
         this.ville = ville;
     }
 
+    
+	public Lieu() {
+		super();
+	}
+
+
 	public int getId() {
 		return id;
 	}

@@ -8,4 +8,7 @@
     <servlet-name>GestionSortie</servlet-name>
     <url-pattern>/index</url-pattern>
   </servlet-mapping>
+  <session-config>
+  	<session-timeout>15</session-timeout>
+  </session-config>
 </web-app>

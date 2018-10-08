@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bo.Participant;
+import bo.Ville;
 import bo.Participant;
 
 public interface ParticipantDAO {
@@ -17,5 +18,8 @@ public interface ParticipantDAO {
 	public Participant getInfoAuthenticatedUser(Participant unParticipant) throws SQLException;
 	
 	public Participant updateParticipant(Participant unParticipant) throws SQLException;
+	
+	public Participant searchParticipant(int id) throws SQLException;
+	
 	
 }

@@ -14,4 +14,12 @@ public class DaoFactory {
 	public static VilleDAOImpl getVilleDao() {
 		return new VilleDAOImpl();
 	}
+	
+	public static SortieDAOImpl getSortieDao() {
+		return new SortieDAOImpl();
+	}
+	
+	public static LieuDAOImpl getLieuDao() {
+		return new LieuDAOImpl();
+	}
 }

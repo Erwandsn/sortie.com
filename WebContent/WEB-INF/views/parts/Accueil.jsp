@@ -45,16 +45,27 @@
 			</div>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-2">
-			<button type="button" class="btn btn-primary">Rechercher</button>
+			<button type="button" class="btn btn-primary" id="btnAccueilRecherche">Rechercher</button>
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-lg-2 col-md-2 col-xs-2">
-			<input type="date" id="debut" name="debut" value=""
-				placeholder="Dï¿½but" /> et
+		<div class='col-lg-2 col-md-2 col-xs-2'>
+			<div class='input-group date' id='debut'>
+				<input type='text' class="form-control"
+					placeholder="Début" /> <span
+					class="input-group-addon"> <span
+					class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
 		</div>
-		<div class="col-lg-4 col-md-4 col-xs-4">
-			<input type="date" id="fin" name="fin" value="" placeholder="Fin" />
+		<div class='col-lg-4 col-md-4 col-xs-4'>
+			<div class='input-group date' id='fin'>
+				<input type='text' class="form-control"
+					placeholder="Fin" /> <span
+					class="input-group-addon"> <span
+					class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
 		</div>
 	</div>
 	<div class="row form-group">
@@ -107,8 +118,13 @@
 	</div>
 	<div class="row form-group">
 		<div class="col-lg-4 col-md-4 col-xs-4">
-			<button type="button" class="btn btn-primary">Créer une
+			<button type="button" class="btn btn-primary" id="btnCreationSortie">Créer une
 				sortie</button>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-4 col-md-4 col-xs-4">
+			<button type="button" class="btn btn-primary" id="btnModificationSortie">Modifier une sortie</button>
 		</div>
 	</div>
 </div>

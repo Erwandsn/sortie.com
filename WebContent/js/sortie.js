@@ -4,6 +4,10 @@ $(document).ready(function(){
 	$('#gestionSite').hide();
 	$('#creation-participant').hide();
 	$('#confirmationSuppression').hide();
+	$('#creation-sortie').hide();
+	$('#affichage-sortie').hide();
+	$('#modification-sortie').hide();
+	$('#annulation-sortie').hide();
 	
 	$('#btnAccueil').click(function(){
 		$('#accueil').show();
@@ -11,7 +15,11 @@ $(document).ready(function(){
 		$('#gestionSite').hide();
 		$('#creation-participant').hide();
 		$('#confirmationSuppression').hide();
-	
+		$('#creation-sortie').hide();
+		$('#affichage-sortie').hide();
+		$('#modification-sortie').hide();
+		$('#annulation-sortie').hide();
+		
 		$('#li-accueil').addClass('active');
 		$('#li-ville').removeClass('active');
 		$('#li-site').removeClass('active');
@@ -26,6 +34,10 @@ $(document).ready(function(){
 		$('#gestionSite').hide();
 		$('#creation-participant').hide();
 		$('#confirmationSuppression').hide();
+		$('#creation-sortie').hide();
+		$('#affichage-sortie').hide();
+		$('#modification-sortie').hide();
+		$('#annulation-sortie').hide();
 		
 		$('#li-accueil').removeClass('active');
 		$('#li-ville').addClass('active');
@@ -42,6 +54,10 @@ $(document).ready(function(){
 		$('#gestionSite').show();
 		$('#creation-participant').hide();
 		$('#modifSiteArea').hide();
+		$('#creation-sortie').hide();
+		$('#affichage-sortie').hide();
+		$('#modification-sortie').hide();
+		$('#annulation-sortie').hide();
 		
 		$('#li-accueil').removeClass('active');
 		$('#li-ville').removeClass('active');
@@ -59,6 +75,10 @@ $(document).ready(function(){
 		$('#creation-participant').show();
 		$('#modifSiteArea').hide();
 		$('#confirmationSuppression').hide();
+		$('#creation-sortie').hide();
+		$('#affichage-sortie').hide();
+		$('#modification-sortie').hide();
+		$('#annulation-sortie').hide();
 		
 		$('#li-accueil').removeClass('active');
 		$('#li-ville').removeClass('active');
@@ -104,7 +124,155 @@ $(document).ready(function(){
 		$('#modifSiteName').val("");
 		$('#modifSiteArea').hide();
 	});
+	
+	$('#btnCreationSortie').click(function(){
+		$('#accueil').hide();
+		$('#creation-sortie').show();
+		
+//		On charge la liste déroulante
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/ville",
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  html="<option value='0'>--Choisir une ville--</option>";
+				  for( var i = 0; i < data.length; i++) {
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nomVille'] +"</option>"
+	    	 	}
+				$('#creation-sortie-ville').html(html);
+			  }
+		});
+		
+//		On charge la liste déroulante
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/lieu",
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  html="<option value='0'>--Choisir un lieu--</option>";
+				  for( var i = 0; i < data.length; i++) {
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nom'] +"</option>"
+	    	 	}
+				$('#creation-sortie-lieu').html(html);
+			  }
+		});
+	});
+	
+	$('#btnModificationSortie').click(function(){
+		$('#accueil').hide();
+		$('#modification-sortie').show();
+		
+//		On charge la liste déroulante
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/ville",
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  html="<option value='0'>--Choisir une ville--</option>";
+				  for( var i = 0; i < data.length; i++) {
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nomVille'] +"</option>"
+	    	 	}
+				$('#modification-sortie-ville').html(html);
+			  }
+		});
+		
+		
+//		On charge la liste déroulante
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/lieu",
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  html="<option value='0'>--Choisir un lieu--</option>";
+				  for( var i = 0; i < data.length; i++) {
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nomLieu'] +"</option>"
+	    	 	}
+				$('#modification-sortie-lieu').html(html);
+			  }
+		});
+	});
+	
+	
+	
+	
+	$('#btnAnnulSortie').click(function(){
+		$('#creation-sortie-nom').val("");
+		$('#creation-sortie-date').val("");
+		$('#creation-sortie-date-inscription').val("");
+		$('#creation-sortie-place').val("");
+		$('#creation-sortie-duree').val("");
+		$('#creation-sortie-description').val("");
+		$('#creation-sortie-ville').val("");
+		$('#creation-sortie-lieu').val("");
 
+	});
+	
+	$('#btnAccueilRecherche').click(function(){
+		$('#accueil').hide();
+		$('#affichage-sortie').show();
+
+	});
+	
+	$('#btnEnregSortie').click(function(){
+		var nom =$('#creation-sortie-nom').val();
+		var date =$('#creation-sortie-date1-val').val();
+		var dateInscription =$('#creation-sortie-date-inscription-val').val();
+		var place =$('#creation-sortie-place').val();
+		var duree =$('#creation-sortie-duree').val();
+		var description =$('#creation-sortie-description').val();
+		var ville =$('#creation-sortie-ville').val();
+		var lieu =$('#creation-sortie-lieu').val();
+		var currentUser = $('#currentUser').val();
+		console.log("nom "+nom);
+		console.log("date "+date);
+		console.log("dateInscription "+dateInscription);
+		console.log("place "+place);
+		console.log("duree "+duree);
+		console.log("description "+description);
+		console.log("lieu "+lieu);
+		console.log("currentUser "+currentUser);
+
+		
+		$.ajax({
+			url: "http://localhost:8080/sortie.com/rest/sortie/ajoutSortie",
+			cache: false,
+			type: "POST",
+			data: jQuery.param({ nom: nom,date: date, dateInscription: dateInscription, place:place, duree: duree,
+				description: description, ville: ville, lieu: lieu,currentUser: currentUser}),
+			beforeSend: function(request) {
+				request.setRequestHeader("Accept","application/json");
+			},
+			success: function(data){
+			
+			}
+		});
+	});
+	
+	$('#btnAnnulSortie').click(function(){
+
+	});
+	
+
+	
+	$('#btnAnnulModifSortie').click(function(){
+		$('#annulation-sortie').show();
+		$('#modification-sortie').hide();
+//		refreshSortieTable();
+	});
+	
+	
 	$('#btnModifSite').click(function(){
 		var radioValue = $("input[name='radio']:checked").val();
 		if(radioValue != undefined){
@@ -206,4 +374,67 @@ $(document).ready(function(){
 		  }
 		});
 	}
+	
+	function refreshSortieTable(){
+		$.ajax({
+		  url: "http://localhost:8080/sortie.com/rest/participant",
+		  cache: false,
+		  type: "GET",
+		  beforeSend: function(request) {
+		  	request.setRequestHeader("Accept","application/json");
+		  },
+		  success: function(data){
+			var html = "";
+	   		for( var i = 0; i < data.length; i++) {
+   				html += '<tr>';
+    	   		html += '<td>' + data[i]["id"] + '</td>';
+    	   		html += '<td id="participantpseudo'+ data[i]["id"] +'">' + data[i]["pseudo"] + '</td>';
+    	   		html += '<td id="participantnom'+ data[i]["id"] +'">' + data[i]["nom"] + '</td>';
+	    	 	html += "</tr>";
+    	 	}
+    	 	$('#table-afficher-sortie').html(html);
+		  }
+		});
+	}
+	
+	
+//	$('.datepicker').datepicker({
+//	    format: 'mm/dd/yyyy',
+//	    startDate: '-3d'
+//	});
+	
+//	$('#sandbox-container input').datepicker({
+//	});
+	
+	 $(function () {
+         $('#creation-sortie-date1').datetimepicker({
+        	 format: 'dd/mm/yyyy hh:ii',
+    		 language: 'fr'
+         }
+        		 
+         );
+         
+         $('#creation-sortie-date-inscription').datetimepicker({
+        	 format: 'dd/mm/yyyy',
+    		 language: 'fr'
+         }
+        
+         );
+         
+         $('#debut').datetimepicker({
+        	 format: 'dd/mm/yyyy',
+    		 language: 'fr'
+         }
+        
+         );
+         
+         $('#fin').datetimepicker({
+        	 format: 'dd/mm/yyyy',
+    		 language: 'fr'
+         }
+        
+         );
+     });
+	 
+	
 });

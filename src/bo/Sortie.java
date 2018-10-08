@@ -13,10 +13,11 @@ public class Sortie {
     private Etat etat;
     private Participant organisateur;
     private Lieu lieu;
+    private Ville ville;
 
 
     public Sortie( String nom, Date dateheureDebut, int duree, Date dateLimiteInscription, int nbInscriptionsMax, String infosSortie, Etat etat,Participant organisateur,
-    		Lieu lieu) {
+    		Lieu lieu,Ville ville) {
         this.nom = nom;
         this.dateheureDebut = dateheureDebut;
         this.duree = duree;
@@ -26,7 +27,15 @@ public class Sortie {
         this.etat = etat;
         this.organisateur = organisateur;
         this.lieu = lieu;
+        this.ville = ville;
     }
+
+    
+
+	public Sortie() {
+		super();
+	}
+
 
 
 	public int getId() {
@@ -126,6 +135,18 @@ public class Sortie {
 
 	public void setLieu(Lieu lieu) {
 		this.lieu = lieu;
+	}
+
+
+
+	public Ville getVille() {
+		return ville;
+	}
+
+
+
+	public void setVille(Ville ville) {
+		this.ville = ville;
 	}
 
 

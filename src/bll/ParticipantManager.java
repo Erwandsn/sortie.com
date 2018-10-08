@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bo.Participant;
+import bo.Ville;
 import bo.Participant;
 import dal.DaoFactory;
 import dal.ParticipantDAO;
@@ -29,6 +30,16 @@ public class ParticipantManager {
 			e.printStackTrace();
 		}
 		return listeParticipant;
+	}
+	
+	public Participant searchParticipant(int id) {
+		Participant createdParticipant= new Participant();
+		try {
+			createdParticipant = getParticipantDao().searchParticipant(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return createdParticipant;
 	}
 	
 	public Participant createParticipant(Participant unParticipant) {
