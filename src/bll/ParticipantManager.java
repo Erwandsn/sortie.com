@@ -81,4 +81,14 @@ public class ParticipantManager {
 		}
 		return user;
 	}
+	
+	public Participant getParticipantByPseudo(Participant unParticipant) {
+		Participant user = null;
+		try {
+			user = getParticipantDao().getByPseudo(unParticipant);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }

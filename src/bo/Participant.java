@@ -132,10 +132,12 @@ public class Participant {
 		this.site = site;
 	}
 
-
-
-	
-    
+	@Override
+	public String toString() {
+		return "Participant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone + ", mail="
+				+ mail + ", admin=" + admin + ", actif=" + actif + ", pseudo=" + pseudo + ", motDePasse=" + motDePasse
+				+ ", ville=" + ville + ", site=" + site + ", photo=" + photo + "]";
+	}
 	
 	
 	

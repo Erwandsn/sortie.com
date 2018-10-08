@@ -3,11 +3,14 @@ package rest;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+
+import javax.servlet.http.HttpServletRequest;
 
 import bll.ParticipantManager;
 import bll.VilleManager;
@@ -57,9 +60,17 @@ public class GestionParticipant {
 	
 	@PUT
 	public Participant updateParticipant(@FormParam("pseudo") String pseudo, @FormParam("prenom") String prenom, @FormParam("nom") String nom,@FormParam("telephone") String telephone,
-			@FormParam("email") String email,@FormParam("motDePasse") String motDePasse) throws ParseException{
+			@FormParam("email") String email,@FormParam("ville") int ville) throws ParseException{
 		Participant user = new Participant();
-		
+		Ville villeParticipant = new Ville();
+		villeParticipant.setId(ville);
+		user.setPseudo(pseudo);
+		user.setPrenom(prenom);
+		user.setNom(nom);
+		user.setTelephone(telephone);
+		user.setMail(email);
+		user.setVille(villeParticipant);
+		user = getMgr().updateParticipant(user);
 		return user;
 	}
 	

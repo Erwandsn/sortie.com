@@ -17,7 +17,8 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 										"FROM participants, villes\n" + 
 										"WHERE villes.no_ville = participants.ville\n" + 
 										"AND no_participant=?";
-	private final String UPDATEUSER = "UPDATE participants set nom=? prenom=? telephone=? mail=? photo=? WHERE no_participant=?;";
+	private final String UPDATEUSER = "UPDATE participants set nom=?, prenom=?, telephone=?, mail=?, ville=? WHERE pseudo=?;";
+	private final String GETUSERINFOBYPSEUDO = "SELECT * FROM Participants where pseudo=?;";
 
 	public ArrayList<Participant> getAll() throws SQLException{
 		ArrayList<Participant> listeParticipant = new ArrayList<>();
@@ -148,15 +149,49 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 			pstmt.setString(2, unParticipant.getPrenom());
 			pstmt.setString(3, unParticipant.getTelephone());
 			pstmt.setString(4, unParticipant.getMail());
-			if(unParticipant.getPhoto() != null) {
-				pstmt.setString(5, null);
-			}else {
-				pstmt.setString(5, unParticipant.getPhoto());
-			}
-			pstmt.setInt(6, unParticipant.getId());
+			pstmt.setInt(5,unParticipant.getVille().getId());
+			pstmt.setString(6, unParticipant.getPseudo());
 			int nbLigne  = pstmt.executeUpdate();
 			if(nbLigne == 1) {
 				user = unParticipant;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return user;
+	}
+	
+	public Participant getByPseudo(Participant unParticipant) throws SQLException {
+		Participant user = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETUSERINFOBYPSEUDO);
+			pstmt.setString(1, unParticipant.getPseudo());
+			ResultSet rs  = pstmt.executeQuery();
+			if(rs.next()) {
+				user = mapPartipant(rs);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETUSERVILLE);
+			pstmt.setInt(1, user.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				Ville laVille = new Ville();
+				laVille.setId(rs.getInt(1));
+				laVille.setNomVille(rs.getString(2));
+				laVille.setCodePostal(rs.getString(3));
+				user.setVille(laVille);
 			}
 		}
 		catch(Exception e)

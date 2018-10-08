@@ -3,6 +3,27 @@ $('#modifProfilUser').hide();
 $('#btnModifProfil').click(function(){
 	$('#profilUser').hide();
 	$('#modifProfilUser').show();
+	var villeId = $('#currentVilleId').val();
+	$.ajax({
+		  url: "http://localhost:8080/sortie.com/rest/ville",
+		  cache: false,
+		  type: "GET",
+		  beforeSend: function(request) {
+		  	request.setRequestHeader("Accept","application/json");
+		  },
+		  success: function(data){
+			  html="<option value='0'>--Choisir une ville--</option>";
+			  for( var i = 0; i < data.length; i++) {
+				  if(data[i]['id'] == villeId){
+					  html += "<option value='"+data[i]['id']+"' selected='selected'>"+ data[i]['nomVille'] +"</option>"
+				  }else{
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nomVille'] +"</option>"
+				  }
+				  
+  	 	}
+			$('#modifProfilVille').html(html);
+		  }
+	});
 });
 
 $('button#btnAnnuler').click(function(){
@@ -40,3 +61,60 @@ $('#enregistrer').click(function(){
 		  }
 	});
 });
+
+$('#saveProfilModif').click(function(){
+	var pseudo = $('#pseudoUser').html();
+	var nom = $('#modifProfilNom').val();
+	var prenom = $('#modifProfilPrenom').val();
+	var telephone = $('#modifProfilTelephone').val();
+	var email = $('#modifProfilMail').val();
+	var ville = $('#modifProfilVille').val();
+	$.ajax({
+		  url: "http://localhost:8080/sortie.com/rest/creationParticipant",
+		  cache: false,
+		  type: "PUT",
+		  data: jQuery.param({pseudo: pseudo, prenom: prenom,nom: nom,telephone: telephone,email: email, ville: ville}),
+		  beforeSend: function(request) {
+		  	request.setRequestHeader("Accept","application/json");
+		  },
+		  success: function(data){
+			  $('#modifProfilUser').hide();
+			  $('#profilUser').show();
+			  window.location="/sortie.com/refreshUser?pseudo="+pseudo;
+		  }
+	});
+});
+
+$('#cancelProfilModif').click(function(){
+	$("#modifProfilUser").hide();
+	$('#profilUser').show();
+});
+
+//$('input[type=file]').change(function(){
+//
+//	$(this).simpleUpload("/sortie.com/ajax/uploadPhoto", {
+//	
+//		start: function(file){
+//			//upload started
+//			console.log("upload started");
+//		},
+//
+//		progress: function(progress){
+//			//received progress
+//			console.log("upload progress: " + Math.round(progress) + "%");
+//		},
+//
+//		success: function(data){
+//			//upload successful
+//			console.log("upload successful!");
+//			console.log(data);
+//		},
+//
+//		error: function(error){
+//			//upload failed
+//			console.log("upload error: " + error.name + ": " + error.message);
+//		}
+//
+//	});
+//
+//});
