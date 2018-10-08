@@ -47,5 +47,11 @@ public class Ville {
 		this.codePostal = codePostal;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Ville [id=" + id + ", nomVille=" + nomVille + ", codePostal=" + codePostal + "]";
+	}
+
    
 }

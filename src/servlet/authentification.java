@@ -14,7 +14,6 @@ import org.glassfish.jersey.process.internal.RequestScope.Instance;
 
 import bll.ParticipantManager;
 import bo.Participant;
-import javassist.expr.Instanceof;
 
 /**
  * Servlet implementation class authentification
