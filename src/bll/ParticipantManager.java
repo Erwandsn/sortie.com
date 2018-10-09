@@ -91,4 +91,14 @@ public class ParticipantManager {
 		}
 		return user;
 	}
+	
+	public Participant getParticipantById(Participant unParticipant) {
+		Participant user = null;
+		try {
+			user = getParticipantDao().getParticipantById(unParticipant);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }

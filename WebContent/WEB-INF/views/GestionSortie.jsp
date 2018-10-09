@@ -13,14 +13,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
-
-
 <link href="https://fonts.googleapis.com/css?family=K2D"
 	rel="stylesheet">
 <script type="text/javascript" src='/sortie.com/vendor/jquery/jquery.js'></script>
 <script type="text/javascript" src="/sortie.com/js/lib/jquery.min.js"></script>
+<script type='text/javascript' src="/sortie.com/js/lib/date.js"></script>
 <script type="text/javascript" src="/sortie.com/js/lib/moment.js"></script>
 <script type="text/javascript" src="/sortie.com/js/lib/bootstrap.min.js"></script>
 <script type="text/javascript"

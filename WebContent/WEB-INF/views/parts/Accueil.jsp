@@ -74,7 +74,7 @@
 				<tr>
 					<th scope="col">Nom de la sortie</th>
 					<th scope="col">Date de la sortie</th>
-					<th scope="col">Cl�ture</th>
+					<th scope="col">Cloture</th>
 					<th scope="col">Inscrits/ places</th>
 					<th scope="col">Etat</th>
 					<th scope="col">Inscrit</th>
@@ -82,37 +82,8 @@
 					<th scope="col">Actions</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-				</tr>
-				<tr>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-				</tr>
-				<tr>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-					<td>""</td>
-				</tr>
+			<tbody id='listeSorties'>
+				
 			</tbody>
 		</table>
 	</div>

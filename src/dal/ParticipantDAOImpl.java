@@ -19,6 +19,7 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 										"AND no_participant=?";
 	private final String UPDATEUSER = "UPDATE participants set nom=?, prenom=?, telephone=?, mail=?, ville=? WHERE pseudo=?;";
 	private final String GETUSERINFOBYPSEUDO = "SELECT * FROM Participants where pseudo=?;";
+	private final String GETUSERINFOBYID = "SELECT * FROM Participants where no_participant=?;";
 
 	public ArrayList<Participant> getAll() throws SQLException{
 		ArrayList<Participant> listeParticipant = new ArrayList<>();
@@ -38,6 +39,26 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 		}
 		return listeParticipant;
 
+	}
+	
+	public Participant getParticipantById(Participant unParticipant) throws SQLException{
+		Participant part = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETUSERINFOBYID);
+			pstmt.setInt(1, unParticipant.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				part = mapParticipant(rs);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return part;
 	}
 
 	@Override
