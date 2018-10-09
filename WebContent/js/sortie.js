@@ -186,10 +186,29 @@ $(document).ready(function(){
 			  },
 			  success: function(data){
 				  html="<option value='0'>--Choisir un lieu--</option>";
+				 
 				  for( var i = 0; i < data.length; i++) {
 					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nom'] +"</option>"
 	    	 	}
 				$('#creation-sortie-lieu').html(html);
+			  }
+		});
+		
+		
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/etat",
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  console.log("sorties js +"+JSON.stringify(data));
+				  html="<option value='0'>--Choisir un etat--</option>";
+				  for( var i = 0; i < data.length; i++) {
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['libelle'] +"</option>"
+	    	 	}
+				$('#creation-sortie-etat').html(html);
 			  }
 		});
 	});
@@ -246,6 +265,28 @@ $(document).ready(function(){
 
 	});
 	
+	
+	$('#btnEnregAnnulSortie').click(function(){
+		//enregistrement de l'annulation
+		var motif =$('#annulation-sortie-motif').val();
+		var etat =$('#annulation-sortie-etat').val();
+		
+		$.ajax({
+			url: "http://localhost:8080/sortie.com/rest/sortie/annulerSortie",
+			cache: false,
+			type: "POST",
+			data: jQuery.param({ nom: nom,date: date, dateInscription: dateInscription, place:place, duree: duree,
+				description: description, ville: ville, lieu: lieu,currentUser: currentUser, etat:etat}),
+			beforeSend: function(request) {
+				request.setRequestHeader("Accept","application/json");
+			},
+			success: function(data){
+			
+			}
+		});
+	});
+	
+	
 	$('#btnAccueilRecherche').click(function(){
 		$('#accueil').hide();
 		$('#affichage-sortie').show();
@@ -262,6 +303,7 @@ $(document).ready(function(){
 		var ville =$('#creation-sortie-ville').val();
 		var lieu =$('#creation-sortie-lieu').val();
 		var currentUser = $('#currentUser').val();
+		var etat = $('#creation-sortie-etat').val();
 		console.log("nom "+nom);
 		console.log("date "+date);
 		console.log("dateInscription "+dateInscription);
@@ -270,6 +312,7 @@ $(document).ready(function(){
 		console.log("description "+description);
 		console.log("lieu "+lieu);
 		console.log("currentUser "+currentUser);
+		console.log("etat "+etat);
 
 		
 		$.ajax({
@@ -277,7 +320,7 @@ $(document).ready(function(){
 			cache: false,
 			type: "POST",
 			data: jQuery.param({ nom: nom,date: date, dateInscription: dateInscription, place:place, duree: duree,
-				description: description, ville: ville, lieu: lieu,currentUser: currentUser}),
+				description: description, ville: ville, lieu: lieu,currentUser: currentUser, etat:etat}),
 			beforeSend: function(request) {
 				request.setRequestHeader("Accept","application/json");
 			},

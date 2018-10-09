@@ -64,6 +64,13 @@
 		</div>
 	</div>
 	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+			<select class="form-control" id="creation-sortie-etat" aria-describedby="creation-sortie-etat-help"
+				placeholder="Etat" required>
+			</select>
+		</div>
+	</div>
+	<div class="row form-group">
 		<div class="col-lg-6 col-md-6 col-xs-6">Rue: <div id="creation-sortie-ville-lbl"></div></div>
 	</div>
 	<div class="row form-group">

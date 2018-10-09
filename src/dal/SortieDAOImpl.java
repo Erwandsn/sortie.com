@@ -2,11 +2,11 @@ package dal;
 
 import java.sql.Timestamp;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import bll.EtatManager;
 import bll.ParticipantManager;
@@ -34,9 +34,11 @@ public class SortieDAOImpl implements SortieDAO{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERTSORTIE, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, unSortie.getNom());
-			pstmt.setString(2, unSortie.getDateheureDebut().toString());
+//			pstmt.setString(2, unSortie.getDateheureDebut().toString());
+			pstmt.setDate(2, (Date) unSortie.getDateheureDebut());
 			pstmt.setInt(3, unSortie.getDuree());
-			pstmt.setString(4, unSortie.getDateLimiteInscription().toString());
+			pstmt.setDate(4, (Date) unSortie.getDateLimiteInscription());
+//			(4, .toString());
 			pstmt.setInt(5, unSortie.getNbInscriptionsMax());
 			pstmt.setString(6, unSortie.getInfosSortie() );
 			pstmt.setInt(7, unSortie.getOrganisateur().getId());
@@ -123,7 +125,7 @@ public class SortieDAOImpl implements SortieDAO{
 
 	@Override
 	public ArrayList<Sortie> searchByNomSortie(String nomSortie) throws SQLException {
-		String GETSEARCH ="SELECT no_ville,nom_ville,code_postal FROM VILLES where nom_ville like '"+nomSortie+"%';";
+		String GETSEARCH ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES where nom like '"+nomSortie+"%';";
 		ArrayList<Sortie> listeSorties = new ArrayList<>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
@@ -146,8 +148,8 @@ public class SortieDAOImpl implements SortieDAO{
 
 	@Override
 	public Sortie searchSortie(String nomSortie) throws SQLException {
-		String GETSEARCH ="SELECT no_ville,nom_ville,code_postal FROM VILLES where nom_ville like '"+nomSortie+"%';";
-		Sortie ville = null;
+		String GETSEARCH ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES nom like '"+nomSortie+"%';";
+		Sortie sortie = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
@@ -155,7 +157,7 @@ public class SortieDAOImpl implements SortieDAO{
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				ville= mapSortie(rs);
+				sortie= mapSortie(rs);
 			}
 
 		}
@@ -164,7 +166,7 @@ public class SortieDAOImpl implements SortieDAO{
 			e.printStackTrace();
 			throw new SQLException();
 		}
-		return ville;
+		return sortie;
 	}
 	
 	@Override
@@ -225,5 +227,27 @@ public class SortieDAOImpl implements SortieDAO{
 			throw new SQLException();
 		}
 		return unSortie;
+	}
+
+	@Override
+	public Sortie searchSortie(int id) throws SQLException {
+		String GETSEARCH ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES where no_sortie = '"+id+"';";
+		Sortie sortie = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				sortie= mapSortie(rs);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return sortie;
 	}
 }

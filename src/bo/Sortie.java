@@ -1,6 +1,6 @@
 package bo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Sortie {
     private int id;

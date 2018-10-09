@@ -7,9 +7,11 @@ public class Etat {
     public Etat( String libelle) {
         this.libelle = libelle;
     }
-    public Etat() {
-        this.libelle = libelle;
-    }
+
+
+	public Etat() {
+		super();
+	}
 
 	public int getId() {
 		return id;

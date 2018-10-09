@@ -14,6 +14,8 @@ public interface SortieDAO {
 	
 	public Sortie searchSortie(String nomSortie) throws SQLException;
 	
+	public Sortie searchSortie(int nomSortie) throws SQLException;
+	
 	public Boolean deleteOneById(Sortie unSortie) throws SQLException;
 	
 	public Sortie updateSortie(Sortie unSortie) throws SQLException;	

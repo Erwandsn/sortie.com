@@ -243,7 +243,7 @@ public class ParticipantDAOImpl implements ParticipantDAO{
 
 	@Override
 	public Participant searchParticipant(int id) throws SQLException {
-		String GETSEARCH ="SELECT no_participant,pseudo,nom,prenom,telephone,mail,administrateur,actif,sites_no_site,mot_de_passe,ville,photo FROM VILLES where no_participant = '"+id+"';";
+		String GETSEARCH ="SELECT no_participant,pseudo,nom,prenom,telephone,mail,administrateur,actif,sites_no_site,mot_de_passe,ville,photo FROM PARTICIPANTS where no_participant = '"+id+"';";
 		Participant participant = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{

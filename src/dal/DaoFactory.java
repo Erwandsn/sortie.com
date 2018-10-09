@@ -22,8 +22,12 @@ public class DaoFactory {
 	public static LieuDAOImpl getLieuDao() {
 		return new LieuDAOImpl();
 	}
-	
+
 	public static EtatDAOImpl getEtatDao() {
 		return new EtatDAOImpl();
+	}
+
+	public static InscritDAOImpl getInscritDao() {
+		return new InscritDAOImpl();
 	}
 }
