@@ -25,6 +25,24 @@ $(document).ready(function(){
 		$('#li-site').removeClass('active');
 		$('#li-creation-participant').removeClass('active');
 		
+//		On charge la liste déroulante
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/site",
+			  cache: false,
+			  type: "GET",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  console.log("sorties js +"+JSON.stringify(data));
+				  html="<option value='0'>--Choisir un site--</option>";
+				  for( var i = 0; i < data.length; i++) {
+					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nom'] +"</option>"
+	    	 	}
+				$('#select-site').html(html);
+			  }
+		});
+		
 
 	});
 	
@@ -263,7 +281,28 @@ $(document).ready(function(){
 	$('#btnAccueilRecherche').click(function(){
 		$('#accueil').hide();
 		$('#affichage-sortie').show();
-
+		
+		var recherche = $('#recherche').val();
+		var organisateur = $('#sortie-organisateur').val();
+		var inscrit = $('#sortie-inscrit').val();
+		var pasInscrit = $('#sortie-pas-inscrit').val();
+		var sortiePassee = $('#sortie-passee').val();
+		var debut = $('#sortie-debut').val();
+		var fin = $('#sortie-fin').val();
+		
+		$.ajax({
+			url: "http://localhost:8080/sortie.com/rest/sortie/annulerSortie",
+			cache: false,
+			type: "POST",
+			data: jQuery.param({ nom: nom,date: date, dateInscription: dateInscription, place:place, duree: duree,
+				description: description, ville: ville, lieu: lieu,currentUser: currentUser, etat:etat}),
+			beforeSend: function(request) {
+				request.setRequestHeader("Accept","application/json");
+			},
+			success: function(data){
+			
+			}
+		});
 	});
 	
 	$('#btnEnregSortie').click(function(){

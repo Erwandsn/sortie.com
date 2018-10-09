@@ -41,6 +41,18 @@ public class SortieManager {
 		}
 		return listeSortie;
 	}
+	
+	public ArrayList<Sortie> getSearch(String recherche,String organisateur,String inscrit,String pasInscrit,
+			String sortiePassee,String debut,String fin) {
+		ArrayList<Sortie> listeSortie = new ArrayList<>();
+		SortieDAO dao = getSortieDao();
+		try {
+			listeSortie = dao.search(recherche,organisateur,inscrit,pasInscrit,sortiePassee,debut,fin);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listeSortie;
+	}
 	public Sortie createSortie(Sortie unSortie) {
 		Sortie createdSortie = new Sortie();
 		try {

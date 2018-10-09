@@ -16,6 +16,9 @@ public interface SortieDAO {
 	
 	public Sortie searchSortie(int nomSortie) throws SQLException;
 	
+	public ArrayList<Sortie> search(String recherche,String organisateur,String inscrit,String pasInscrit,
+			String sortiePassee,String debut,String fin) throws SQLException;
+	
 	public Boolean deleteOneById(Sortie unSortie) throws SQLException;
 	
 	public Sortie updateSortie(Sortie unSortie) throws SQLException;	

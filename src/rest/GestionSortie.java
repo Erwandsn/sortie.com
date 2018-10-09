@@ -20,6 +20,7 @@ import bll.ParticipantManager;
 import bll.SortieManager;
 import bll.VilleManager;
 import bo.Sortie;
+import bo.Ville;
 
 @Path("/sortie")
 public class GestionSortie 
@@ -48,6 +49,17 @@ private SortieManager mgr;
 		listSorties  = getMgr().getAll();
 		return listSorties;
 	}
+	
+	@GET
+	@Path("/{recherche}/{organisateur}/{inscrit}/{pasInscrit}/{sortiePassee}/{debut}/{fin}")
+	public ArrayList<Sortie> getRecherche(@PathParam("recherche") String recherche,@PathParam("organisateur") String organisateur,
+			@PathParam("inscrit") String inscrit,@PathParam("pasInscrit") String pasInscrit,@PathParam("sortiePassee") String sortiePassee,
+			@PathParam("debut") String debut,@PathParam("fin") String fin){
+		ArrayList<Sortie> listSorties = new ArrayList<>();
+		listSorties = getMgr().getSearch(recherche,organisateur,inscrit,pasInscrit,sortiePassee,debut,fin);
+		return listSorties;
+	}
+	
 			
 	@POST
 	public Sortie addSortie(@FormParam("nomSortie") String nom) throws ParseException {

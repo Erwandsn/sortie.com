@@ -2,10 +2,7 @@
 	<div class="row form-group">
 		<div class="col-lg-1 col-md-1 col-xs-1">Site</div>
 		<div class="col-lg-4 col-md-4 col-xs-4">
-			<select id="select-site">
-				<option value="saint-herblain">SAINT-HERBLAIN</option>
-				<option value="rennes" selected>RENNES</option>
-			</select>
+			<select class="form-control" id="select-site" aria-describedby="select-site-help"></select>
 		</div>
 	</div>
 	<div class="row form-group">
@@ -52,7 +49,7 @@
 		<div class='col-lg-2 col-md-2 col-xs-2'>
 			<div class='input-group date' id='debut'>
 				<input type='text' class="form-control"
-					placeholder="Début" /> <span
+					placeholder="Début" id="sortie-debut" /> <span
 					class="input-group-addon"> <span
 					class="glyphicon glyphicon-calendar"></span>
 				</span>
@@ -60,8 +57,7 @@
 		</div>
 		<div class='col-lg-4 col-md-4 col-xs-4'>
 			<div class='input-group date' id='fin'>
-				<input type='text' class="form-control"
-					placeholder="Fin" /> <span
+				<input type='text' class="form-control" placeholder="Fin"  id="sortie-fin"/> <span
 					class="input-group-addon"> <span
 					class="glyphicon glyphicon-calendar"></span>
 				</span>

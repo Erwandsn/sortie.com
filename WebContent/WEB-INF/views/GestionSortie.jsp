@@ -57,3 +57,24 @@
 <script src='/sortie.com/js/sortie.js'></script>
 </body>
 </html>
+
+<script>
+
+//On charge la liste déroulante
+$.ajax({
+	  url: "http://localhost:8080/sortie.com/rest/site",
+	  cache: false,
+	  type: "GET",
+	  beforeSend: function(request) {
+	  	request.setRequestHeader("Accept","application/json");
+	  },
+	  success: function(data){
+		  console.log("sorties js +"+JSON.stringify(data));
+		  html="<option value='0'>--Choisir un site--</option>";
+		  for( var i = 0; i < data.length; i++) {
+			  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nom'] +"</option>"
+	 	}
+		$('#select-site').html(html);
+	  }
+});
+</script>

@@ -14,7 +14,7 @@ import bo.Sortie;
 public class SortieDAOImpl implements SortieDAO{
 	private final String INSERTSORTIE = "INSERT INTO SORTIES(nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville"
 			+ ") VALUES(?,?,?,?,?,?,?,?,?,?)";
-//	private final String INSERTSORTIE = "INSERT INTO SORTIES(nom_ville,code_postal) VALUES(?,?)";
+	//	private final String INSERTSORTIE = "INSERT INTO SORTIES(nom_ville,code_postal) VALUES(?,?)";
 	private final String GETALL ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES";
 	private final String DELETEONEBYID = "DELETE FROM SORTIES WHERE no_sortie=?;";
 	private final String UPDATESORTIE = "UPDATE SORTIES SET nom=? where no_sortie=?";
@@ -26,13 +26,13 @@ public class SortieDAOImpl implements SortieDAO{
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERTSORTIE, PreparedStatement.RETURN_GENERATED_KEYS);
-			
+
 			pstmt.setString(1, unSortie.getNom());
-//			pstmt.setString(2, unSortie.getDateheureDebut().toString());
+			//			pstmt.setString(2, unSortie.getDateheureDebut().toString());
 			pstmt.setDate(2, (Date) unSortie.getDateheureDebut());
 			pstmt.setInt(3, unSortie.getDuree());
 			pstmt.setDate(4, (Date) unSortie.getDateLimiteInscription());
-//			(4, .toString());
+			//			(4, .toString());
 			pstmt.setInt(5, unSortie.getNbInscriptionsMax());
 			pstmt.setString(6, unSortie.getInfosSortie() );
 			pstmt.setInt(7, unSortie.getOrganisateur().getId());
@@ -42,7 +42,7 @@ public class SortieDAOImpl implements SortieDAO{
 
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
-			
+
 			if(rs.next())
 			{
 				unSortie.setId(rs.getInt(1));
@@ -96,7 +96,7 @@ public class SortieDAOImpl implements SortieDAO{
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
-//			pstmt.setString(1, "'" + nomSortie + "'");
+			//			pstmt.setString(1, "'" + nomSortie + "'");
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
@@ -119,7 +119,7 @@ public class SortieDAOImpl implements SortieDAO{
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
-//			pstmt.setString(1, "'" + nomSortie + "'");
+			//			pstmt.setString(1, "'" + nomSortie + "'");
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
@@ -134,7 +134,7 @@ public class SortieDAOImpl implements SortieDAO{
 		}
 		return sortie;
 	}
-	
+
 	@Override
 	public Boolean deleteOneById(Sortie unSortie) throws SQLException {
 
@@ -215,5 +215,31 @@ public class SortieDAOImpl implements SortieDAO{
 			throw new SQLException();
 		}
 		return sortie;
+	}
+
+	@Override
+	public ArrayList<Sortie> search(String recherche, String organisateur, String inscrit, String pasInscrit, String sortiePassee,
+			String debut, String fin) throws SQLException {
+		String GETSEARCH ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES "
+				+ "where nom like '"+recherche+"%' "+(!debut.equals("")) != null ? "and debut = '"+debut+"'" : ""+
+		""+(!fin.equals("")) != null ? "and datecloture = '"+fin+"'" : ""+ ""+(!organisateur.equals("")) != null ? "and organisateur = '"+organisateur+"'" : ""+"";
+		ArrayList<Sortie> listeSorties = new ArrayList<>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
+			//			pstmt.setString(1, "'" + nomSortie + "'");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				listeSorties.add(mapSortie(rs));
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return listeSorties;
 	}
 }
