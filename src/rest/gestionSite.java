@@ -10,6 +10,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import bll.SiteManager;
 import bo.Site;
@@ -28,6 +30,7 @@ public class gestionSite {
 	}
 	
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Site> getAll(){
 		ArrayList<Site> listSites = new ArrayList<>();
 		listSites = getMgr().getAll();
@@ -35,6 +38,7 @@ public class gestionSite {
 	}
 			
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	public Site addSite(@FormParam("nomSite") String nom) throws ParseException {
 		Site unSite = new Site();
 		unSite.setNom(nom);
@@ -44,6 +48,7 @@ public class gestionSite {
 	
 	@DELETE
 	@Path("/delete/{idSite : \\d+}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean deleteOne(@PathParam("idSite") int idSite) {
 		Site unSite = new Site();
 		unSite.setId(idSite);
@@ -53,6 +58,7 @@ public class gestionSite {
 	
 	@PUT
 	@Path("/update/{idSite : \\d+}/{nomModif}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Site updateSite(@PathParam("idSite") int id, @PathParam("nomModif") String nomSite) {
 		Site unSite = new Site();
 		unSite.setId(id);

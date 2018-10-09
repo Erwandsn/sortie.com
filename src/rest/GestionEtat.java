@@ -11,6 +11,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import bll.EtatManager;
 
@@ -31,6 +33,7 @@ private EtatManager mgr;
 	
 	@GET
 	@Path("/{nomEtat }")
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Etat> getRecherche(@PathParam("nomEtat") String nomEtat){
 		ArrayList<Etat> listEtats = new ArrayList<>();
 		listEtats = getMgr().getSearchByNomEtat(nomEtat);
@@ -38,6 +41,7 @@ private EtatManager mgr;
 	}
 	
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Etat> getAll(){
 		ArrayList<Etat> listEtats = new ArrayList<>();
 		listEtats  = getMgr().getAll();
@@ -45,6 +49,7 @@ private EtatManager mgr;
 	}
 			
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	public Etat addNote(@FormParam("libelle") String libelle) throws ParseException {
 		Etat unEtat = new Etat();
 		unEtat.setLibelle(libelle);
@@ -55,6 +60,7 @@ private EtatManager mgr;
 	
 	@POST
 	@Path("/ajoutEtat")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Etat ajoutEtat(@FormParam("libelle") String libelle) throws ParseException {
 		Etat unEtat = new Etat();
 		unEtat.setLibelle(libelle);
@@ -65,6 +71,7 @@ private EtatManager mgr;
 	
 	@DELETE
 	@Path("/delete/{idEtat : \\d+}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean deleteOne(@PathParam("idEtat") int idEtat) {
 		Etat unEtat = new Etat();
 		unEtat.setId(idEtat);
@@ -74,6 +81,7 @@ private EtatManager mgr;
 	
 	@PUT
 	@Path("/update/{idEtat : \\d+}/{nomModif}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Etat updateEtat(@PathParam("idEtat") int id, @PathParam("libelle") String libelle) {
 		Etat unEtat = new Etat();
 		unEtat.setId(id);

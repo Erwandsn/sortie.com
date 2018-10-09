@@ -16,7 +16,7 @@ import bll.InscritManager;
 
 import bo.Inscrit;
 
-@Path("/ville")
+@Path("/inscrit")
 public class GestionInscrit 
 {
 private InscritManager mgr;
