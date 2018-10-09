@@ -1,5 +1,6 @@
 package dal;
 
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,8 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import bll.EtatManager;
 import bll.ParticipantManager;
+import bo.Etat;
+import bo.Lieu;
+import bo.Participant;
 import bo.Sortie;
+import bo.Ville;
 import bo.Sortie;
 
 public class SortieDAOImpl implements SortieDAO{
@@ -39,7 +45,6 @@ public class SortieDAOImpl implements SortieDAO{
 			pstmt.setInt(8, unSortie.getLieu().getId());
 			pstmt.setInt(9, unSortie.getEtat().getId());
 			pstmt.setInt(10, unSortie.getVille().getId());
-
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 
@@ -83,6 +88,35 @@ public class SortieDAOImpl implements SortieDAO{
 		try {
 			unSortie.setId(rs.getInt(1));
 			unSortie.setNom(rs.getString(2));
+			java.sql.Timestamp ts = rs.getTimestamp(3);
+			Date dateDebut = new Date(ts.getTime());
+			unSortie.setDateheureDebut(dateDebut);
+			unSortie.setDuree(rs.getInt(4));
+			java.sql.Timestamp tsfin = rs.getTimestamp(5);
+			Date dateFin = new Date(tsfin.getTime());
+			unSortie.setDateLimiteInscription(dateFin);
+			unSortie.setNbInscriptionsMax(rs.getInt(6));
+			unSortie.setInfosSortie(rs.getString(7));
+//			On récupère les informations du participant
+			ParticipantManager participantManager = new ParticipantManager();
+			Participant userOrga = null;
+			Participant orga = new Participant();
+			orga.setId(rs.getInt(8));
+			userOrga = participantManager.getParticipantById(orga);
+			unSortie.setOrganisateur(userOrga);
+//			On récupère les informations du lieu
+			Lieu lieu = new Lieu();
+			lieu.setId(rs.getInt(9));
+			unSortie.setLieu(lieu);
+//			On récupère les information de l'état
+			EtatManager etatManager = new EtatManager();
+			Etat etat = new Etat();
+			etat.setId(rs.getInt(10));
+			etat.setLibelle(etatManager.getOneById(etat).getLibelle());
+			unSortie.setEtat(etat);
+			Ville ville = new Ville();
+			ville.setId(rs.getInt(11));
+			unSortie.setVille(ville);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -11,6 +11,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import bll.VilleManager;
 
@@ -38,6 +40,7 @@ private VilleManager mgr;
 	}
 	
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Ville> getAll(){
 		ArrayList<Ville> listVilles = new ArrayList<>();
 		listVilles  = getMgr().getAll();
@@ -45,6 +48,7 @@ private VilleManager mgr;
 	}
 			
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	public Ville addNote(@FormParam("nomVille") String nom) throws ParseException {
 		Ville unVille = new Ville();
 		unVille.setNomVille(nom);
@@ -55,6 +59,7 @@ private VilleManager mgr;
 	
 	@POST
 	@Path("/ajoutVille")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Ville ajoutVille(@FormParam("nomVille") String nom,@FormParam("codePostal") String codePostal) throws ParseException {
 		Ville unVille = new Ville();
 		unVille.setNomVille(nom);
@@ -66,6 +71,7 @@ private VilleManager mgr;
 	
 	@DELETE
 	@Path("/delete/{idVille : \\d+}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean deleteOne(@PathParam("idVille") int idVille) {
 		Ville unVille = new Ville();
 		unVille.setId(idVille);
@@ -75,6 +81,7 @@ private VilleManager mgr;
 	
 	@PUT
 	@Path("/update/{idVille : \\d+}/{nomModif}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Ville updateVille(@PathParam("idVille") int id, @PathParam("nomModif") String nomVille) {
 		Ville unVille = new Ville();
 		unVille.setId(id);

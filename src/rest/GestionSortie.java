@@ -13,6 +13,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import bll.EtatManager;
 import bll.LieuManager;
@@ -37,6 +39,7 @@ private SortieManager mgr;
 	
 	@GET
 	@Path("/{nomSortie}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Sortie> getRecherche(@PathParam("nomSortie") String nomSortie){
 		ArrayList<Sortie> listSorties = new ArrayList<>();
 		listSorties = getMgr().getSearchByNomSortie(nomSortie);
@@ -44,6 +47,7 @@ private SortieManager mgr;
 	}
 	
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Sortie> getAll(){
 		ArrayList<Sortie> listSorties = new ArrayList<>();
 		listSorties  = getMgr().getAll();
@@ -62,6 +66,7 @@ private SortieManager mgr;
 	
 			
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	public Sortie addSortie(@FormParam("nomSortie") String nom) throws ParseException {
 		Sortie unSortie = new Sortie();
 		unSortie.setNom(nom);
@@ -72,6 +77,7 @@ private SortieManager mgr;
 	
 	@POST
 	@Path("/ajoutSortie")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Sortie ajoutSortie(@FormParam("nom") String nom,@FormParam("date") String date ,@FormParam("dateInscription") String dateInscription,
 			@FormParam("place") String place , @FormParam("duree") String duree,@FormParam("description") String description,@FormParam("ville") String ville,
 			@FormParam("lieu") String lieu,@FormParam("currentUser") String currentUser,@FormParam("etat") String etat ) throws ParseException {
@@ -122,6 +128,7 @@ private SortieManager mgr;
 	
 	@DELETE
 	@Path("/delete/{idSortie : \\d+}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean deleteOne(@PathParam("idSortie") int idSortie) {
 		Sortie unSortie = new Sortie();
 		unSortie.setId(idSortie);
@@ -131,6 +138,7 @@ private SortieManager mgr;
 	
 	@PUT
 	@Path("/update/{idSortie : \\d+}/{nomModif}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Sortie updateSortie(@PathParam("idSortie") int id, @PathParam("nomModif") String nomSortie) {
 		Sortie unSortie = new Sortie();
 		unSortie.setId(id);
@@ -156,6 +164,7 @@ private SortieManager mgr;
 
 	@POST
 	@Path("/annulerSortie")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Sortie annulerSortie(@FormParam("idSortie") int id, @FormParam("motif") String motif) {
 		SortieManager manager = new SortieManager();
 		Sortie unSortie = manager.searchSortie(id);

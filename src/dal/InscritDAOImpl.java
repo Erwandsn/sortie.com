@@ -25,8 +25,6 @@ public class InscritDAOImpl implements InscritDAO{
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERTINSCRIT, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, unInscrit.getNomInscrit());
-			pstmt.setString(2, unInscrit.getCodePostal());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			
@@ -68,10 +66,7 @@ public class InscritDAOImpl implements InscritDAO{
 	private Inscrit mapInscrit(ResultSet rs) {
 		Inscrit unInscrit = new Inscrit();
 		try {
-			unInscrit.setId(rs.getInt(1));
-			unInscrit.setNomInscrit(rs.getString(2));
-			unInscrit.setCodePostal(rs.getString(3));
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return unInscrit;

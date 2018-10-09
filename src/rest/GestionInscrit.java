@@ -47,7 +47,6 @@ private InscritManager mgr;
 	@POST
 	public Inscrit addNote(@FormParam("nomInscrit") String nom) throws ParseException {
 		Inscrit unInscrit = new Inscrit();
-		unInscrit.setNomInscrit(nom);
 		unInscrit = getMgr().createInscrit(unInscrit);
 		return unInscrit;
 	}
@@ -57,8 +56,6 @@ private InscritManager mgr;
 	@Path("/ajoutInscrit")
 	public Inscrit ajoutInscrit(@FormParam("nomInscrit") String nom,@FormParam("sortie") String sortie) throws ParseException {
 		Inscrit unInscrit = new Inscrit();
-		unInscrit.setParticipant(nom);
-		unInscrit.setSortie(codePostal);
 		unInscrit = getMgr().createInscrit(unInscrit);
 		return unInscrit;
 	}
@@ -67,19 +64,14 @@ private InscritManager mgr;
 	@DELETE
 	@Path("/delete/{idInscrit : \\d+}")
 	public Boolean deleteOne(@PathParam("idInscrit") int idInscrit) {
-		Inscrit unInscrit = new Inscrit();
-		unInscrit.setId(idInscrit);
-		Boolean state = getMgr().deleteInscrit(unInscrit);
-		return state;
+		Boolean unInscrit = true;
+		return unInscrit;
 	}
 	
 	@PUT
 	@Path("/update/{idInscrit : \\d+}/{nomModif}")
 	public Inscrit updateInscrit(@PathParam("idInscrit") int id, @PathParam("nomModif") String nomInscrit) {
 		Inscrit unInscrit = new Inscrit();
-		unInscrit.setId(id);
-		unInscrit.setNomInscrit(nomInscrit);
-		unInscrit.setNomInscrit(getMgr().updateInscrit(unInscrit).getNomInscrit());
 		return unInscrit;
 	}
 }

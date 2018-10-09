@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	const FORMAT = "dd/MM/yyyy HH:mm";
 //Display Functions
 	$('#gestion-ville').hide();
 	$('#gestionSite').hide();
@@ -8,6 +9,35 @@ $(document).ready(function(){
 	$('#affichage-sortie').hide();
 	$('#modification-sortie').hide();
 	$('#annulation-sortie').hide();
+	
+//	On ajoute la liste des sorties en page d'accueil
+	$.ajax({
+		  url: "http://localhost:8080/sortie.com/rest/sortie",
+		  cache: false,
+		  type: "GET",
+		  beforeSend: function(request) {
+		  	request.setRequestHeader("Accept","application/json");
+		  },
+		  success: function(data){
+			 html = "";
+			 console.log(JSON.stringify(data));
+			 for( var i = 0; i < data.length; i++) {
+				 var datedebut = new Date(data[i]["dateheureDebut"]);
+				 var dateFin = new Date(data[i]["dateLimiteInscription"]);
+				 html += "<tr>";
+				 html += "<td>"+data[i]['nom']+"</td>";
+				 html += "<td>"+datedebut.toString(FORMAT)+"</td>";
+				 html += "<td>"+dateFin.toString(FORMAT)+"</td>";
+				 html += "<td>TODO /"+data[i]['nbInscriptionsMax']+"</td>";
+				 html += "<td>"+data[i]['etat']['libelle']+"</td>";
+				 html += "<td>TODO</td>";
+				 html += "<td>"+data[i]['organisateur']['prenom']+" "+data[i]['organisateur']['nom']+"</td>";
+				 html += "<td><button type='button' class='btn btn-info'>Afficher</td>";
+				 html += "</tr>";
+			  }
+			 $('#listeSorties').html(html);
+		  }
+	});
 	
 	$('#btnAccueil').click(function(){
 		$('#accueil').show();
@@ -159,7 +189,7 @@ $(document).ready(function(){
 				  html="<option value='0'>--Choisir une ville--</option>";
 				  for( var i = 0; i < data.length; i++) {
 					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nomVille'] +"</option>"
-	    	 	}
+				  }
 				$('#creation-sortie-ville').html(html);
 			  }
 		});
@@ -240,9 +270,6 @@ $(document).ready(function(){
 			  }
 		});
 	});
-	
-	
-	
 	
 	$('#btnAnnulSortie').click(function(){
 		$('#creation-sortie-nom').val("");

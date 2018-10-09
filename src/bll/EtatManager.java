@@ -9,17 +9,27 @@ import dal.DaoFactory;
 import dal.EtatDAO;
 
 public class EtatManager {
-	
+
 	private EtatDAO EtatDao;
-	
+
 	public EtatManager() {
 		this.EtatDao = DaoFactory.getEtatDao();
 	}
-	
+
 	private EtatDAO getEtatDao() {
 		return this.EtatDao;
 	}
-	
+
+    public Etat getOneById(Etat unEtat) {
+        Etat etat = null;
+        try {
+            etat = getEtatDao().getEtatById(unEtat);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return etat;
+    }
+
 	public ArrayList<Etat> getAll() {
 		ArrayList<Etat> listeEtat = new ArrayList<>();
 		EtatDAO dao = getEtatDao();
@@ -30,7 +40,7 @@ public class EtatManager {
 		}
 		return listeEtat;
 	}
-	
+
 	public ArrayList<Etat> getSearchByNomEtat(String nomEtat) {
 		ArrayList<Etat> listeEtat = new ArrayList<>();
 		EtatDAO dao = getEtatDao();
@@ -47,10 +57,10 @@ public class EtatManager {
 			getEtatDao().createEtat(unEtat);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 		return createdEtat;
 	}
-	
+
 	public Etat searchEtat(String unEtat) {
 		Etat createdEtat = new Etat();
 		try {
@@ -60,7 +70,7 @@ public class EtatManager {
 		}
 		return createdEtat;
 	}
-	
+
 	public Etat searchEtat(int id) {
 		Etat createdEtat = new Etat();
 		try {
@@ -70,7 +80,7 @@ public class EtatManager {
 		}
 		return createdEtat;
 	}
-	
+
 	public Boolean deleteEtat(Etat unEtat) {
 		Boolean state = null;
 		try {
@@ -81,7 +91,7 @@ public class EtatManager {
 		}
 		return state;
 	}
-	
+
 	public Etat updateEtat(Etat unEtat) {
 		try {
 			unEtat.setLibelle(getEtatDao().updateEtat(unEtat).getLibelle());

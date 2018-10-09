@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.glassfish.jersey.process.internal.RequestScope.Instance;
+//import org.glassfish.jersey.process.internal.RequestScope.Instance;
 
 import bll.ParticipantManager;
 import bo.Participant;

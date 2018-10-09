@@ -22,5 +22,7 @@ public interface ParticipantDAO {
 	public Participant searchParticipant(int id) throws SQLException;
 
 	public Participant getByPseudo(Participant unParticipant) throws SQLException;
+	
+	public Participant getParticipantById(Participant unParticipant) throws SQLException;
 
 }

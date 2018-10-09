@@ -43,7 +43,7 @@ public class SiteDAOImpl implements SiteDAO{
 		ArrayList<Site> listeSites = new ArrayList<>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(GETALL, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = cnx.prepareStatement(GETALL);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())

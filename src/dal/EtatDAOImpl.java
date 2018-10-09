@@ -15,6 +15,7 @@ public class EtatDAOImpl implements EtatDAO{
 	private final String GETALL ="SELECT no_etat,libelle FROM ETATS";
 	private final String DELETEONEBYID = "DELETE FROM ETATS WHERE no_etat=?;";
 	private final String UPDATEETAT = "UPDATE ETATS SET libelle=? where no_etat=?";
+	private final String GETONEBYID ="SELECT * FROM Etats WHERE no_etat=?";
 
 
 	@Override
@@ -26,7 +27,7 @@ public class EtatDAOImpl implements EtatDAO{
 			pstmt.setString(1, unEtat.getLibelle());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
-			
+
 			if(rs.next())
 			{
 				unEtat.setId(rs.getInt(1));
@@ -118,7 +119,7 @@ public class EtatDAOImpl implements EtatDAO{
 		}
 		return etat;
 	}
-	
+
 	@Override
 	public Boolean deleteOneById(Etat unEtat) throws SQLException {
 
@@ -138,6 +139,24 @@ public class EtatDAOImpl implements EtatDAO{
 		return state;
 
 	}
+    public Etat getEtatById(Etat unEtat) throws SQLException {
+        Etat etat = null;
+        try(Connection cnx = ConnectionProvider.getConnection())
+        {
+            PreparedStatement pstmt = cnx.prepareStatement(GETONEBYID, PreparedStatement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, unEtat.getId());
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next())
+            {
+                etat = mapEtat(rs);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return etat;
+    }
 
 	@Override
 	public Etat updateEtat(Etat unEtat) throws SQLException {

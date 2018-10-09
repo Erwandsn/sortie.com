@@ -9,7 +9,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.servlet.http.HttpServletRequest;
 
 import bll.ParticipantManager;
@@ -33,6 +34,7 @@ public class GestionParticipant {
 	}
 	
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Participant> getAll(){
 		ArrayList<Participant> listParticipants = new ArrayList<>();
 		listParticipants = getMgr().getAll();
@@ -40,6 +42,7 @@ public class GestionParticipant {
 	}
 			
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	public Participant addParticipant(@FormParam("pseudo") String pseudo, @FormParam("prenom") String prenom, @FormParam("nom") String nom,@FormParam("telephone") String telephone,
 			@FormParam("email") String email,@FormParam("motDePasse") String motDePasse,@FormParam("ville") int ville) throws ParseException {
 		Participant unParticipant = new Participant();
@@ -59,6 +62,7 @@ public class GestionParticipant {
 	}
 	
 	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
 	public Participant updateParticipant(@FormParam("pseudo") String pseudo, @FormParam("prenom") String prenom, @FormParam("nom") String nom,@FormParam("telephone") String telephone,
 			@FormParam("email") String email,@FormParam("ville") int ville) throws ParseException{
 		Participant user = new Participant();

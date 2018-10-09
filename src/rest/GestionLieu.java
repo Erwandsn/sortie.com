@@ -12,6 +12,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import bll.LieuManager;
 import bll.VilleManager;
@@ -32,6 +34,7 @@ private LieuManager mgr;
 	
 	@GET
 	@Path("/{nomLieu}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Lieu> getRecherche(@PathParam("nomLieu") String nomLieu){
 		ArrayList<Lieu> listLieus = new ArrayList<>();
 		listLieus = getMgr().getSearchByNomLieu(nomLieu);
@@ -46,6 +49,7 @@ private LieuManager mgr;
 	}
 			
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
 	public Lieu addLieu(@FormParam("nomLieu") String nom) throws ParseException {
 		Lieu unLieu = new Lieu();
 		unLieu.setNom(nom);
@@ -56,6 +60,7 @@ private LieuManager mgr;
 	
 	@POST
 	@Path("/ajoutLieu")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Lieu ajoutLieu(@FormParam("nomLieu") String nomLieu ,@FormParam("rue") String rue,@FormParam("latitude") String latitude ,
 			@FormParam("longitude") String longitude,@FormParam("ville") String ville) throws ParseException {
 		Lieu unLieu = new Lieu();
