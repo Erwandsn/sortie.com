@@ -14,6 +14,8 @@ public interface VilleDAO {
 	
 	public Ville searchVille(String nomVille) throws SQLException;
 	
+	public Ville searchVille(int id) throws SQLException;
+	
 	public Boolean deleteOneById(Ville unVille) throws SQLException;
 	
 	public Ville updateVille(Ville unVille) throws SQLException;	

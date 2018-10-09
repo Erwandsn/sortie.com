@@ -14,9 +14,11 @@ public interface LieuDAO {
 	
 	public Lieu searchLieu(String nomLieu) throws SQLException;
 	
+	public Lieu searchLieu(int id) throws SQLException;
+	
 	public Boolean deleteOneById(Lieu unLieu) throws SQLException;
 	
 	public Lieu updateLieu(Lieu unLieu) throws SQLException;	
 	
-	public Lieu ajoutLieu(String nomLieu, String codePostal) throws SQLException;	
+	public Lieu ajoutLieu(String nomLieu, String rue, String latitude, String longitude, String ville) throws SQLException;	
 }

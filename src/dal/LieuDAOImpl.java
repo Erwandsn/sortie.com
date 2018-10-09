@@ -6,15 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import bll.LieuManager;
+import bll.VilleManager;
 import bo.Lieu;
 import bo.Lieu;
 
 public class LieuDAOImpl implements LieuDAO{
 	private final String INSERTONE = "INSERT INTO LIEUX(nom_lieu) VALUES(?)";
-	private final String INSERTVILLE = "INSERT INTO LIEUX(nom_lieu,rue,latitude,longitude,villes_no_ville) VALUES(?,?,?,?,?)";
-	private final String GETALL ="SELECT no_lieu,nom_lieu,rue,latitude,longitude FROM LIEUX";
+	private final String INSERTLIEUX = "INSERT INTO LIEUX(nom_lieu,rue,latitude,longitude,villes_no_ville) VALUES(?,?,?,?,?)";
+	private final String GETALL ="SELECT no_lieu,nom_lieu,rue,latitude,longitude,villes_no_ville FROM LIEUX";
 	private final String DELETEONEBYID = "DELETE FROM LIEUX WHERE no_lieu=?;";
-	private final String UPDATESITE = "UPDATE LIEUX SET nom_lieu=? where no_lieu=?";
+	private final String UPDATELIEUX = "UPDATE LIEUX SET nom_lieu=? where no_lieu=?";
 
 
 	@Override
@@ -22,8 +24,12 @@ public class LieuDAOImpl implements LieuDAO{
 		// TODO Auto-generated method stub
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERTVILLE, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = cnx.prepareStatement(INSERTLIEUX, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, unLieu.getNom());
+			pstmt.setString(2, unLieu.getRue());
+			pstmt.setFloat(3, unLieu.getLatitude());
+			pstmt.setFloat(4, unLieu.getLongitude());
+			pstmt.setInt(5, unLieu.getVille().getId());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			
@@ -67,6 +73,12 @@ public class LieuDAOImpl implements LieuDAO{
 		try {
 			unLieu.setId(rs.getInt(1));
 			unLieu.setNom(rs.getString(2));
+			unLieu.setRue(rs.getString(3));
+			unLieu.setLatitude(rs.getFloat(4));
+			unLieu.setLongitude(rs.getFloat(5));
+			VilleManager lManager = new VilleManager(); 
+			unLieu.setVille(lManager.searchVille(rs.getInt(6)));
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -98,7 +110,7 @@ public class LieuDAOImpl implements LieuDAO{
 
 	@Override
 	public Lieu searchLieu(String nomLieu) throws SQLException {
-		String GETSEARCH ="SELECT no_ville,nom_ville,code_postal FROM VILLES where nom_ville like '"+nomLieu+"%';";
+		String GETSEARCH ="SELECT no_lieu,nom_lieu,rue,latitude,longitude,villes_no_ville FROM LIEUX where nom_lieu like '"+nomLieu+"%';";
 		Lieu ville = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
@@ -143,7 +155,7 @@ public class LieuDAOImpl implements LieuDAO{
 	public Lieu updateLieu(Lieu unLieu) throws SQLException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(UPDATESITE);
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATELIEUX);
 			pstmt.setString(1, unLieu.getNom());
 			pstmt.setInt(2, unLieu.getId());
 			pstmt.executeUpdate();
@@ -157,15 +169,22 @@ public class LieuDAOImpl implements LieuDAO{
 	}
 
 	@Override
-	public Lieu ajoutLieu(String nomLieu, String codePostal) throws SQLException {
+	public Lieu ajoutLieu(String nomLieu, String rue, String latitude, String longitude, String ville) throws SQLException {
 		// TODO Auto-generated method stub
 		Lieu unLieu = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERTVILLE, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1,nomLieu);
-			pstmt.setString(2,codePostal);
-			ResultSet rs = pstmt.executeQuery();
+			PreparedStatement pstmt = cnx.prepareStatement(INSERTLIEUX, PreparedStatement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, nomLieu);
+			pstmt.setString(2, rue);
+			pstmt.setFloat(3, Float.parseFloat(latitude));
+			pstmt.setFloat(4, Float.parseFloat(longitude));
+			VilleManager lManager = new VilleManager(); 
+			unLieu.setVille(lManager.searchVille(ville));
+			pstmt.setInt(5, unLieu.getVille().getId());
+			
+			pstmt.executeQuery();
+			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next())
 			{
 				unLieu.setId(rs.getInt(1));
@@ -177,5 +196,27 @@ public class LieuDAOImpl implements LieuDAO{
 			throw new SQLException();
 		}
 		return unLieu;
+	}
+
+	@Override
+	public Lieu searchLieu(int id) throws SQLException {
+		String GETSEARCH ="SELECT no_lieu,nom_lieu,rue,latitude,longitude,villes_no_ville FROM LIEUX where no_lieu = '"+id+"';";
+		Lieu ville = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				ville= mapLieu(rs);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return ville;
 	}
 }

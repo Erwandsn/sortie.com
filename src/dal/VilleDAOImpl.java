@@ -167,7 +167,8 @@ public class VilleDAOImpl implements VilleDAO{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERTVILLE, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1,nomVille);
 			pstmt.setString(2,codePostal);
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.executeQuery();
+			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next())
 			{
 				unVille.setId(rs.getInt(1));
@@ -179,5 +180,27 @@ public class VilleDAOImpl implements VilleDAO{
 			throw new SQLException();
 		}
 		return unVille;
+	}
+
+	@Override
+	public Ville searchVille(int id) throws SQLException {
+		String GETSEARCH ="SELECT no_ville,nom_ville,code_postal FROM VILLES where no_ville = '"+id+"';";
+		Ville ville = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETSEARCH);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				ville= mapVille(rs);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return ville;
 	}
 }

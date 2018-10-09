@@ -60,6 +60,16 @@ public class LieuManager {
 		return createdLieu;
 	}
 	
+	public Lieu searchLieu(int id) {
+		Lieu createdLieu = new Lieu();
+		try {
+			createdLieu = getLieuDao().searchLieu(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return createdLieu;
+	}
+	
 	public Boolean deleteLieu(Lieu unLieu) {
 		Boolean state = null;
 		try {

@@ -61,6 +61,16 @@ public class SortieManager {
 		return createdSortie;
 	}
 	
+	public Sortie searchSortie(int unSortie) {
+		Sortie createdSortie = new Sortie();
+		try {
+			createdSortie = getSortieDao().searchSortie(unSortie);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return createdSortie;
+	}
+	
 	public Boolean deleteSortie(Sortie unSortie) {
 		Boolean state = null;
 		try {

@@ -61,6 +61,16 @@ public class VilleManager {
 		return createdVille;
 	}
 	
+	public Ville searchVille(int id) {
+		Ville createdVille = new Ville();
+		try {
+			createdVille = getVilleDao().searchVille(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return createdVille;
+	}
+	
 	public Boolean deleteVille(Ville unVille) {
 		Boolean state = null;
 		try {
