@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class='col-lg-2 col-md-2 col-xs-2'>
+		<div class='col-lg-4 col-md-4 col-xs-4'>
 			<div class='input-group date' id='debut'>
 				<input type='text' class="form-control"
 					placeholder="Début" id="sortie-debut" /> <span

@@ -306,28 +306,97 @@ $(document).ready(function(){
 	
 	
 	$('#btnAccueilRecherche').click(function(){
-		$('#accueil').hide();
-		$('#affichage-sortie').show();
+//		$('#accueil').hide();
+//		$('#affichage-sortie').show();
 		
 		var recherche = $('#recherche').val();
-		var organisateur = $('#sortie-organisateur').val();
-		var inscrit = $('#sortie-inscrit').val();
-		var pasInscrit = $('#sortie-pas-inscrit').val();
-		var sortiePassee = $('#sortie-passee').val();
+		if(recherche == ""){
+			recherche = "null";
+		}
+		
+		var organisateur = "false";
+		if($('#sortie-organisateur').is(':checked')){
+			organisateur = $('#currentUser').val();
+		}
+		var inscrit = "false";
+		if ($('#sortie-inscrit').is(':checked')) {
+			inscrit = "true";
+		}
+		var pasInscrit = "false";
+		if ($('#sortie-pas-inscrit').is(':checked')) {
+			pasInscrit = "true";
+		}
+		
+		var sortiePassee = "false";
+		if ($('#sortie-passee').is(':checked')) {
+			sortiePassee = "true";
+		}
 		var debut = $('#sortie-debut').val();
+		if(!debut == ""){
+			var dateAr = debut.split(' ');
+			var dateAr2 = dateAr[0].split('/');
+			debut = dateAr2[2] + '-' + dateAr2[1] + '-' + dateAr2[0]+" "+dateAr[1];
+//			alert(debut);
+//			var debut2 = $('#sortie-debut').val();
+//			
+//			
+//			
+//			var dateAr2 = debut2.split(' ');
+//			
+//			debut = debut+" "+dateAr2[1];
+//			alert(debut);
+		}else{
+			debut="1800-01-01 00:00";
+		}
+		
+		
+
 		var fin = $('#sortie-fin').val();
+		if(!fin == ""){
+			var dateArFin = fin.split(' ');
+			var dateArFin2 = dateArFin[0].split('/');
+			fin = dateArFin2[2] + '-' + dateArFin2[1] + '-' + dateArFin2[0]+" "+dateArFin[1];
+			alert(fin);
+//			fin = dateArFin[2] + '-' + dateArFin[1] + '-' + dateArFin[0];
+//			var fin2 = $('#sortie-fin').val();
+//			var dateArFin2 = fin2.split(' ');
+//			fin = fin+" "+dateArFin2[1];
+		}else{
+			fin="2100-01-01 00:00";
+		}
+		
+		var site = $('#select-site option:selected' ).text();
+		if(site == "--Choisir un site--"){
+			site = "null";
+		}	
+
 		
 		$.ajax({
-			url: "http://localhost:8080/sortie.com/rest/sortie/annulerSortie",
+			url: "http://localhost:8080/sortie.com/rest/sortie/"+site+"/"+recherche+"/"+organisateur+"/"+inscrit+"/"+pasInscrit+"/"+sortiePassee+"/"+debut+"/"+fin+"",
 			cache: false,
-			type: "POST",
-			data: jQuery.param({ nom: nom,date: date, dateInscription: dateInscription, place:place, duree: duree,
-				description: description, ville: ville, lieu: lieu,currentUser: currentUser, etat:etat}),
+			type: "GET",
 			beforeSend: function(request) {
 				request.setRequestHeader("Accept","application/json");
 			},
 			success: function(data){
-			
+				html = "";
+				 console.log(JSON.stringify(data));
+				 for( var i = 0; i < data.length; i++) {
+					 var datedebut = new Date(data[i]["dateheureDebut"]);
+					 var dateFin = new Date(data[i]["dateLimiteInscription"]);
+					 html += "<tr>";
+					 html += "<td>"+data[i]['nom']+"</td>";
+					 html += "<td>"+data[i]['dateheureDebut'].toString(FORMAT)+"</td>";
+					 html += "<td>"+data[i]['dateLimiteInscription'].toString(FORMAT)+"</td>";
+					 html += "<td>TODO /"+data[i]['nbInscriptionsMax']+"</td>";
+					 html += "<td>"+data[i]['etat']['libelle']+"</td>";
+					 html += "<td>TODO</td>";
+					 html += "<td>"+data[i]['organisateur']['prenom']+" "+data[i]['organisateur']['nom']+"</td>";
+					 html += "<td><button type='button' class='btn btn-info'>Afficher</td>";
+					 html += "</tr>";
+				  }
+				 $('#listeSorties').html(html);
+//				 refreshSortieTable();
 			}
 		});
 	});
@@ -343,30 +412,36 @@ $(document).ready(function(){
 		var lieu =$('#creation-sortie-lieu').val();
 		var currentUser = $('#currentUser').val();
 		var etat = $('#creation-sortie-etat').val();
-		console.log("nom "+nom);
-		console.log("date "+date);
-		console.log("dateInscription "+dateInscription);
-		console.log("place "+place);
-		console.log("duree "+duree);
-		console.log("description "+description);
-		console.log("lieu "+lieu);
-		console.log("currentUser "+currentUser);
-		console.log("etat "+etat);
+//		console.log("nom "+nom);
+//		console.log("date "+date);
+//		console.log("dateInscription "+dateInscription);
+//		console.log("place "+place);
+//		console.log("duree "+duree);
+//		console.log("description "+description);
+//		console.log("lieu "+lieu);
+//		console.log("currentUser "+currentUser);
+//		console.log("etat "+etat);
 
+		if($('#creation-sortie-ville').val() == 0 || $('#creation-sortie-lieu').val() == 0 || 
+				$('#creation-sortie-etat').val() == 0){
+			alert("Veuillez compléter les champs.");
+		}else{
+			$.ajax({
+				url: "http://localhost:8080/sortie.com/rest/sortie/ajoutSortie",
+				cache: false,
+				type: "POST",
+				data: jQuery.param({ nom: nom,date: date, dateInscription: dateInscription, place:place, duree: duree,
+					description: description, ville: ville, lieu: lieu,currentUser: currentUser, etat:etat}),
+				beforeSend: function(request) {
+					request.setRequestHeader("Accept","application/json");
+				},
+				success: function(data){
+				
+				}
+			});
+		}
 		
-		$.ajax({
-			url: "http://localhost:8080/sortie.com/rest/sortie/ajoutSortie",
-			cache: false,
-			type: "POST",
-			data: jQuery.param({ nom: nom,date: date, dateInscription: dateInscription, place:place, duree: duree,
-				description: description, ville: ville, lieu: lieu,currentUser: currentUser, etat:etat}),
-			beforeSend: function(request) {
-				request.setRequestHeader("Accept","application/json");
-			},
-			success: function(data){
-			
-			}
-		});
+		
 	});
 	
 	$('#btnAnnulSortie').click(function(){
@@ -531,14 +606,14 @@ $(document).ready(function(){
          );
          
          $('#debut').datetimepicker({
-        	 format: 'dd/mm/yyyy',
+        	 format: 'dd/mm/yyyy hh:ii',
     		 language: 'fr'
          }
         
          );
          
          $('#fin').datetimepicker({
-        	 format: 'dd/mm/yyyy',
+        	 format: 'dd/mm/yyyy hh:ii',
     		 language: 'fr'
          }
         

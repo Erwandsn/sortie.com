@@ -55,12 +55,12 @@ private SortieManager mgr;
 	}
 	
 	@GET
-	@Path("/{recherche}/{organisateur}/{inscrit}/{pasInscrit}/{sortiePassee}/{debut}/{fin}")
-	public ArrayList<Sortie> getRecherche(@PathParam("recherche") String recherche,@PathParam("organisateur") String organisateur,
+	@Path("/{site}/{recherche}/{organisateur}/{inscrit}/{pasInscrit}/{sortiePassee}/{debut}/{fin}")
+	public ArrayList<Sortie> getRecherche(@PathParam("site") String site,@PathParam("recherche") String recherche,@PathParam("organisateur") String organisateur,
 			@PathParam("inscrit") String inscrit,@PathParam("pasInscrit") String pasInscrit,@PathParam("sortiePassee") String sortiePassee,
 			@PathParam("debut") String debut,@PathParam("fin") String fin){
 		ArrayList<Sortie> listSorties = new ArrayList<>();
-		listSorties = getMgr().getSearch(recherche,organisateur,inscrit,pasInscrit,sortiePassee,debut,fin);
+		listSorties = getMgr().getSearch(site,recherche,organisateur,inscrit,pasInscrit,sortiePassee,debut,fin);
 		return listSorties;
 	}
 	
@@ -82,13 +82,18 @@ private SortieManager mgr;
 			@FormParam("place") String place , @FormParam("duree") String duree,@FormParam("description") String description,@FormParam("ville") String ville,
 			@FormParam("lieu") String lieu,@FormParam("currentUser") String currentUser,@FormParam("etat") String etat ) throws ParseException {
 		Sortie unSortie = new Sortie();
-		System.out.println("===================================== ville"+ville);
 		unSortie.setNom(nom);
 //		System.out.println(date);
 		String[] sHour = date.split(" ");
 		String[] sDate = sHour[0].split("/");
 //		System.out.println(" size= "+sDate.length);
-		String strDate= sDate[2]+"-"+ sDate[1]+"-"+ sDate[0]+" "+sHour[1];
+		if(sDate.length >2) {
+			String strDate= sDate[2]+"-"+ sDate[1]+"-"+ sDate[0]+" "+sHour[1];
+			java.util.Date utilDate = new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate);
+		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		    unSortie.setDateheureDebut(sqlDate);
+		}
+		
 //		System.out.println(strDate+" size= "+sDate.length);
 		
 //		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -98,16 +103,18 @@ private SortieManager mgr;
 		
 //		unSortie.setDateheureDebut((Date)new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate));
 //		unSortie.setDateheureDebut(java.sql.Date.valueOf(strDate ));
-		java.util.Date utilDate = new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate);
-	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		
 //	    System.out.println("utilDate:" + utilDate);
 //	    System.out.println("sqlDate:" + sqlDate);
-	    unSortie.setDateheureDebut(sqlDate);
 		String[] sDateInsc = dateInscription.split("/");
-		String strDateInsc= sDateInsc[2]+"-"+ sDateInsc[1]+"-"+ sDateInsc[0];
+		if(sDateInsc.length >2) {
+			String strDateInsc= sDateInsc[2]+"-"+ sDateInsc[1]+"-"+ sDateInsc[0];
+			unSortie.setDateLimiteInscription(java.sql.Date.valueOf(strDateInsc ));
+		}
+		
 //		System.out.println(strDateInsc+" size= "+sDateInsc.length);
 //		unSortie.setDateLimiteInscription((Date)new SimpleDateFormat("yyyy-mm-dd").parse(strDateInsc));
-		unSortie.setDateLimiteInscription(java.sql.Date.valueOf(strDateInsc ));
+		
 		unSortie.setDuree(Integer.parseInt(duree));
 		unSortie.setInfosSortie(description);
 		VilleManager vManager = new VilleManager();

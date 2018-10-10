@@ -1,12 +1,14 @@
 package dal;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import bll.EtatManager;
 import bll.ParticipantManager;
@@ -64,9 +66,14 @@ public class SortieDAOImpl implements SortieDAO{
 	@Override
 	public ArrayList<Sortie> getAll() throws SQLException {
 		ArrayList<Sortie> listeSorties = new ArrayList<>();
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+		Calendar cal = Calendar.getInstance(); 
+		cal.add(Calendar.MONTH, 1);
+		String query ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES where datecloture between '"+date+"' and '"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"' ";
+
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(GETALL, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = cnx.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
@@ -89,12 +96,19 @@ public class SortieDAOImpl implements SortieDAO{
 			unSortie.setId(rs.getInt(1));
 			unSortie.setNom(rs.getString(2));
 			java.sql.Timestamp ts = rs.getTimestamp(3);
-			Date dateDebut = new Date(ts.getTime());
-			unSortie.setDateheureDebut(dateDebut);
+			if(ts != null) {
+				Date dateDebut = new Date(ts.getTime());
+				unSortie.setDateheureDebut(dateDebut);
+			}
+			
 			unSortie.setDuree(rs.getInt(4));
 			java.sql.Timestamp tsfin = rs.getTimestamp(5);
-			Date dateFin = new Date(tsfin.getTime());
-			unSortie.setDateLimiteInscription(dateFin);
+			if(tsfin != null) {
+				Date dateFin = new Date(tsfin.getTime());
+				unSortie.setDateLimiteInscription(dateFin);
+			}
+			
+			
 			unSortie.setNbInscriptionsMax(rs.getInt(6));
 			unSortie.setInfosSortie(rs.getString(7));
 //			On récupère les informations du participant
@@ -252,11 +266,28 @@ public class SortieDAOImpl implements SortieDAO{
 	}
 
 	@Override
-	public ArrayList<Sortie> search(String recherche, String organisateur, String inscrit, String pasInscrit, String sortiePassee,
+	public ArrayList<Sortie> search(String site,String recherche, String organisateur, String inscrit, String pasInscrit, String sortiePassee,
 			String debut, String fin) throws SQLException {
-		String GETSEARCH ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES "
-				+ "where nom like '"+recherche+"%' "+(!debut.equals("")) != null ? "and debut = '"+debut+"'" : ""+
-		""+(!fin.equals("")) != null ? "and datecloture = '"+fin+"'" : ""+ ""+(!organisateur.equals("")) != null ? "and organisateur = '"+organisateur+"'" : ""+"";
+		String GETSEARCH ="";
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+		Calendar cal = Calendar.getInstance(); 
+		cal.add(Calendar.MONTH, 1);
+//		Date newDate = DateUtils.addMonths(new Date(), 1);
+		if(inscrit.equals("true")) {
+			GETSEARCH ="SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,SORTIES.ville FROM SORTIES,INSCRIPTIONS,PARTICIPANTS,SITES where INSCRIPTIONS.sorties_no_sortie = SORTIES.no_sortie  and PARTICIPANTS.no_participant = SORTIES.organisateur and PARTICIPANTS.sites_no_site = SITES.no_site "+(!recherche.equals("null")? " AND SORTIES.nom like '"+recherche+"%'": "AND SORTIES.nom like '%'")+"" 
+			 +(!organisateur.equals("null") ? " and organisateur = '"+organisateur+"'" : "")+""
+					+(sortiePassee.equals("true") ? " and datecloture between '"+date+"' and '"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"'" : "")+" "+(!site.equals("null")?" and SITES.nom_site like '"+site+"%'": " and SITES.nom_site like '%' ")+"and datedebut between '"+debut+"' and '"+fin+"'"+" ";
+		}else {
+			GETSEARCH ="SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,SORTIES.ville FROM SORTIES,PARTICIPANTS,SITES "
+					+ " where PARTICIPANTS.no_participant = SORTIES.organisateur and PARTICIPANTS.sites_no_site = SITES.no_site and "+(!recherche.equals("null")? "  SORTIES.nom like '"+recherche+"%'": " SORTIES.nom like '%'")+" "+
+			""+(!organisateur.equals("false") ? " and organisateur = '"+organisateur+"'" : "")+""
+					+(sortiePassee.equals("true") ? " and datecloture between '"+date+"' and '"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"'" : "")+" "+(!site.equals("null")?" and SITES.nom_site like '"+site+"%'": " and SITES.nom_site like '%' and datedebut between '"+debut+"' and '"+fin+"'")+"";
+		}
+		
+		System.out.println(GETSEARCH);
+		
+		
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
 		ArrayList<Sortie> listeSorties = new ArrayList<>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
