@@ -46,6 +46,17 @@ private SortieManager mgr;
 	}
 	
 	@GET
+	@Path("/get/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Sortie getOneById(@PathParam("id") int idSortie){
+		Sortie uneSortie = new Sortie();
+		uneSortie.setId(idSortie);
+		Sortie returnedSortie = null;
+		returnedSortie = getMgr().getOneById(uneSortie);
+		return returnedSortie;
+	}
+	
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Sortie> getAll(){
 		ArrayList<Sortie> listSorties = new ArrayList<>();

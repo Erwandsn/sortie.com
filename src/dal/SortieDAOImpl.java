@@ -24,8 +24,10 @@ public class SortieDAOImpl implements SortieDAO{
 	private final String GETALL ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES";
 	private final String DELETEONEBYID = "DELETE FROM SORTIES WHERE no_sortie=?;";
 	private final String UPDATESORTIE = "UPDATE SORTIES SET nom=? where no_sortie=?";
+	private final String GETONEBYID = "SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM sorties WHERE no_sortie=?;";
+	private final String GETPARTICIPANTOFSORTIE = "SELECT no_participant from participants, sorties, INSCRIPTIONS where no_sortie = sorties_no_sortie and participants_no_participant = no_participant and no_sortie=?;";
 
-
+	
 	@Override
 	public Sortie createSortie(Sortie unSortie) throws SQLException {
 		// TODO Auto-generated method stub
@@ -47,7 +49,7 @@ public class SortieDAOImpl implements SortieDAO{
 			pstmt.setInt(10, unSortie.getVille().getId());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
-			
+
 			if(rs.next())
 			{
 				unSortie.setId(rs.getInt(1));
@@ -113,6 +115,9 @@ public class SortieDAOImpl implements SortieDAO{
 			Etat etat = new Etat();
 			etat.setId(rs.getInt(10));
 			etat.setLibelle(etatManager.getOneById(etat).getLibelle());
+			//On recupere la liste de participant pour cette sortie
+			ArrayList<Participant> listeParticipants = getParticipantOfOneSortie(unSortie);
+			unSortie.setListeParticipants(listeParticipants);
 			unSortie.setEtat(etat);
 			Ville ville = new Ville();
 			ville.setId(rs.getInt(11));
@@ -249,5 +254,52 @@ public class SortieDAOImpl implements SortieDAO{
 			throw new SQLException();
 		}
 		return sortie;
+	}
+
+	@Override
+	public Sortie getOneById(Sortie uneSortie) throws SQLException {
+		// TODO Auto-generated method stubGETONEBYID
+		Sortie sortie = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETONEBYID);
+			pstmt.setInt(1, uneSortie.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				sortie= mapSortie(rs);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return sortie;
+	}
+	
+	public ArrayList<Participant> getParticipantOfOneSortie(Sortie uneSortie) throws SQLException {
+		ArrayList<Participant> listeParticipants = new ArrayList<>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETPARTICIPANTOFSORTIE);
+			pstmt.setInt(1, uneSortie.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				Participant unParticipant = new Participant();
+				unParticipant.setId(rs.getInt(1));
+				listeParticipants.add(unParticipant);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		System.out.println(listeParticipants);
+		return listeParticipants;
 	}
 }
