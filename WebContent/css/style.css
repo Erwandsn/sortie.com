@@ -1,3 +1,123 @@
 body{
 	font-family: 'K2D', sans-serif;
 }
+
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  margin: 1rem;
+  position: relative;
+
+}
+
+
+.card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin-left:25%;
+  margin-top:25%;
+  border-radius:4px;
+}
+
+
+
+
+button{
+	padding: 0;
+    border: none;
+    background: none;
+    color: #6D4C41;
+    font-weight: bold;
+}
+button:hover, button:active, button:focus{
+	border-bottom: 2px solid #6D4C41;
+}
+
+label{
+	font-weight:normal;
+}
+
+
+.navbar-default {
+	background-color:white;
+	border-color:white;
+}
+.navbar-default .navbar-nav > li > a , .navbar-default:hover, .navbar-default:focus, .navbar-default:active{
+    color: #6D4C41;
+}
+
+.btnNavBar{
+	color: #6D4C41;
+    font-weight: bold;
+
+}
+
+.btn, .btn:hover, .btn:active, .btn:focus{
+	padding: 0;
+    border: none;
+    background: none;
+    color: #6D4C41;
+    font-weight: bold;
+    border-bottom:2px solid #6D4C41;
+    border-radius:0px;
+	
+}
+
+.btnConnexion, .btnConnexion:hover, .btnConnexion:active, .btnConnexion:focus{
+	border-radius: 2px;
+	background-color:#6D4C41;
+	color: #fff;
+	font-weight:normal;
+	padding:5px;
+}
+
+.logo{
+	background-image: url("../images/sortie2.jpg");
+	/* width:500px;
+	height:281px; */
+}
+
+
+/* MULTI SELECT */
+
+.multiselect {
+  /* width: 200px; */
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+select{
+	border:none;
+}
+
+#checkboxes label:hover{
+	background-color:#E0E0E0;
+}
