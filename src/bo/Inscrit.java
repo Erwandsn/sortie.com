@@ -12,14 +12,10 @@ public class Inscrit {
 		this.participant = participant;
 		this.sortie = sortie;
 	}
-	
-	
 
 	public Inscrit() {
 		super();
 	}
-
-
 
 	public Participant getParticipant() {
 		return participant;
@@ -37,18 +33,11 @@ public class Inscrit {
 		this.sortie = sortie;
 	}
 
-
-
 	public Date getDateInscription() {
 		return dateInscription;
 	}
 
-
-
 	public void setDateInscription(Date dateInscription) {
 		this.dateInscription = dateInscription;
 	}
-    
-	
-    
 }

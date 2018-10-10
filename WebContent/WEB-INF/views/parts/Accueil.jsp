@@ -68,6 +68,7 @@
 		<table class="table">
 			<thead>
 				<tr>
+					<th></th>
 					<th scope="col">Nom de la sortie</th>
 					<th scope="col">Date de la sortie</th>
 					<th scope="col">Cloture</th>
@@ -75,13 +76,17 @@
 					<th scope="col">Etat</th>
 					<th scope="col">Inscrit</th>
 					<th scope="col">Organisateur</th>
-					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody id='listeSorties'>
 				
 			</tbody>
 		</table>
+		<div class='row'>
+			<div class='col-md-4'>
+				<button class='btn btn-info btn-block' id='btnAfficherSortie'><span class="glyphicon glyphicon-zoom-in"></span> Afficher</button>
+			</div>
+		</div>
 	</div>
 	<div class="row form-group">
 		<div class="col-lg-4 col-md-4 col-xs-4">
@@ -94,4 +99,34 @@
 			<button type="button" class="btn btn-primary" id="btnModificationSortie">Modifier une sortie</button>
 		</div>
 	</div>
+</div>
+<div class='container' id='detailSortie'>
+	<div class='row'>
+		<div class='col-md-1' id='retourVersListeSortie'>
+			<button class='btn btn-info'><span class='glyphicon glyphicon-chevron-left'></span></button>
+		</div>
+		<h2 id='titleSortie'></h2>
+	</div>
+	<div class='row'>
+		<input type='hidden' id='currentDetailSortieId' value=''/>
+		<p>Date de la sortie: <span id='dateDeSortie'></span></p>
+		<p>Date de fin d'inscription: <span id='dateFinDinscription'></span></p>
+		<p>Inscripts/nombre de place <span id='nbPlacesInscrit'></span></p>
+		<p>Organisateur :<span id='organisateurSortie'></span></p>
+		<p>Etat :<span id='etatSortie'></span></p>
+		<p>Description<p>
+		<p id='descriptionSortie'></p>
+	</div>
+	<div class='row'>
+		<div class='col-md-3'>
+			<button class='btn btn-success btn-block' id='sinscrireAlaSortie'>S'inscrire</button>
+		</div>
+		<div class='col-md-3'>
+			<button class='btn btn-danger btn-block' id='seDesinscrireAlaSortie'>Se désinscrire</button>
+		</div>
+		<div class='col-md-3'>
+			<button class='btn btn-info btn-block' id='modifierMaSortie'><span class='glyphicon glyphicon-pencil'></span> Modifier</button>
+		</div>
+	</div>
+	
 </div>

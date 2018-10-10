@@ -3,6 +3,7 @@ package dal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import bo.Participant;
 import bo.Sortie;
 
 public interface SortieDAO {
@@ -24,4 +25,8 @@ public interface SortieDAO {
 	public Sortie updateSortie(Sortie unSortie) throws SQLException;	
 	
 	public Sortie ajoutSortie(String nomSortie, String codePostal) throws SQLException;	
+	
+	public Sortie getOneById(Sortie uneSortie) throws SQLException;
+	
+	public ArrayList<Participant> getParticipantOfOneSortie(Sortie uneSortie) throws SQLException;
 }

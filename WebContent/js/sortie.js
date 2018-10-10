@@ -9,34 +9,161 @@ $(document).ready(function(){
 	$('#affichage-sortie').hide();
 	$('#modification-sortie').hide();
 	$('#annulation-sortie').hide();
+	$('#detailSortie').hide();
+	refreshAccueilSortieTable();
 	
 //	On ajoute la liste des sorties en page d'accueil
-	$.ajax({
-		  url: "http://localhost:8080/sortie.com/rest/sortie",
-		  cache: false,
-		  type: "GET",
-		  beforeSend: function(request) {
-		  	request.setRequestHeader("Accept","application/json");
-		  },
-		  success: function(data){
-			 html = "";
-			 console.log(JSON.stringify(data));
-			 for( var i = 0; i < data.length; i++) {
-				 var datedebut = new Date(data[i]["dateheureDebut"]);
-				 var dateFin = new Date(data[i]["dateLimiteInscription"]);
-				 html += "<tr>";
-				 html += "<td>"+data[i]['nom']+"</td>";
-				 html += "<td>"+datedebut.toString(FORMAT)+"</td>";
-				 html += "<td>"+dateFin.toString(FORMAT)+"</td>";
-				 html += "<td>TODO /"+data[i]['nbInscriptionsMax']+"</td>";
-				 html += "<td>"+data[i]['etat']['libelle']+"</td>";
-				 html += "<td>TODO</td>";
-				 html += "<td>"+data[i]['organisateur']['prenom']+" "+data[i]['organisateur']['nom']+"</td>";
-				 html += "<td><button type='button' class='btn btn-info'>Afficher</td>";
-				 html += "</tr>";
+	function refreshAccueilSortieTable(){
+		var currentUser = $('#currentUser').val();
+		$.ajax({
+			url: "http://localhost:8080/sortie.com/rest/sortie",
+			cache: false,
+			type: "GET",
+			beforeSend: function(request) {
+				request.setRequestHeader("Accept","application/json");
+			},
+			success: function(data){
+				html = "";
+				console.log(JSON.stringify(data));
+				for( var i = 0; i < data.length; i++) {
+					var datedebut = new Date(data[i]["dateheureDebut"]);
+					var dateFin = new Date(data[i]["dateLimiteInscription"]);
+					html += "<tr>";
+					html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";
+					html += "<td>"+data[i]['nom']+"</td>";
+					html += "<td>"+datedebut.toString(FORMAT)+"</td>";
+					html += "<td>"+dateFin.toString(FORMAT)+"</td>";
+					html += "<td><span class='empNbParticipant' data-id='"+data[i]['id']+"'>"+data[i]['listeParticipants'].length+"</span> /"+data[i]['nbInscriptionsMax']+"</td>";
+					html += "<td>"+data[i]['etat']['libelle']+"</td>";
+					var test = false;
+					bloc_is_inscrit:{
+						for (y = 0; y < data[i]['listeParticipants'].length; y++){
+							if(data[i]['listeParticipants'][y]['id'] == currentUser && test == false){
+								html += "<td>X</td>"
+								test = true;
+								break bloc_is_inscrit;
+							}
+						}
+					}
+					if(test == false){
+						html += "<td></td>";
+					}
+					html += "<td>"+data[i]['organisateur']['prenom']+" "+data[i]['organisateur']['nom']+"</td>";
+					html += "</tr>";
+				}
+				$('#listeSorties').html(html);
+			}
+		});
+	}
+	
+	$('#btnAfficherSortie').click(function(){
+		var radioValue = $("input[name='radio']:checked").val();
+		var currentUser = $('#currentUser').val();
+		if(radioValue != undefined){
+			$('#accueil').hide();
+			$('#detailSortie').show();
+			$.ajax({
+				  url: "http://localhost:8080/sortie.com/rest/sortie/get/"+radioValue,
+				  cache: false,
+				  type: "GET",
+				  beforeSend: function(request) {
+				  	request.setRequestHeader("Accept","application/json");
+				  },
+				  success: function(data){
+					  if(currentUser != data['organisateur']['id']){
+						  $('#modifierMaSortie').hide();
+					  }
+					  if(data['listeParticipants'].length == data['nbInscriptionsMax']){
+						  $('#sinscrireAlaSortie').hide();
+					  }
+					  console.log(JSON.stringify(data));
+					  $('#currentDetailSortieId').val(data['id']);
+					  $('#titleSortie').html(data['nom']);
+					  $('#dateDeSortie').html(data['dateheureDebut']);
+					  $('#dateFinDinscription').html(data['dateLimiteInscription']);
+					  $('#nbPlacesInscrit').html(data['nbInscriptionsMax']);
+					  $('#organisateurSortie').html(data['organisateur']['prenom']+ " "+data['organisateur']['nom']);
+					  $('#etatSortie').html(data['etat']['libelle']);
+					  $('#descriptionSortie').html(data['infosSortie']);
+					  $.ajax({
+						  url: "http://localhost:8080/sortie.com/rest/inscrit/isinscrit/"+radioValue+"/"+currentUser,
+						  cache: false,
+						  type: "GET",
+						  beforeSend: function(request) {
+						  	request.setRequestHeader("Accept","application/json");
+						  },
+						  success: function(data){
+							  if(data == true){
+								  $('#sinscrireAlaSortie').hide();
+							  }else{
+								  $('#seDesinscrireAlaSortie').hide();
+							  }
+						  }
+					});
+				  }
+			});
+		}else{
+			alert('Veuillez selectionner une sortie a afficher'); 
+		}
+		
+	});
+	
+	$('#sinscrireAlaSortie').click(function(){
+		var currentUser = $('#currentUser').val();
+		var idSortie = $('#currentDetailSortieId').val();
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/inscrit",
+			  cache: false,
+			  type: "POST",
+			  data: jQuery.param({ idSortie: idSortie,idParticipant: currentUser}),
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  alert('inscription effectuée');
+				  $('#detailSortie').hide();
+				  $('#accueil').show();
+				  $('#modifierMaSortie').show();
+				  $('#seDesinscrireAlaSortie').show();
+				  $('#sinscrireAlaSortie').show();
+				  refreshAccueilSortieTable();
 			  }
-			 $('#listeSorties').html(html);
-		  }
+		});
+	});
+	
+	$('#seDesinscrireAlaSortie').click(function(){
+		var currentUser = $('#currentUser').val();
+		var idSortie = $('#currentDetailSortieId').val();
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/inscrit/delete/"+idSortie+"/"+currentUser,
+			  cache: false,
+			  type: "DELETE",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  if(data == true){
+					  alert('desinscription effectuée');
+					  $('#detailSortie').hide();
+					  $('#accueil').show();
+					  $('#modifierMaSortie').show();
+					  $('#seDesinscrireAlaSortie').show();
+					  $('#sinscrireAlaSortie').show();
+					  refreshAccueilSortieTable();
+				  }else{
+					  alert("Echec de la desinscription")
+				  }
+			  }
+		});
+	});
+	
+	$('#retourVersListeSortie').click(function(){
+		$('#detailSortie').hide();
+		$('#accueil').show();
+		$('#modifierMaSortie').show();
+		$('#seDesinscrireAlaSortie').show();
+		$('#sinscrireAlaSortie').show();
+		refreshSortieTable();
 	});
 	
 	$('#btnAccueil').click(function(){
@@ -619,6 +746,5 @@ $(document).ready(function(){
         
          );
      });
-	 
 	
 });

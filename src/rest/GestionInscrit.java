@@ -15,6 +15,8 @@ import javax.ws.rs.PathParam;
 import bll.InscritManager;
 
 import bo.Inscrit;
+import bo.Participant;
+import bo.Sortie;
 
 @Path("/inscrit")
 public class GestionInscrit 
@@ -30,47 +32,64 @@ private InscritManager mgr;
 	}
 	
 	@GET
-	@Path("/{nomInscrit }")
-	public ArrayList<Inscrit> getRecherche(@PathParam("nomInscrit") String nomInscrit){
-		ArrayList<Inscrit> listInscrits = new ArrayList<>();
-		listInscrits = getMgr().getSearchByNomInscrit(nomInscrit);
-		return listInscrits;
+	@Path("/isinscrit/{idSortie : \\d+}/{idParticipant : \\d+}")
+	public Boolean isInscrit(@PathParam("idSortie") int idSortie, @PathParam("idParticipant") int idParticipant) {
+		Boolean state = false;
+		Inscrit unInscrit = new Inscrit();
+		Sortie laSortie = new Sortie();
+		laSortie.setId(idSortie);
+		Participant leParticipant = new Participant();
+		leParticipant.setId(idParticipant);
+		unInscrit.setParticipant(leParticipant);
+		unInscrit.setSortie(laSortie);
+		state = getMgr().isInscrit(unInscrit);
+		return state;
 	}
 	
 	@GET
-	public ArrayList<Inscrit> getAll(){
-		ArrayList<Inscrit> listInscrits = new ArrayList<>();
-		listInscrits  = getMgr().getAll();
-		return listInscrits;
+	@Path("/nbinscrit/{idSortie : \\d+}")
+	public int isInscrit(@PathParam("idSortie") int idSortie) {
+		int nb = 0;
+		Inscrit unInscrit = new Inscrit();
+		Sortie laSortie = new Sortie();
+		laSortie.setId(idSortie);
+		unInscrit.setSortie(laSortie);
+		nb = getMgr().getNbInscrit(unInscrit);
+		return nb;
 	}
 			
 	@POST
-	public Inscrit addNote(@FormParam("nomInscrit") String nom) throws ParseException {
+	public Inscrit addInscription(@FormParam("idSortie") int idSortie, @FormParam("idParticipant") int idParticipant) throws ParseException {
 		Inscrit unInscrit = new Inscrit();
-		unInscrit = getMgr().createInscrit(unInscrit);
-		return unInscrit;
+		Sortie laSortie = new Sortie();
+		Inscrit addedInscription = null;
+		laSortie.setId(idSortie);
+		Participant leParticipant = new Participant();
+		leParticipant.setId(idParticipant);
+		unInscrit.setParticipant(leParticipant);
+		unInscrit.setSortie(laSortie);
+		unInscrit = getMgr().InscritOneUserToOneSortie(unInscrit);
+		return addedInscription;
 	}
-	
-	
-	@POST
-	@Path("/ajoutInscrit")
-	public Inscrit ajoutInscrit(@FormParam("nomInscrit") String nom,@FormParam("sortie") String sortie) throws ParseException {
-		Inscrit unInscrit = new Inscrit();
-		unInscrit = getMgr().createInscrit(unInscrit);
-		return unInscrit;
-	}
-	
 	
 	@DELETE
-	@Path("/delete/{idInscrit : \\d+}")
-	public Boolean deleteOne(@PathParam("idInscrit") int idInscrit) {
-		Boolean unInscrit = true;
-		return unInscrit;
+	@Path("/delete/{idSortie : \\d+}/{idParticipant : \\d+}")
+	public Boolean deleteOne(@PathParam("idSortie") int idSortie, @PathParam("idParticipant") int idParticipant) {
+		Boolean state = false;
+		Inscrit unInscrit = new Inscrit();
+		Sortie laSortie = new Sortie();
+		laSortie.setId(idSortie);
+		Participant leParticipant = new Participant();
+		leParticipant.setId(idParticipant);
+		unInscrit.setParticipant(leParticipant);
+		unInscrit.setSortie(laSortie);
+		state = getMgr().deleteInscrit(unInscrit);
+		return state;
 	}
 	
 	@PUT
 	@Path("/update/{idInscrit : \\d+}/{nomModif}")
-	public Inscrit updateInscrit(@PathParam("idInscrit") int id, @PathParam("nomModif") String nomInscrit) {
+	public Inscrit getAll(@PathParam("idInscrit") int id, @PathParam("nomModif") String nomInscrit) {
 		Inscrit unInscrit = new Inscrit();
 		return unInscrit;
 	}

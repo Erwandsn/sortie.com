@@ -21,75 +21,45 @@ public class InscritManager {
 	private InscritDAO getInscritDao() {
 		return this.InscritDao;
 	}
-	
-	public ArrayList<Inscrit> getAll() {
-		ArrayList<Inscrit> listeInscrit = new ArrayList<>();
-		InscritDAO dao = getInscritDao();
-		try {
-			listeInscrit = dao.getAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return listeInscrit;
-	}
-	
-	public ArrayList<Inscrit> getSearchByNomInscrit(String nomInscrit) {
-		ArrayList<Inscrit> listeInscrit = new ArrayList<>();
-		InscritDAO dao = getInscritDao();
-		try {
-			listeInscrit = dao.searchByNomInscrit(nomInscrit);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return listeInscrit;
-	}
-	public Inscrit createInscrit(Inscrit unInscrit) {
-		Inscrit createdInscrit = new Inscrit();
-		try {
-			getInscritDao().createInscrit(unInscrit);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return createdInscrit;
-	}
-	
-	public Inscrit searchInscrit(String unInscrit) {
-		Inscrit createdInscrit = new Inscrit();
-		try {
-			createdInscrit = getInscritDao().searchInscrit(unInscrit);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return createdInscrit;
-	}
-	
-	public Inscrit searchInscrit(int id) {
-		Inscrit createdInscrit = new Inscrit();
-		try {
-			createdInscrit = getInscritDao().searchInscrit(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return createdInscrit;
-	}
-	
-	public Boolean deleteInscrit(Sortie sortie,Participant participant) {
+	public Boolean isInscrit(Inscrit uneInscription) {
 		Boolean state = null;
 		try {
-			 state = getInscritDao().deleteOne(sortie,participant);
+			state = getInscritDao().isInscrit(uneInscription);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return state;
 	}
 	
-	public Inscrit updateInscrit(Inscrit unInscrit) {
+	public Inscrit InscritOneUserToOneSortie(Inscrit uneInscription) {
+		Inscrit inscrit = null;
+		InscritDAO dao = getInscritDao();
 		try {
-			unInscrit.setParticipant(getInscritDao().updateInscrit(unInscrit).getParticipant());
+			inscrit = dao.InscritOneUserToOneSortie(uneInscription);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return unInscrit;
+		return inscrit;
+	}
+	
+	public Boolean deleteInscrit(Inscrit uneInscription) {
+		Boolean state = null;
+		try {
+			state = getInscritDao().deleteOne(uneInscription);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return state;
+	}
+	
+	public int getNbInscrit(Inscrit unInscrit) {
+		int nbInscription= 0;
+		try {
+			nbInscription = getInscritDao().getNbInscrit(unInscrit);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nbInscription;
+		
 	}
 }

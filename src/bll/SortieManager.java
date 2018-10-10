@@ -20,6 +20,18 @@ public class SortieManager {
 		return this.SortieDao;
 	}
 	
+	public Sortie getOneById(Sortie uneSortie) {
+		Sortie laSortie = null;
+		
+		try {
+			laSortie =getSortieDao().getOneById(uneSortie);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return laSortie;
+	}
+	
 	public ArrayList<Sortie> getAll() {
 		ArrayList<Sortie> listeSortie = new ArrayList<>();
 		SortieDAO dao = getSortieDao();
