@@ -21,6 +21,8 @@ import bll.LieuManager;
 import bll.ParticipantManager;
 import bll.SortieManager;
 import bll.VilleManager;
+import bo.Etat;
+import bo.Lieu;
 import bo.Sortie;
 import bo.Ville;
 
@@ -94,10 +96,8 @@ private SortieManager mgr;
 			@FormParam("lieu") String lieu,@FormParam("currentUser") String currentUser,@FormParam("etat") String etat ) throws ParseException {
 		Sortie unSortie = new Sortie();
 		unSortie.setNom(nom);
-//		System.out.println(date);
 		String[] sHour = date.split(" ");
 		String[] sDate = sHour[0].split("/");
-//		System.out.println(" size= "+sDate.length);
 		if(sDate.length >2) {
 			String strDate= sDate[2]+"-"+ sDate[1]+"-"+ sDate[0]+" "+sHour[1];
 			java.util.Date utilDate = new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate);
@@ -105,27 +105,11 @@ private SortieManager mgr;
 		    unSortie.setDateheureDebut(sqlDate);
 		}
 		
-//		System.out.println(strDate+" size= "+sDate.length);
-		
-//		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//        java.util.Date parsed = format.parse("20110210");
-//        java.sql.Date sql = new java.sql.Date(parsed.getTime());
-//		
-		
-//		unSortie.setDateheureDebut((Date)new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate));
-//		unSortie.setDateheureDebut(java.sql.Date.valueOf(strDate ));
-		
-//	    System.out.println("utilDate:" + utilDate);
-//	    System.out.println("sqlDate:" + sqlDate);
 		String[] sDateInsc = dateInscription.split("/");
 		if(sDateInsc.length >2) {
 			String strDateInsc= sDateInsc[2]+"-"+ sDateInsc[1]+"-"+ sDateInsc[0];
 			unSortie.setDateLimiteInscription(java.sql.Date.valueOf(strDateInsc ));
 		}
-		
-//		System.out.println(strDateInsc+" size= "+sDateInsc.length);
-//		unSortie.setDateLimiteInscription((Date)new SimpleDateFormat("yyyy-mm-dd").parse(strDateInsc));
-		
 		unSortie.setDuree(Integer.parseInt(duree));
 		unSortie.setInfosSortie(description);
 		VilleManager vManager = new VilleManager();
@@ -137,8 +121,6 @@ private SortieManager mgr;
 		EtatManager eManager = new EtatManager(); 
 		unSortie.setEtat(eManager.searchEtat(Integer.parseInt(etat)));
 		unSortie.setNbInscriptionsMax(Integer.parseInt(place));
-//		LieuManager lManager = new LieuManager();
-//		unSortie.setLieu(lManager.searchLieu(lieu));
 		unSortie = getMgr().createSortie(unSortie);
 		return unSortie;
 	}
@@ -155,7 +137,7 @@ private SortieManager mgr;
 	}
 	
 	@PUT
-	@Path("/update/{idSortie : \\d+}/{nomModif}")
+	@Path("/update/{idSortie : \\d+}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Sortie updateSortie(@PathParam("idSortie") int id, @PathParam("nomModif") String nomSortie) {
 		Sortie unSortie = new Sortie();
@@ -165,34 +147,54 @@ private SortieManager mgr;
 		return unSortie;
 	}
 	
-//	@PUT
-//	@Path("/annulerSortie/{idSortie : \\d+}/{motif}/{etat}")
-//	public Sortie annulerSortie(@PathParam("idSortie") int id, @PathParam("motif") String motif,@PathParam("etat") String etat) {
-//		SortieManager manager = new SortieManager();
-//		Sortie unSortie = manager.searchSortie(id);
-////		unSortie.setId(id);
-////		unSortie.setNom(motif);
-//		EtatManager eManager = new EtatManager();
-//		unSortie.setEtat(eManager.searchEtat(etat));
-//		unSortie.setInfosSortie(motif);
-//		unSortie.setNom(getMgr().updateSortie(unSortie).getInfosSortie());
-//		return unSortie;
-//	}
-	
-
-	@POST
-	@Path("/annulerSortie")
+	@PUT
+	@Path("/annulerSortie/{idSortie : \\d+}/{motif}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Sortie annulerSortie(@FormParam("idSortie") int id, @FormParam("motif") String motif) {
+	public Boolean annulerSortie(@PathParam("idSortie") int id, @PathParam("motif") String motif) {
+		Boolean state = null;
 		SortieManager manager = new SortieManager();
-		Sortie unSortie = manager.searchSortie(id);
-//		unSortie.setId(id);
-//		unSortie.setNom(motif);
-		EtatManager eManager = new EtatManager();
-		unSortie.setEtat(eManager.searchEtat(5));
-		unSortie.setInfosSortie(motif);
-		unSortie.setNom(getMgr().updateSortie(unSortie).getInfosSortie());
-		return unSortie;
+		Sortie uneSortie = new Sortie();
+		uneSortie.setId(id);
+		uneSortie.setInfosSortie(motif);
+		state = manager.cancelSortie(uneSortie);
+		return state;
 	}
-
+	
+	@POST
+	@Path("/modif")
+	public Boolean modifierSortie(@FormParam("idSortie") int idSortie, @FormParam("nom") String nom, @FormParam("dateDebut") String dateDebut ,@FormParam("dateFin") String dateFin,
+			@FormParam("nbPlace") String nbPlace , @FormParam("duree") int duree,@FormParam("description") String description,@FormParam("ville") int ville,
+			@FormParam("lieu") String lieu,@FormParam("etat") String etat) throws ParseException {
+		Boolean state = null;
+		Sortie laSortie = new Sortie();
+		laSortie.setId(idSortie);
+		laSortie.setNom(nom);
+		String[] sHour = dateDebut.split(" ");
+		String[] sDate = sHour[0].split("/");
+		if(sDate.length >2) {
+			String strDate= sDate[2]+"-"+ sDate[1]+"-"+ sDate[0]+" "+sHour[1];
+			java.util.Date utilDate = new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate);
+		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		    laSortie.setDateheureDebut(sqlDate);
+		}
+		String[] sDateInsc = dateFin.split("/");
+		if(sDateInsc.length >2) {
+			String strDateInsc= sDateInsc[2]+"-"+ sDateInsc[1]+"-"+ sDateInsc[0];
+			laSortie.setDateLimiteInscription(java.sql.Date.valueOf(strDateInsc ));
+		}
+		laSortie.setNbInscriptionsMax(Integer.parseInt(nbPlace));
+		laSortie.setDuree(duree);
+		laSortie.setInfosSortie(description);
+		Ville laVille = new Ville();
+		laVille.setId(ville);
+		laSortie.setVille(laVille);
+		Lieu leLieu = new Lieu();
+		leLieu.setId(Integer.parseInt(lieu));
+		laSortie.setLieu(leLieu);
+		Etat lEtat = new Etat();
+		lEtat.setId(Integer.parseInt(etat));
+		SortieManager mgr = new SortieManager();
+		state = mgr.cancelSortie(laSortie);
+		return state;
+	}
 }

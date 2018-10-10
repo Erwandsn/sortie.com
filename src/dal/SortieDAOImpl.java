@@ -73,8 +73,8 @@ public class SortieDAOImpl implements SortieDAO{
 		ArrayList<Sortie> listeSorties = new ArrayList<>();
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, 1);
-		String query ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES where datecloture between '"+date+"' and '"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"' ";
+		cal.add(Calendar.MONTH, -1);
+		String query ="SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM SORTIES where datecloture> '"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"' ";
 
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
@@ -280,23 +280,40 @@ public class SortieDAOImpl implements SortieDAO{
 		String GETSEARCH ="";
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, 1);
+		cal.add(Calendar.MONTH, -1);
+		Calendar calActif = Calendar.getInstance();
+		calActif.add(Calendar.MONTH, 1);
 //		Date newDate = DateUtils.addMonths(new Date(), 1);
-		if(inscrit.equals("true")) {
+		
+//		  SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,
+//		  lieux_no_lieu,etats_no_etat,SORTIES.ville FROM SORTIES,PARTICIPANTS,SITES  where PARTICIPANTS.no_participant = SORTIES.organisateur 
+//		  and PARTICIPANTS.sites_no_site = SITES.no_site except SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,
+//		  lieux_no_lieu,etats_no_etat,SORTIES.ville FROM INSCRIPTIONS,PARTICIPANTS,SORTIES where INSCRIPTIONS.participants_no_participant = PARTICIPANTS.no_participant 
+//		  and SORTIES.no_sortie = INSCRIPTIONS.sorties_no_sortie and PARTICIPANTS.no_participant =1 ;
+		if(inscrit.equals("true")  && inscrit.equals("false")) {//inscrit
 			GETSEARCH ="SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,SORTIES.ville FROM SORTIES,INSCRIPTIONS,PARTICIPANTS,SITES where INSCRIPTIONS.sorties_no_sortie = SORTIES.no_sortie  and PARTICIPANTS.no_participant = SORTIES.organisateur and PARTICIPANTS.sites_no_site = SITES.no_site "+(!recherche.equals("null")? " AND SORTIES.nom like '"+recherche+"%'": "AND SORTIES.nom like '%'")+""
 			 +(!organisateur.equals("null") ? " and organisateur = '"+organisateur+"'" : "")+""
-					+(sortiePassee.equals("true") ? " and datecloture between '"+date+"' and '"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"'" : "")+" "+(!site.equals("null")?" and SITES.nom_site like '"+site+"%'": " and SITES.nom_site like '%' ")+"and datedebut between '"+debut+"' and '"+fin+"'"+" ";
-		}else {
+					+(sortiePassee.equals("true") ? " and datecloture between '"+new SimpleDateFormat("yyyy-MM-dd").format(calActif.getTime())+"'" : "")+"' and '"+date+" "+(!site.equals("null")?" and SITES.nom_site like '"+site+"%'": " and SITES.nom_site like '%' ")+"and datedebut between '"+debut+"' and '"+fin+"' and datecloture>'"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"'"+" ";
+		}else if(inscrit.equals("false")  && inscrit.equals("true")){//pas inscrits
 			GETSEARCH ="SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,SORTIES.ville FROM SORTIES,PARTICIPANTS,SITES "
 					+ " where PARTICIPANTS.no_participant = SORTIES.organisateur and PARTICIPANTS.sites_no_site = SITES.no_site and "+(!recherche.equals("null")? "  SORTIES.nom like '"+recherche+"%'": " SORTIES.nom like '%'")+" "+
 			""+(!organisateur.equals("false") ? " and organisateur = '"+organisateur+"'" : "")+""
-					+(sortiePassee.equals("true") ? " and datecloture between '"+date+"' and '"+new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime())+"'" : "")+" "+(!site.equals("null")?" and SITES.nom_site like '"+site+"%'": " and SITES.nom_site like '%' and datedebut between '"+debut+"' and '"+fin+"'")+"";
+					+(sortiePassee.equals("true") ? " and datecloture between '"+new SimpleDateFormat("yyyy-MM-dd").format(calActif.getTime())+"' and '"+date+"'" : "")+" "+(!site.equals("null")?" and SITES.nom_site like '"+site+"%'": " "
+							+ "and SITES.nom_site like '%' and datedebut between '"+debut+"' and '"+fin+"' ")+" except SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,\r\n" + 
+									"  lieux_no_lieu,etats_no_etat,SORTIES.ville FROM INSCRIPTIONS,PARTICIPANTS,SORTIES where INSCRIPTIONS.participants_no_participant = PARTICIPANTS.no_participant \r\n" + 
+									"  and SORTIES.no_sortie = INSCRIPTIONS.sorties_no_sortie and PARTICIPANTS.no_participant ='"+organisateur+"'";
+		}else {//tous
+			GETSEARCH ="SELECT no_sortie,SORTIES.nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,SORTIES.ville FROM SORTIES,PARTICIPANTS,SITES "
+					+ " where PARTICIPANTS.no_participant = SORTIES.organisateur and PARTICIPANTS.sites_no_site = SITES.no_site and "+(!recherche.equals("null")? "  SORTIES.nom like '"+recherche+"%'": " SORTIES.nom like '%'")+" "+
+			""+(!organisateur.equals("false") ? " and organisateur = '"+organisateur+"'" : "")+""
+					+(sortiePassee.equals("true") ? " and datecloture between '"+new SimpleDateFormat("yyyy-MM-dd").format(calActif.getTime())+"' and '"+date+"'" : "")+" "+(!site.equals("null")?" and SITES.nom_site like '"+site+"%'": " "
+							+ "and SITES.nom_site like '%' and datedebut between '"+debut+"' and '"+fin+"' ")+"";
 		}
 
 		System.out.println(GETSEARCH);
 
 
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
+//		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
 		ArrayList<Sortie> listeSorties = new ArrayList<>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
