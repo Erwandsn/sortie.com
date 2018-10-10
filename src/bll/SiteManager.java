@@ -61,4 +61,14 @@ public class SiteManager {
 		}
 		return unSite;
 	}
+	
+	public Site getOneById(Site unSite) {
+		Site leSite = null;
+		try {
+			leSite = getSiteDao().getOneById(unSite);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return leSite;
+	}
 }

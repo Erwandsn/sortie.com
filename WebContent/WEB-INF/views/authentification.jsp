@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%
+		
+		Boolean auth = false;
+		String login = "";
+		String mdp = "";
+		if(request.getAttribute("login") != null && request.getAttribute("mdp") != null){
+		 	login = (String)request.getAttribute("login");
+		 	mdp = (String)request.getAttribute("mdp");
+			auth = true;
+		}
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,20 +35,30 @@
 			<div class='col-md-4'>
 				<form action='' method='POST' class='form-inline'>
 					<div class='form-group'>
-						<label class='label-control' for='login'>Identifiant :</label> <input
-							type='text' name='login' class='form-control' autocomplete='off' />
+						<label class='label-control' for='login'>Identifiant :</label>*
+					   	<input type='text' name='login' class='form-control' autocomplete='off' value="${login}" />
 					</div>
 					<div class='form-group'>
-						<label class='label-control' for='mdp'>Mot de passe :</label> <input
-							type='password' name='mdp' class='form-control'
-							autocomplete='off' />
+						<label class='label-control' for='mdp'>Mot de passe :</label>
+					   	<input type='password' name='mdp' class='form-control' autocomplete='off' value="${mdp}" />
 					</div>
+					
 					<div class='form-group'>
 						<button type='submit' class='btn btn-success'>
 							<span class='glyphicon glyphicon-user'></span> Connexion
 						</button>
 						<a href='#'>Mot de passe oublié</a> <a href='#'
 							id='inscriptionBtn'>S'inscrire</a>
+					</div>
+					<div class='form-group'>
+						<label class='label-control'>Se souvenir de moi</label>
+						<%
+							if(login != ""){
+						%>
+							<input type='checkbox' name='seSouvenir' class='form-control' checked/>
+						<%}else{ %>
+							<input type='checkbox' name='seSouvenir' class='form-control'/>
+						<%} %>
 					</div>
 				</form>
 			</div>

@@ -14,4 +14,6 @@ public interface SiteDAO {
 	public Boolean deleteOneById(Site unSite) throws SQLException;
 	
 	public Site updateSite(Site unSite) throws SQLException;
+	
+	public Site getOneById(Site unSite) throws SQLException;
 }

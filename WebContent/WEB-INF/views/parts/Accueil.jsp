@@ -101,6 +101,7 @@
 	</div>
 </div>
 <div class='container' id='detailSortie'>
+	<input type='hidden' id='currentSortie'/>
 	<div class='row'>
 		<div class='col-md-1' id='retourVersListeSortie'>
 			<button class='btn btn-info'><span class='glyphicon glyphicon-chevron-left'></span></button>
@@ -115,6 +116,7 @@
 		<p>Organisateur :<span id='organisateurSortie'></span></p>
 		<p>Etat :<span id='etatSortie'></span></p>
 		<p>Description<p>
+		<button type='button' class='btn' id='voirParticipantsSortie' data-toggle="modal" data-target="#listeParticipantsSortie"><span class='glyphicon glyphicon-eye-open'></span> Voir les participants</button>
 		<p id='descriptionSortie'></p>
 	</div>
 	<div class='row'>
@@ -128,5 +130,116 @@
 			<button class='btn btn-info btn-block' id='modifierMaSortie'><span class='glyphicon glyphicon-pencil'></span> Modifier</button>
 		</div>
 	</div>
-	
+	<!-- Modal -->
+	<div id="listeParticipantsSortie" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Partcipants a la sortie</h4>
+				</div>
+				<div class="modal-body" id="modalParticipants">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='container' id='ModificationSortie'>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+		<label class='label-control'>Nom</label>
+			<input class="form-control" id="modifSortieNom"
+				aria-describedby="creation-sortie-nom" placeholder="Nom" value="">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class='col-lg-6 col-md-6 col-xs-6'>
+			<div class='input-group date' id='creation-sortie-date1'>
+			<label class='label-control'>Date de sortie</label>
+				<input type='text' class="form-control"
+					placeholder="Date et heure de sortie" id='modifSortieDateSortie'/> <span
+					class="input-group-addon"> <span
+					class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class='col-lg-6 col-md-6 col-xs-6'>
+		<label class='label-control'>Date fin d'inscription</label>
+			<div class='input-group date' id='creation-sortie-date-inscription'>
+				<input type='text' class="form-control"
+					placeholder="Date limite d'inscription" id='modifSortieDateInscription' /> <span
+					class="input-group-addon" > <span
+					class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+		<label class='label-control'>Nombre de places</label>
+			<input class="form-control" id="modifSortieNbPlace"
+				aria-describedby="creation-sortie-place" placeholder="Nombre de place">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+		<label class='label-control'>Durée</label>
+			<input class="form-control" id="modifSortieDuree"
+				aria-describedby="creation-sortie-duree" placeholder="Durée">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+			<label class='label-control'>Description</label>
+			<textarea class="form-control" rows="5" id="modifSortieDesc" placeholder="Description et infos"></textarea>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">Ville organisatrice: </div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+			<select class="form-control" id="modifSortieVille" aria-describedby="creation-sortie-ville-help"
+				placeholder="Ville" required>
+			</select>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+		<label class='label-control'>Lieu</label>
+			<select class="form-control" id="modifSortieLieu" aria-describedby="creation-sortie-Lieu-help"
+				placeholder="Lieu" required>
+			</select>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-lg-6 col-md-6 col-xs-6">
+		<label class='label-control'>Etat de votre sortie</label>
+			<select class="form-control" id="modifSortieEtat" aria-describedby="creation-sortie-etat-help"
+				placeholder="Etat" required>
+			</select>
+		</div>
+	</div>
+	<div class="row form-group" id='raisonAnnulationArea'>
+		<label class='label-control'>
+			Raison de l'annulation
+		</label>
+		<textarea id='raisonAnnulation' class='form-control'>
+		</textarea>
+		<button class='btn btn-success' type='button' id='btnSaveAnnulation'>Enregistrer</button>
+	</div>
+	<div class='row'>
+		<div class='col-md-12'>
+			<div class='col-md-6'>
+				<button class='btn btn-success' type='button' id='btnSaveModifSortie'>Enregistrer</button>
+			</div>
+		</div>
+	</div>
 </div>

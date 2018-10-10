@@ -32,6 +32,16 @@ private VilleManager mgr;
 	}
 	
 	@GET
+	@Path("/id/{idVille : \\d+}")
+	public Ville getOneById(@PathParam("idVille") int idVille) {
+		Ville uneVille = new Ville();
+		Ville returnedVille = null;
+		uneVille.setId(idVille);
+		returnedVille = getMgr().getOneById(uneVille);
+		return returnedVille;
+	}
+	
+	@GET
 	@Path("/{nomVille }")
 	public ArrayList<Ville> getRecherche(@PathParam("nomVille") String nomVille){
 		ArrayList<Ville> listVilles = new ArrayList<>();

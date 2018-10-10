@@ -20,5 +20,7 @@ public interface LieuDAO {
 	
 	public Lieu updateLieu(Lieu unLieu) throws SQLException;	
 	
-	public Lieu ajoutLieu(String nomLieu, String rue, String latitude, String longitude, String ville) throws SQLException;	
+	public Lieu ajoutLieu(String nomLieu, String rue, String latitude, String longitude, String ville) throws SQLException;
+	
+	public Lieu getOneById(Lieu unLieu) throws SQLException;
 }

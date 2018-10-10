@@ -29,4 +29,8 @@ public interface SortieDAO {
 	public Sortie getOneById(Sortie uneSortie) throws SQLException;
 	
 	public ArrayList<Participant> getParticipantOfOneSortie(Sortie uneSortie) throws SQLException;
+	
+	public Boolean annulerSortie(Sortie uneSortie) throws SQLException;
+	
+	public Boolean modifierSortie(Sortie uneSortie) throws SQLException;
 }

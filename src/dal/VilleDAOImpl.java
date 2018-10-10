@@ -15,8 +15,29 @@ public class VilleDAOImpl implements VilleDAO{
 	private final String GETALL ="SELECT no_ville,nom_ville,code_postal FROM VILLES";
 	private final String DELETEONEBYID = "DELETE FROM VILLES WHERE no_ville=?;";
 	private final String UPDATESITE = "UPDATE VILLES SET nom_ville=? where no_ville=?";
+	private final String GETONEBYID = "SELECT * FROM villes where no_ville=?;";
 
 
+	public Ville getOneById(Ville uneVille) throws SQLException{
+		Ville laVille = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETONEBYID);
+			pstmt.setInt(1, uneVille.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				laVille = mapVille(rs);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return laVille;
+	}
+	
 	@Override
 	public Ville createVille(Ville unVille) throws SQLException {
 		// TODO Auto-generated method stub

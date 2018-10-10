@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import bll.EtatManager;
+import bll.LieuManager;
 import bll.ParticipantManager;
+import bll.VilleManager;
 import bo.Etat;
 import bo.Lieu;
 import bo.Participant;
@@ -27,9 +29,10 @@ public class SortieDAOImpl implements SortieDAO{
 	private final String DELETEONEBYID = "DELETE FROM SORTIES WHERE no_sortie=?;";
 	private final String UPDATESORTIE = "UPDATE SORTIES SET nom=? where no_sortie=?";
 	private final String GETONEBYID = "SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM sorties WHERE no_sortie=?;";
-	private final String GETPARTICIPANTOFSORTIE = "SELECT no_participant from participants, sorties, INSCRIPTIONS where no_sortie = sorties_no_sortie and participants_no_participant = no_participant and no_sortie=?;";
-
-
+	private final String GETPARTICIPANTOFSORTIE = "SELECT no_participant,p.nom, p.prenom from participants p, sorties, INSCRIPTIONS where no_sortie = sorties_no_sortie and participants_no_participant = no_participant and no_sortie=?;";
+	private final String CANCELSORTIE = "UPDATE sorties set etats_no_etat=5, descriptioninfos=? where no_sortie=?;";
+	private final String UPDATESORTIEINFO = "UPDATE sortie SET nom=?, datedebut=?, duree=?, datecloture=?,nbinscriptionmax=?,descriptioninfos=?,organisateur=?,lieux_no_lieu=?,etats_no_etat, ville=? WHERE no_sortie=?"; 
+	
 	@Override
 	public Sortie createSortie(Sortie unSortie) throws SQLException {
 		// TODO Auto-generated method stub
@@ -109,8 +112,6 @@ public class SortieDAOImpl implements SortieDAO{
 				Date dateFin = new Date(tsfin.getTime());
 				unSortie.setDateLimiteInscription(dateFin);
 			}
-
-
 			unSortie.setNbInscriptionsMax(rs.getInt(6));
 			unSortie.setInfosSortie(rs.getString(7));
 //			On r�cup�re les informations du participant
@@ -123,7 +124,8 @@ public class SortieDAOImpl implements SortieDAO{
 //			On r�cup�re les informations du lieu
 			Lieu lieu = new Lieu();
 			lieu.setId(rs.getInt(9));
-			unSortie.setLieu(lieu);
+			LieuManager lieuMgr = new LieuManager();
+			unSortie.setLieu(lieuMgr.getOneById(lieu));
 //			On r�cup�re les information de l'�tat
 			EtatManager etatManager = new EtatManager();
 			Etat etat = new Etat();
@@ -133,9 +135,11 @@ public class SortieDAOImpl implements SortieDAO{
 			ArrayList<Participant> listeParticipants = getParticipantOfOneSortie(unSortie);
 			unSortie.setListeParticipants(listeParticipants);
 			unSortie.setEtat(etat);
+//			On recupere les infos de la ville
 			Ville ville = new Ville();
 			ville.setId(rs.getInt(11));
-			unSortie.setVille(ville);
+			VilleManager villeManager = new VilleManager();
+			unSortie.setVille(villeManager.getOneById(ville));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -347,6 +351,8 @@ public class SortieDAOImpl implements SortieDAO{
 			{
 				Participant unParticipant = new Participant();
 				unParticipant.setId(rs.getInt(1));
+				unParticipant.setNom(rs.getString(2));
+				unParticipant.setPrenom(rs.getString(3));
 				listeParticipants.add(unParticipant);
 			}
 
@@ -358,5 +364,55 @@ public class SortieDAOImpl implements SortieDAO{
 		}
 		System.out.println(listeParticipants);
 		return listeParticipants;
+	}
+	
+	public Boolean annulerSortie(Sortie uneSortie) throws SQLException{
+		Boolean state = false;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(CANCELSORTIE);
+			pstmt.setString(1, uneSortie.getInfosSortie());
+			pstmt.setInt(2, uneSortie.getId());
+			int i = pstmt.executeUpdate();
+			if(i == 1) {
+				state = true;
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return state;
+	}
+
+	@Override
+	public Boolean modifierSortie(Sortie uneSortie) throws SQLException {
+		Boolean state = false;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATESORTIEINFO);
+			pstmt.setString(1, uneSortie.getNom());
+			pstmt.setDate(2, uneSortie.getDateheureDebut());
+			pstmt.setInt(3, uneSortie.getDuree());
+			pstmt.setDate(4, uneSortie.getDateLimiteInscription());
+			pstmt.setInt(5, uneSortie.getNbInscriptionsMax());
+			pstmt.setString(6, uneSortie.getInfosSortie());
+			pstmt.setInt(7, uneSortie.getLieu().getId());
+			pstmt.setInt(8, uneSortie.getEtat().getId());
+			pstmt.setInt(9, uneSortie.getVille().getId());
+			int i = pstmt.executeUpdate();
+			if(i == 1) {
+				state = true;
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return state;
 	}
 }

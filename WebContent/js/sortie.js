@@ -10,6 +10,7 @@ $(document).ready(function(){
 	$('#modification-sortie').hide();
 	$('#annulation-sortie').hide();
 	$('#detailSortie').hide();
+	$('#ModificationSortie').hide();
 	refreshAccueilSortieTable();
 	
 //	On ajoute la liste des sorties en page d'accueil
@@ -24,7 +25,6 @@ $(document).ready(function(){
 			},
 			success: function(data){
 				html = "";
-				console.log(JSON.stringify(data));
 				for( var i = 0; i < data.length; i++) {
 					var datedebut = new Date(data[i]["dateheureDebut"]);
 					var dateFin = new Date(data[i]["dateLimiteInscription"]);
@@ -56,6 +56,112 @@ $(document).ready(function(){
 		});
 	}
 	
+	$('#modifierMaSortie').click(function(){
+		$('#detailSortie').hide();
+		$('#ModificationSortie').show();
+		$('#raisonAnnulationArea').hide();
+		var currentSortie = $('#currentSortie').val();
+		$.ajax({
+		  url: "http://localhost:8080/sortie.com/rest/sortie/get/"+currentSortie,
+		  cache: false,
+		  type: "GET",
+		  beforeSend: function(request) {
+		  	request.setRequestHeader("Accept","application/json");
+		  },
+		  success: function(data){
+			  $('#modifSortieNom').val(data['nom']);
+			  $('#modifSortieDateSortie').val(data['dateheureDebut']);
+			  $('#modifSortieDateInscription').val(data['dateLimiteInscription']);
+			  $('#modifSortieNbPlace').val(data['nbInscriptionsMax']);
+			  $('#modifSortieDuree').val(data['duree']);
+			  $('#modifSortieDesc').val(data['infosSortie']);
+			  $('#modifSortieVille').html("<option selected>"+data['ville']['nomVille']+"</option>");
+			  $('#modifSortieVille').attr("disabled", "true");
+			  $('#modifSortieLieu').html("<option selected>"+data['lieu']['nom']+"</option>");
+			  $('#modifSortieLieu').attr("disabled", "true");
+			  $.ajax({
+				  url: "http://localhost:8080/sortie.com/rest/etat",
+				  cache: false,
+				  type: "GET",
+				  beforeSend: function(request) {
+				  	request.setRequestHeader("Accept","application/json");
+				  },
+				  success: function(item){
+					  html="";
+					  for( var i = 0; i < item.length; i++) {
+						  if(data['etat']['id'] == item[i]['id']){
+							  html += "<option value='"+item[i]['id']+"' selected>"+ item[i]['libelle'] +"</option>"
+						  }
+						  html += "<option value='"+item[i]['id']+"'>"+ item[i]['libelle'] +"</option>";
+		    	 	}
+					$('#modifSortieEtat').html(html);
+				  }
+			});
+		  }
+		});
+	});
+	
+	$('#ModificationSortie').click(function(){
+		if($('#modifSortieEtat').val() == 5){
+			$('#btnSaveModifSortie').hide();
+			$('#modifSortieNom').attr("disabled", "true");
+			$('#modifSortieDateSortie').attr("disabled", "true");
+			$('#modifSortieDateInscription').attr("disabled", "true");
+			$('#modifSortieNbPlace').attr("disabled", "true");
+			$('#modifSortieDuree').attr("disabled", "true");
+			$('#modifSortieDesc').attr("disabled", "true");
+			$('#raisonAnnulationArea').show();
+		}
+	});
+	
+	$('#btnSaveAnnulation').click(function(){
+		var raisonAnnulation = $('#raisonAnnulation').val();
+		var sortieId = $('#currentSortie').val();
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/sortie/annulerSortie/"+sortieId+"/"+raisonAnnulation,
+			  cache: false,
+			  type: "PUT",
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				 $('#ModificationSortie').hide();
+				 $('#accueil').show();
+			  }
+		  });
+	});
+	
+	$('#btnSaveModifSortie').click(function(){
+		var idSortie = $('#currentSortie').val();
+		var nom = $('#modifSortieNom').val();
+		var dateDebut = $('#modifSortieDateSortie').val();
+		var dateFin = $('#modifSortieDateInscription').val();
+		var nbPlace = $('#modifSortieNbPlace').val();
+		var duree = $('#modifSortieDuree').val();
+		var description = $('#modifSortieDesc').val();
+		var ville = $('#modifSortieVille').val();
+		var lieu = $('#modifSortieLieu').val();
+		var etat = $('#modifSortieEtat').val();
+		$.ajax({
+			  url: "http://localhost:8080/sortie.com/rest/sortie/modif",
+			  cache: false,
+			  type: "POST",
+			  data: jQuery.param({idSortie: idSortie,nom: nom, dateDebut:dateDebut, 
+				  dateFin: dateFin, nbPlace: nbPlace, duree: duree,
+				  description: description,ville:ville, lieu:lieu, etat: etat}),
+			  beforeSend: function(request) {
+			  	request.setRequestHeader("Accept","application/json");
+			  },
+			  success: function(data){
+				  if(data == true){
+					  alert('ca marche');
+				  }else{
+					  alert('ca marche pô');
+				  }
+			  }
+		});
+	});
+	
 	$('#btnAfficherSortie').click(function(){
 		var radioValue = $("input[name='radio']:checked").val();
 		var currentUser = $('#currentUser').val();
@@ -76,7 +182,7 @@ $(document).ready(function(){
 					  if(data['listeParticipants'].length == data['nbInscriptionsMax']){
 						  $('#sinscrireAlaSortie').hide();
 					  }
-					  console.log(JSON.stringify(data));
+					  $('#currentSortie').val(data['id']);
 					  $('#currentDetailSortieId').val(data['id']);
 					  $('#titleSortie').html(data['nom']);
 					  $('#dateDeSortie').html(data['dateheureDebut']);
@@ -85,6 +191,15 @@ $(document).ready(function(){
 					  $('#organisateurSortie').html(data['organisateur']['prenom']+ " "+data['organisateur']['nom']);
 					  $('#etatSortie').html(data['etat']['libelle']);
 					  $('#descriptionSortie').html(data['infosSortie']);
+					  var html = "";
+					  for(i = 0; i<data['listeParticipants'].length; i++){
+						  html += "<div class='row'>";
+						  html += "<div class='col-md-offset-1 col-md-5' style='border-bottom: 1px solid grey;'>";
+						  html += "<p>"+data['listeParticipants'][i]['prenom']+" "+ data['listeParticipants'][i]['nom'] +"</p>";
+						  html += "</div>";
+						  html += "</div>";
+					  }
+					  $('#modalParticipants').html(html);
 					  $.ajax({
 						  url: "http://localhost:8080/sortie.com/rest/inscrit/isinscrit/"+radioValue+"/"+currentUser,
 						  cache: false,
@@ -151,7 +266,7 @@ $(document).ready(function(){
 					  $('#sinscrireAlaSortie').show();
 					  refreshAccueilSortieTable();
 				  }else{
-					  alert("Echec de la desinscription")
+					  alert("Echec de la desinscription");
 				  }
 			  }
 		});
@@ -191,7 +306,6 @@ $(document).ready(function(){
 			  	request.setRequestHeader("Accept","application/json");
 			  },
 			  success: function(data){
-				  console.log("sorties js +"+JSON.stringify(data));
 				  html="<option value='0'>--Choisir un site--</option>";
 				  for( var i = 0; i < data.length; i++) {
 					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['nom'] +"</option>"
@@ -204,6 +318,7 @@ $(document).ready(function(){
 	});
 	
 	$('#btnVille').click(function(){
+		$('#ModificationSortie').hide();
 		$('#accueil').hide();
 		$('#gestion-ville').show();
 		$('#gestionSite').hide();
@@ -223,6 +338,7 @@ $(document).ready(function(){
 	});
 	
 	$('#btnSite').click(function(){
+		$('#ModificationSortie').hide();
 		$('#accueil').hide();
 		$('#gestion-ville').hide();
 		$('#confirmationSuppression').hide();
@@ -348,7 +464,6 @@ $(document).ready(function(){
 			  	request.setRequestHeader("Accept","application/json");
 			  },
 			  success: function(data){
-				  console.log("sorties js +"+JSON.stringify(data));
 				  html="<option value='0'>--Choisir un etat--</option>";
 				  for( var i = 0; i < data.length; i++) {
 					  html += "<option value='"+data[i]['id']+"'>"+ data[i]['libelle'] +"</option>"
@@ -507,7 +622,6 @@ $(document).ready(function(){
 			},
 			success: function(data){
 				html = "";
-				 console.log(JSON.stringify(data));
 				 for( var i = 0; i < data.length; i++) {
 					 var datedebut = new Date(data[i]["dateheureDebut"]);
 					 var dateFin = new Date(data[i]["dateLimiteInscription"]);
@@ -539,15 +653,6 @@ $(document).ready(function(){
 		var lieu =$('#creation-sortie-lieu').val();
 		var currentUser = $('#currentUser').val();
 		var etat = $('#creation-sortie-etat').val();
-//		console.log("nom "+nom);
-//		console.log("date "+date);
-//		console.log("dateInscription "+dateInscription);
-//		console.log("place "+place);
-//		console.log("duree "+duree);
-//		console.log("description "+description);
-//		console.log("lieu "+lieu);
-//		console.log("currentUser "+currentUser);
-//		console.log("etat "+etat);
 
 		if($('#creation-sortie-ville').val() == 0 || $('#creation-sortie-lieu').val() == 0 || 
 				$('#creation-sortie-etat').val() == 0){
@@ -672,7 +777,6 @@ $(document).ready(function(){
 		  },
 		  success: function(data){
 			var html = "";
-			console.log("sorties js +"+JSON.stringify(data));
 	   		for( var i = 0; i < data.length; i++) {
    				html += '<tr>';
    				html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";

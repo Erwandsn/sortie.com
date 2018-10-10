@@ -89,4 +89,14 @@ public class LieuManager {
 		}
 		return unLieu;
 	}
+	
+	public Lieu getOneById(Lieu unLieu) {
+		Lieu leLieu = null;
+		try {
+			leLieu = getLieuDao().getOneById(unLieu);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return leLieu;
+	}
 }

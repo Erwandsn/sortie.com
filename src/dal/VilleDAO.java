@@ -21,4 +21,6 @@ public interface VilleDAO {
 	public Ville updateVille(Ville unVille) throws SQLException;	
 	
 	public Ville ajoutVille(String nomVille, String codePostal) throws SQLException;	
+	
+	public Ville getOneById(Ville uneVille) throws SQLException;
 }

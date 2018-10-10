@@ -20,6 +20,16 @@ public class VilleManager {
 		return this.VilleDao;
 	}
 	
+	public Ville getOneById(Ville uneVille) {
+		Ville laVille = null;
+		try {
+			laVille = getVilleDao().getOneById(uneVille);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return laVille;
+	}
+	
 	public ArrayList<Ville> getAll() {
 		ArrayList<Ville> listeVille = new ArrayList<>();
 		VilleDAO dao = getVilleDao();

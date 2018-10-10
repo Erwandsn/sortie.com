@@ -13,23 +13,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=K2D"
-	rel="stylesheet">
-<script type="text/javascript" src='/sortie.com/vendor/jquery/jquery.js'></script>
-<script type="text/javascript" src="/sortie.com/js/lib/jquery.min.js"></script>
-<script type='text/javascript' src="/sortie.com/js/lib/date.js"></script>
-<script type="text/javascript" src="/sortie.com/js/lib/moment.js"></script>
-<script type="text/javascript" src="/sortie.com/js/lib/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="/sortie.com/js/lib/bootstrap-datetimepicker.min.js"></script>
-<link rel="stylesheet" href="/sortie.com/css/lib/bootstrap.min.css" />
-<link rel="stylesheet"
-	href="/sortie.com/css/lib/bootstrap-datetimepicker.min.css" />
-<script type="text/javascript" src="/sortie.com/js/lib/bootstrap-datetimepicker.fr.js"></script>
-
-<script type="text/javascript" src='/sortie.com/vendor/bootstrap/js/bootstrap.js'></script>
+	<link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
+	<script type="text/javascript" src="/sortie.com/js/lib/jquery.min.js"></script>
+	<script type='text/javascript' src="/sortie.com/js/lib/date.js"></script>
+	<script type="text/javascript" src="/sortie.com/js/lib/moment.js"></script>
+	<!-- <script type="text/javascript" src="/sortie.com/js/lib/bootstrap.min.js"></script> -->
+	<script type="text/javascript" src="/sortie.com/js/lib/bootstrap-datetimepicker.fr.js"></script>
+	<script type="text/javascript" src='/sortie.com/vendor/bootstrap/js/bootstrap.js'></script>
 	<script src='/sortie.com/js/lib/bootstrap-datepicker.min.js'></script>
-	<link rel='stylesheet' type='text/css' href='/sortie.com/vendor/bootstrap/css/bootstrap.css'/>
+	<script type="text/javascript" src="/sortie.com/js/lib/bootstrap-datetimepicker.min.js"></script>
+	<link rel="stylesheet" href="/sortie.com/vendor/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/sortie.com/css/lib/bootstrap-datetimepicker.min.css" />
 	<link rel='stylesheet' type='text/css' href='/sortie.com/css/style.css' />
 	<link rel='stylesheet' type='text/css' href='/sortie.com/css/lib/bootstrap-datepicker.min.css' />
 	<meta charset="ISO-8859-1">

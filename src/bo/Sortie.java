@@ -130,4 +130,12 @@ public class Sortie {
 	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
+
+	@Override
+	public String toString() {
+		return "Sortie [id=" + id + ", nom=" + nom + ", dateheureDebut=" + dateheureDebut + ", duree=" + duree
+				+ ", dateLimiteInscription=" + dateLimiteInscription + ", nbInscriptionsMax=" + nbInscriptionsMax
+				+ ", infosSortie=" + infosSortie + ", etat=" + etat + ", organisateur=" + organisateur + ", lieu="
+				+ lieu + ", ville=" + ville + ", listeParticipants=" + listeParticipants + "]";
+	}
 }

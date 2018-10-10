@@ -99,6 +99,7 @@ public class ParticipantManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("USER"+ user);
 		return user;
 	}
 }

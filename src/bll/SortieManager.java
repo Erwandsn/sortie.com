@@ -22,13 +22,13 @@ public class SortieManager {
 	
 	public Sortie getOneById(Sortie uneSortie) {
 		Sortie laSortie = null;
-		
 		try {
 			laSortie =getSortieDao().getOneById(uneSortie);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("sortie : "+laSortie);
 		return laSortie;
 	}
 	
@@ -100,7 +100,6 @@ public class SortieManager {
 		try {
 			 state = getSortieDao().deleteOneById(unSortie);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return state;
@@ -113,5 +112,24 @@ public class SortieManager {
 			e.printStackTrace();
 		}
 		return unSortie;
+	}
+	
+	public Boolean cancelSortie(Sortie uneSortie) {
+		Boolean state = null;
+		try {
+			state = getSortieDao().annulerSortie(uneSortie);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return state;
+	}
+	public Boolean modifierSortie(Sortie uneSortie) {
+		Boolean state = null;
+		try {
+			state = getSortieDao().modifierSortie(uneSortie);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return state;
 	}
 }

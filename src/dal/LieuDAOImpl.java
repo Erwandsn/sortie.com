@@ -17,6 +17,7 @@ public class LieuDAOImpl implements LieuDAO{
 	private final String GETALL ="SELECT no_lieu,nom_lieu,rue,latitude,longitude,villes_no_ville FROM LIEUX";
 	private final String DELETEONEBYID = "DELETE FROM LIEUX WHERE no_lieu=?;";
 	private final String UPDATELIEUX = "UPDATE LIEUX SET nom_lieu=? where no_lieu=?";
+	private final String GETONEBYID = "SELECT * FROM lieux WHERE no_lieu=?";
 
 
 	@Override
@@ -200,7 +201,9 @@ public class LieuDAOImpl implements LieuDAO{
 
 	@Override
 	public Lieu searchLieu(int id) throws SQLException {
+//		@Copyright TOULLEC
 		String GETSEARCH ="SELECT no_lieu,nom_lieu,rue,latitude,longitude,villes_no_ville FROM LIEUX where no_lieu = '"+id+"';";
+//		@Copyright FIN
 		Lieu ville = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
@@ -218,5 +221,27 @@ public class LieuDAOImpl implements LieuDAO{
 			throw new SQLException();
 		}
 		return ville;
+	}
+
+	@Override
+	public Lieu getOneById(Lieu unLieu) throws SQLException {
+		Lieu leLieu = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(GETONEBYID);
+			pstmt.setInt(1, unLieu.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				leLieu= mapLieu(rs);
+			}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return leLieu;
 	}
 }

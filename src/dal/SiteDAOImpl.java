@@ -1,5 +1,6 @@
 package dal;
 
+import java.lang.management.ManagementPermission;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ public class SiteDAOImpl implements SiteDAO{
 	private final String GETALL = "SELECT * FROM sites;";
 	private final String DELETEONEBYID = "DELETE FROM sites WHERE no_site=?;";
 	private final String UPDATESITE = "UPDATE sites SET nom_site=? where no_site=?";
+	private final String GETONEBYID ="SELECT * FROM sites WHERE no_site=?";
 
 	@Override
 	public Site createSite(Site unSite) throws SQLException {
@@ -103,6 +105,26 @@ public class SiteDAOImpl implements SiteDAO{
 			throw new SQLException();
 		}
 		return unSite;
+	}
+
+	@Override
+	public Site getOneById(Site unSite) throws SQLException {
+		Site leSite = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATESITE);
+			pstmt.setInt(1, unSite.getId());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				leSite = mapSite(rs);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return leSite;
 	}
 	
 }
