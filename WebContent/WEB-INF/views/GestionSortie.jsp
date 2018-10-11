@@ -32,8 +32,8 @@
 <body>
 
 	<input type=hidden id="currentUser" value="${currentUser.id }">
+	<jsp:include page="/WEB-INF/views/parts/navbar.jsp" />
 	<div class='container-fluid'>
-		<jsp:include page="/WEB-INF/views/parts/navbar.jsp" />
 		<jsp:include page="/WEB-INF/views/parts/confirmSuppr.jsp" />
 		<jsp:include page="/WEB-INF/views/parts/Accueil.jsp" />
 		<c:if test="${currentUser.admin == true}">

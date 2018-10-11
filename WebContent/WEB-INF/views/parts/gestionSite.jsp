@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <div id='gestionSite'>
-	<h2>Gestion de site</h2>
 	<div class='row'>
 		<div class='col-md-6 col-md-offset-3'>
 			<form action='' method='POST' class='form-inline'>

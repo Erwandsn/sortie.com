@@ -22,7 +22,7 @@
 			  	</c:otherwise>
 			</c:choose>
 			
-			<button type='button' class='btn btn-primary' id='modifierPhoto'><span class='glyphicon glyphicon-pencil'></span> &nbsp;Modifier ma photo</button>
+			<button type='button' class='btn btn-primary' id='modifierPhoto' style='margin-top:10px;'><span class='glyphicon glyphicon-pencil' ></span> &nbsp;Modifier ma photo</button>
 		</div>
 		<div class='col-md-offset-2 col-md-2'>
 			<p>Nom : </p>
@@ -39,7 +39,7 @@
 			<p>${currentUser.ville.nomVille}</p>
 		</div>
 		<div class='col-md-12'>
-			<button class='btn btn-info' id='btnModifProfil'><span class='glyphicon glyphicon-pencil'></span> &nbsp;Editer mon profil</button>
+			<button class='btn btn-info' id='btnModifProfil' style='margin-top:10px;'><span class='glyphicon glyphicon-pencil'></span> &nbsp;Editer mon profil</button>
 		</div>
 	</div>
 	<div class='row' id='modifProfilUser'>

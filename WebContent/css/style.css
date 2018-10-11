@@ -14,7 +14,7 @@ body{
 
 .card-2 {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  margin-left:25%;
+  margin-left:33%;
   margin-top:25%;
   border-radius:4px;
 }
@@ -40,7 +40,7 @@ label{
 
 .navbar-default {
 	background-color:white;
-	border-color:white;
+	/* border-color:white; */
 }
 .navbar-default .navbar-nav > li > a , .navbar-default:hover, .navbar-default:focus, .navbar-default:active{
     color: #6D4C41;
@@ -53,13 +53,12 @@ label{
 }
 
 .btn, .btn:hover, .btn:active, .btn:focus{
-	padding: 0;
+	/* padding: 0; */
     border: none;
     background: none;
     color: #6D4C41;
-    font-weight: bold;
-    border-bottom:2px solid #6D4C41;
-    border-radius:0px;
+    border:2px solid #6D4C41;
+    border-radius:2px;
 	
 }
 
@@ -120,4 +119,13 @@ select{
 
 #checkboxes label:hover{
 	background-color:#E0E0E0;
+}
+
+.btn-active{
+	border: none;
+    background: none;
+    color: #6D4C41;
+    font-weight: bold;
+    border-bottom:2px solid #6D4C41;
+    border-radius:0px;
 }

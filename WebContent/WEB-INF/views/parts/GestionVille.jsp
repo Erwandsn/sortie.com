@@ -1,25 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <div class="container-fluid" id="gestion-ville">
-	<div id="first-content">
-		<div class="row form-group">
-			<div class="col-lg-1 col-md-1 col-xs-1">Filtrer les villes</div>
-		</div>
-		<div class="row form-group">
-			<div class="col-lg-2 col-md-2 col-xs-2">Le nom contient:</div>
-			<div class="col-lg-2 col-md-2 col-xs-2">
-				<input class="form-control" id="hier" aria-describedby="hier"
-					placeholder="Hier">
-			</div>
-			<form action='' method='POST' class='form-inline'>
-				<div class='form-group'>
-					<button type='button' id='rechercher' class='btn btn-primary'>Rechercher</button>
-				</div>
-			</form>
-		</div>
-	</div>
 	<div class='row'>
 		<div class='col-md-6 col-md-offset-3'>
+			<div class="row form-group">
+				<div class="col-lg-6 col-md-6 col-xs-6">
+					<input class="form-control" id="hier" aria-describedby="hier"
+						placeholder="Nom">
+				</div>
+				<form action='' method='POST' class='form-inline'>
+					<div class='form-group'>
+						<button type='button' id='rechercher' class='btn btn-primary'>Rechercher</button>
+					</div>
+				</form>
+			</div>
 			<table class='table table-striped'>
 				<thead>
 					<tr>
@@ -49,11 +43,13 @@
 			<div id="btn-validation" class="col-md-6">
 				<div class='col-md-6'>
 					<form action='' method='POST'>
-						<button type='button' id='btnValiderVille' class='btn btn-success col-md-12'>Valider</button>
+						<button type='button' id='btnValiderVille'
+							class='btn btn-success col-md-12'>Valider</button>
 					</form>
 				</div>
 				<div class='col-md-6 '>
-					<button type='button' id='btnAnnulerVille' class='btn btn-danger col-md-12'>Annuler</button>
+					<button type='button' id='btnAnnulerVille'
+						class='btn btn-danger col-md-12'>Annuler</button>
 				</div>
 			</div>
 		</div>

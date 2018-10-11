@@ -1,10 +1,14 @@
 <div class="container-fluid" id="accueil">
 	<div class="row form-group">
 		<div class="col-lg-2 col-md-2 col-xs-2">
+			<input type="text" class="form-control" id="recherche"
+				aria-describedby="recherche-help" placeholder="Recherche"></select>
+		</div>
+		<div class="col-lg-2 col-md-2 col-xs-2">
 			<select class="form-control" id="select-site"
 				aria-describedby="select-site-help"></select>
 		</div>
-		<div class="multiselect col-lg-4 col-md-4 col-xs-4">
+		<div class="multiselect col-lg-2 col-md-2 col-xs-2">
 			<div class="selectBox form-control" onclick="showCheckboxes()">
 				<select>
 					<option>Filtres</option>
