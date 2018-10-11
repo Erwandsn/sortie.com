@@ -100,32 +100,38 @@
 				<span class='glyphicon glyphicon-chevron-left'></span>
 			</button>
 		</div>
-		<div class='col-md-11'>
-			<img src='/sortie.com/images/defaultSortie.jpg' class='' alt='defaultImage'/>
+		<div class='col-md-11' class='headerSortie'>
+			<img src='/sortie.com/images/defaultSortie.jpg' class='imgheader' alt='defaultImage'/>
+			<div class='encadreSortie'>
+				<div class='col-md-12'>
+					<h2 id='titleSortie'></h2>
+				</div>
+			</div>
 		</div>
-		<div class='col-md-4'>
-			
-		</div>
-		<h2 id='titleSortie'></h2>
-		<div class='col-md-11 col-md-offset-1'>
-			<p>
-				Date de la sortie: <span id='dateDeSortie'></span>
-			</p>
-			<p>
-				Date de fin d'inscription: <span id='dateFinDinscription'></span>
-			</p>
-			<p>
-				Inscripts/nombre de place <span id='nbPlacesInscrit'></span>
-			</p>
-			<p>
-				Organisateur :<span id='organisateurSortie'></span>
-			</p>
-			<p>
-				Etat :<span id='etatSortie'></span>
-			</p>
-			<button type="button" class="btn" data-toggle="modal"
+		<div class='col-md-11 col-md-offset-1 contentSortie'>
+			<div class='col-md-4 col-xs-12'>
+				<p>
+					<i class='glyphicon glyphicon-calendar'></i> &nbsp;<span id='dateDeSortie'></span>
+				</p>
+				<p>
+					Fin d'inscription: <span id='dateFinDinscription'></span>
+				</p>
+			</div>
+			<div class='col-md-4 col-xs-12'>
+				<p>
+					Inscripts/nombre de place <span id='nbPlacesInscrit'></span>
+				</p>
+				<p>
+					Organisateur :<span id='organisateurSortie'></span>
+				</p>
+			</div>
+			<div class='col-md-4 col-xs-12'>
+				<p>
+					Etat : <span id='etatSortie'></span>
+				</p>
+				<button type="button" class="btn btnVoirParticipant" data-toggle="modal"
 				data-target="#listeParticipantsSortie">Voir les participants</button>
-			<p>Description</p>
+			</div>
 			<p id='descriptionSortie'></p>
 		</div>
 	</div>

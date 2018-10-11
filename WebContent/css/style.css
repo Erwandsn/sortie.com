@@ -181,3 +181,28 @@ input[type=radio]{
 .btnModifVille{
 	margin-top: 15px;
 }
+.headerSortie{
+	position: relative;
+}
+.encadreSortie{
+	position: absolute;
+	bottom: 30px;
+	left: 15px;
+	background-color: #0180C0;
+	opacity: 0.8;
+	color: #fff;
+}
+.encadreSortie h2{
+	color: #fff;
+	opacity: 1;
+}
+.contentSortie{
+	margin-top: 35px;
+}
+.imgheader{
+	width: 100%;
+}
+.btnVoirParticipant{
+	border: none;
+	background: none;
+}
