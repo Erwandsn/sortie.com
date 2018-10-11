@@ -48,8 +48,8 @@ public class authentification extends HttpServlet {
 						identifiants = unCookie.getValue().split(" ");
 					}
 				}
-//				request.setAttribute("login", identifiants[0]);
-//				request.setAttribute("mdp", identifiants[1]);
+				request.setAttribute("login", identifiants[0]);
+				request.setAttribute("mdp", identifiants[1]);
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/authentification.jsp");
 			rd.forward(request, response);

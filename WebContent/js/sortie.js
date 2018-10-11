@@ -195,8 +195,8 @@ $(document).ready(function(){
 					  var html = "";
 					  for(i = 0; i<data['listeParticipants'].length; i++){
 						  html += "<div class='row'>";
-						  html += "<div class='col-md-offset-1 col-md-5' style='border-bottom: 1px solid grey;'>";
-						  html += "<p>"+data['listeParticipants'][i]['prenom']+" "+ data['listeParticipants'][i]['nom'] +"</p>";
+						  html += "<div class='col-md-offset-2 col-md-8'>";
+						  html += "<p>-"+data['listeParticipants'][i]['prenom']+" "+ data['listeParticipants'][i]['nom'] +"</p>";
 						  html += "</div>";
 						  html += "</div>";
 					  }

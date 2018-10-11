@@ -111,8 +111,8 @@
 		<p>
 			Etat :<span id='etatSortie'></span>
 		</p>
-		<p>Description
-		<p>
+		<button type="button" class="btn" data-toggle="modal" data-target="#listeParticipantsSortie">Voir les participants</button>
+		<p>Description</p>
 		<p id='descriptionSortie'></p>
 	</div>
 	<div class='row'>

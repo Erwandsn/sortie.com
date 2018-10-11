@@ -31,7 +31,6 @@
 		<div class='container-fluid'>
 			<div class='row'>
 			 <img src="./images/sortie3.jpg" >
-				<!-- <div class="logo col-lg-6 col-md-6- col-xs-6"></div> -->
 			</div>
 			<div id='authentification' class="col-lg-12 col-md-12 col-xs-12">
 				<div class='col-lg-12 col-md-12 col-xs-12'>
@@ -53,6 +52,16 @@
 								</button>
 								<a href='#'>Mot de passe oublié</a> <a href='#'
 									id='inscriptionBtn'>S'inscrire</a>
+							</div>
+						</div>
+						<div class='row col-lg-12 col-md-6 col-md-offset-6 col-xs-12'>
+							<div class='form-group form-inline'>
+								<label>Se souvenir de moi</label>
+								<% if(mdp != "" && login !=""){ %>
+									<input type='checkbox' name='seSouvenir' checked/>
+								<%}else{ %>
+									<input type='checkbox' name='seSouvenir'/>
+								<%} %>
 							</div>
 						</div>
 					</form>
