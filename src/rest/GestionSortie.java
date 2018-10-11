@@ -163,7 +163,7 @@ private SortieManager mgr;
 	@POST
 	@Path("/modif")
 	public Boolean modifierSortie(@FormParam("idSortie") int idSortie, @FormParam("nom") String nom, @FormParam("dateDebut") String dateDebut ,@FormParam("dateFin") String dateFin,
-			@FormParam("nbPlace") String nbPlace , @FormParam("duree") int duree,@FormParam("description") String description,@FormParam("ville") int ville,
+			@FormParam("nbPlace") String nbPlace , @FormParam("duree") int duree,@FormParam("description") String description,@FormParam("ville") String ville,
 			@FormParam("lieu") String lieu,@FormParam("etat") String etat) throws ParseException {
 		Boolean state = null;
 		Sortie laSortie = new Sortie();
@@ -185,16 +185,25 @@ private SortieManager mgr;
 		laSortie.setNbInscriptionsMax(Integer.parseInt(nbPlace));
 		laSortie.setDuree(duree);
 		laSortie.setInfosSortie(description);
+		VilleManager vManager = new VilleManager();
 		Ville laVille = new Ville();
-		laVille.setId(ville);
+		System.out.println();
+		laVille.setId(vManager.searchVille(ville).getId());
 		laSortie.setVille(laVille);
+		LieuManager lManager = new LieuManager();
 		Lieu leLieu = new Lieu();
-		leLieu.setId(Integer.parseInt(lieu));
+		leLieu.setId(lManager.searchLieu(lieu).getId());
 		laSortie.setLieu(leLieu);
 		Etat lEtat = new Etat();
 		lEtat.setId(Integer.parseInt(etat));
-		SortieManager mgr = new SortieManager();
-		state = mgr.cancelSortie(laSortie);
+		laSortie.setEtat(lEtat);
+//		SortieManager mgr = new SortieManager();
+//		state = mgr.cancelSortie(laSortie);
+//		ParticipantManager pManager = new ParticipantManager();
+//		laSortie.setOrganisateur(pManager.searchParticipant(Integer.parseInt(organisateur)));
+		laSortie = getMgr().updateSortie(laSortie);
+		
+		
 		return state;
 	}
 }

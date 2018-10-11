@@ -41,7 +41,7 @@
 			</div>
 			<div class='col-lg-2 col-md-2 col-xs-2'>
 				<div class='input-group date' id='debut'>
-					<input type='text' class="form-control" placeholder="Début"
+					<input type='text' class="form-control" placeholder="Dï¿½but"
 						id="sortie-debut" /> <span class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"></span>
 					</span>
@@ -85,7 +85,7 @@
 				</div>
 				<div class="col-lg-4 col-md-4 col-xs-4">
 					<button type="button" class="btn btn-primary"
-						id="btnCreationSortie"><span class='glyphicon glyphicon-plus'></span> &nbsp;Créer une sortie</button>
+						id="btnCreationSortie"><span class='glyphicon glyphicon-plus'></span> &nbsp;Crï¿½er une sortie</button>
 				</div>
 			</div>
 		</div>
@@ -129,7 +129,7 @@
 		</div>
 		<div class='col-md-3'>
 			<button class='btn btn-danger btn-block' id='seDesinscrireAlaSortie'>Se
-				désinscrire</button>
+				dï¿½sinscrire</button>
 		</div>
 		<div class='col-md-3'>
 			<button class='btn btn-info btn-block' id='modifierMaSortie'>

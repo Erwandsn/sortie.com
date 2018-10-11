@@ -152,6 +152,8 @@ $(document).ready(function(){
 		var ville = $('#modifSortieVille').val();
 		var lieu = $('#modifSortieLieu').val();
 		var etat = $('#modifSortieEtat').val();
+		var organisateur = $('#currentUser').val();
+		console.log("organisateur "+organisateur);
 		$.ajax({
 			  url: "http://localhost:8080/sortie.com/rest/sortie/modif",
 			  cache: false,
@@ -163,11 +165,6 @@ $(document).ready(function(){
 			  	request.setRequestHeader("Accept","application/json");
 			  },
 			  success: function(data){
-				  if(data == true){
-					  alert('ca marche');
-				  }else{
-					  alert('ca marche pô');
-				  }
 			  }
 		});
 	});
