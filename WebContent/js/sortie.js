@@ -626,7 +626,7 @@ $(document).ready(function(){
 		var dateInscription =$('#creation-sortie-date-inscription-val').val();
 		var place =$('#creation-sortie-place').val();
 		var duree =$('#creation-sortie-duree').val();
-		var description =$('#creation-sortie-description').val();
+		var description = CKEDITOR.instances['creation-sortie-description'].getData();
 		var ville =$('#creation-sortie-ville').val();
 		var lieu =$('#creation-sortie-lieu').val();
 		var currentUser = $('#currentUser').val();

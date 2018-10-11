@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://ckeditor.com" prefix="ckeditor" %>
 <div class="container-fluid" id="creation-sortie">
 	<div class="row form-group">
 		<div class="col-lg-6 col-md-6 col-xs-6">
@@ -93,3 +94,4 @@
 		</div>
 	</div>
 </div>
+<ckeditor:replace replace="creation-sortie-description" basePath="/sortie.com/vendor/ckeditor" />
