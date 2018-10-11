@@ -166,3 +166,10 @@
 	</div>
 </body>
 </html>
+
+<style>
+
+body{
+	background-image: url("./images/background.jpg");
+}
+</style>

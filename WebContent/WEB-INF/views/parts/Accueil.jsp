@@ -85,7 +85,7 @@
 				</div>
 				<div class="col-lg-4 col-md-4 col-xs-4">
 					<button type="button" class="btn btn-primary"
-						id="btnCreationSortie"><span class='glyphicon glyphicon-plus'></span> &nbsp;Cr�er une sortie</button>
+						id="btnCreationSortie"><span class='glyphicon glyphicon-plus'></span> &nbsp;Creer une sortie</button>
 				</div>
 			</div>
 		</div>
@@ -93,35 +93,41 @@
 </div>
 <div class='container' id='detailSortie'>
 	<input type='hidden' id='currentSortie' />
+	<input type='hidden' id='currentDetailSortieId' value='' />
 	<div class='row'>
 		<div class='col-md-1' id='retourVersListeSortie'>
 			<button class='btn btn-info'>
 				<span class='glyphicon glyphicon-chevron-left'></span>
 			</button>
 		</div>
+		<div class='col-md-11'>
+			<img src='/sortie.com/images/defaultSortie.jpg' class='' alt='defaultImage'/>
+		</div>
+		<div class='col-md-4'>
+			
+		</div>
 		<h2 id='titleSortie'></h2>
-	</div>
-	<div class='row'>
-		<input type='hidden' id='currentDetailSortieId' value='' />
-		<p>
-			Date de la sortie: <span id='dateDeSortie'></span>
-		</p>
-		<p>
-			Date de fin d'inscription: <span id='dateFinDinscription'></span>
-		</p>
-		<p>
-			Inscripts/nombre de place <span id='nbPlacesInscrit'></span>
-		</p>
-		<p>
-			Organisateur :<span id='organisateurSortie'></span>
-		</p>
-		<p>
-			Etat :<span id='etatSortie'></span>
-		</p>
-		<button type="button" class="btn" data-toggle="modal"
-			data-target="#listeParticipantsSortie">Voir les participants</button>
-		<p>Description</p>
-		<p id='descriptionSortie'></p>
+		<div class='col-md-11 col-md-offset-1'>
+			<p>
+				Date de la sortie: <span id='dateDeSortie'></span>
+			</p>
+			<p>
+				Date de fin d'inscription: <span id='dateFinDinscription'></span>
+			</p>
+			<p>
+				Inscripts/nombre de place <span id='nbPlacesInscrit'></span>
+			</p>
+			<p>
+				Organisateur :<span id='organisateurSortie'></span>
+			</p>
+			<p>
+				Etat :<span id='etatSortie'></span>
+			</p>
+			<button type="button" class="btn" data-toggle="modal"
+				data-target="#listeParticipantsSortie">Voir les participants</button>
+			<p>Description</p>
+			<p id='descriptionSortie'></p>
+		</div>
 	</div>
 	<div class='row'>
 		<div class='col-md-3'>
@@ -129,7 +135,7 @@
 		</div>
 		<div class='col-md-3'>
 			<button class='btn btn-danger btn-block' id='seDesinscrireAlaSortie'>Se
-				d�sinscrire</button>
+				desinscrire</button>
 		</div>
 		<div class='col-md-3'>
 			<button class='btn btn-info btn-block' id='modifierMaSortie'>

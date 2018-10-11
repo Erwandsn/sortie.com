@@ -35,9 +35,11 @@
 	<input type=hidden id="currentUser" value="${currentUser.id }">
 	<jsp:include page="/WEB-INF/views/parts/navbar.jsp" />
 	<div class='container-fluid'>
-		<div class='container' id='actionSuccess'>
-			<div class="alert alert-success">
-			  <strong>Success ! </strong> <span id='actionSuccessMessage'></span>
+		<div class='row'>
+			<div class='col-md-8 col-md-offset-2' id='actionSuccess'>
+				<div class="alert alert-success">
+				  <strong>Success ! </strong> <span id='actionSuccessMessage'></span>
+				</div>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/parts/confirmSuppr.jsp" />
