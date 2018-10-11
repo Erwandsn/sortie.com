@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	const FORMAT = "dd/MM/yyyy HH:mm";
 //Display Functions
+	$('#li-accueil').addClass('btn-active');
 	$('#gestion-ville').hide();
 	$('#gestionSite').hide();
 	$('#creation-participant').hide();
@@ -177,10 +178,10 @@ $(document).ready(function(){
 		$('#modification-sortie').hide();
 		$('#annulation-sortie').hide();
 		
-		$('#li-accueil').addClass('active');
-		$('#li-ville').removeClass('active');
-		$('#li-site').removeClass('active');
-		$('#li-creation-participant').removeClass('active');
+		$('#li-accueil').addClass('btn-active');
+		$('#li-ville').removeClass('btn-active');
+		$('#li-site').removeClass('btn-active');
+		$('#li-creation-participant').removeClass('btn-active');
 		
 //		On charge la liste déroulante
 		$.ajax({
@@ -214,10 +215,10 @@ $(document).ready(function(){
 		$('#modification-sortie').hide();
 		$('#annulation-sortie').hide();
 		
-		$('#li-accueil').removeClass('active');
-		$('#li-ville').addClass('active');
-		$('#li-site').removeClass('active');
-		$('#li-creation-participant').removeClass('active');
+		$('#li-accueil').removeClass('btn-active');
+		$('#li-ville').addClass('btn-active');
+		$('#li-site').removeClass('btn-active');
+		$('#li-creation-participant').removeClass('btn-active');
 		refreshVilleTable();
 
 	});
@@ -234,10 +235,10 @@ $(document).ready(function(){
 		$('#modification-sortie').hide();
 		$('#annulation-sortie').hide();
 		
-		$('#li-accueil').removeClass('active');
-		$('#li-ville').removeClass('active');
-		$('#li-site').addClass('active');
-		$('#li-creation-participant').removeClass('active');
+		$('#li-accueil').removeClass('btn-active');
+		$('#li-ville').removeClass('btn-active');
+		$('#li-site').addClass('btn-active');
+		$('#li-creation-participant').removeClass('btn-active');
 		
 		refreshSiteTable();
 	});
@@ -255,10 +256,10 @@ $(document).ready(function(){
 		$('#modification-sortie').hide();
 		$('#annulation-sortie').hide();
 		
-		$('#li-accueil').removeClass('active');
-		$('#li-ville').removeClass('active');
-		$('#li-site').removeClass('active');
-		$('#li-creation-participant').addClass('active');
+		$('#li-accueil').removeClass('btn-active');
+		$('#li-ville').removeClass('btn-active');
+		$('#li-site').removeClass('btn-active');
+		$('#li-creation-participant').addClass('btn-active');
 		refreshSiteTable();
 	});
 
@@ -441,6 +442,8 @@ $(document).ready(function(){
 			recherche = "null";
 		}
 		
+		console.log(recherche);
+		
 		var organisateur = "false";
 		if($('#sortie-organisateur').is(':checked')){
 			organisateur = $('#currentUser').val();
@@ -512,6 +515,7 @@ $(document).ready(function(){
 					 var datedebut = new Date(data[i]["dateheureDebut"]);
 					 var dateFin = new Date(data[i]["dateLimiteInscription"]);
 					 html += "<tr>";
+					 html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";
 					 html += "<td>"+data[i]['nom']+"</td>";
 					 html += "<td>"+data[i]['dateheureDebut'].toString(FORMAT)+"</td>";
 					 html += "<td>"+data[i]['dateLimiteInscription'].toString(FORMAT)+"</td>";

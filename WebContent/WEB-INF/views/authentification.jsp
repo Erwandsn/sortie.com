@@ -15,7 +15,7 @@
 <title>Sortie | Authentification</title>
 </head>
 <body>
-	<div class="card card-2 col-lg-6 col-md-6- col-xs-6">
+	<div class="card card-2 col-lg-3 col-md-3 col-xs-3">
 		<div class='container-fluid'>
 			<div class='row'>
 			 <img src="./images/sortie3.jpg" >
