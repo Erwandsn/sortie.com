@@ -122,6 +122,7 @@ public class VilleDAOImpl implements VilleDAO{
 	@Override
 	public Ville searchVille(String nomVille) throws SQLException {
 		String GETSEARCH ="SELECT no_ville,nom_ville,code_postal FROM VILLES where nom_ville like '"+nomVille+"%';";
+		System.out.println("=========== "+GETSEARCH);
 		Ville ville = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{

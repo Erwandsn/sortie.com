@@ -34,7 +34,7 @@
 		</div>
 		<div class='col-lg-2 col-md-2 col-xs-2'>
 			<div class='input-group date' id='debut'>
-				<input type='text' class="form-control" placeholder="Dï¿½but"
+				<input type='text' class="form-control" placeholder="Début"
 					id="sortie-debut" /> <span class="input-group-addon"> <span
 					class="glyphicon glyphicon-calendar"></span>
 				</span>
@@ -78,7 +78,7 @@
 				<button class='btn btn-info btn-block' id='btnAfficherSortie'>Afficher</button>
 			</div>
 			<div class="col-lg-4 col-md-4 col-xs-4">
-				<button type="button" class="btn btn-primary" id="btnCreationSortie">Crï¿½er
+				<button type="button" class="btn btn-primary" id="btnCreationSortie">Créer
 					une sortie</button>
 			</div>
 		</div>
@@ -121,7 +121,7 @@
 		</div>
 		<div class='col-md-3'>
 			<button class='btn btn-danger btn-block' id='seDesinscrireAlaSortie'>Se
-				dï¿½sinscrire</button>
+				désinscrire</button>
 		</div>
 		<div class='col-md-3'>
 			<button class='btn btn-info btn-block' id='modifierMaSortie'>
@@ -189,9 +189,9 @@
 	</div>
 	<div class="row form-group">
 		<div class="col-lg-6 col-md-6 col-xs-6">
-		<label class='label-control'>Durï¿½e</label>
+		<label class='label-control'>Durée</label>
 			<input class="form-control" id="modifSortieDuree"
-				aria-describedby="creation-sortie-duree" placeholder="Durï¿½e">
+				aria-describedby="creation-sortie-duree" placeholder="Durée">
 		</div>
 	</div>
 	<div class="row form-group">

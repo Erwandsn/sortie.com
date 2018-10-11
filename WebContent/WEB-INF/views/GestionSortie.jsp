@@ -1,6 +1,8 @@
 <%@page import="bo.Participant"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	Participant currentUser = null;
@@ -15,9 +17,9 @@
 <head>
 	<link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
 	<script type="text/javascript" src="/sortie.com/js/lib/jquery.min.js"></script>
-	<script type='text/javascript' src="/sortie.com/js/lib/date.js"></script>
+	 <script type='text/javascript' src="/sortie.com/js/lib/date.js"></script> 
 	<script type="text/javascript" src="/sortie.com/js/lib/moment.js"></script>
-	<!-- <script type="text/javascript" src="/sortie.com/js/lib/bootstrap.min.js"></script> -->
+	 <script type="text/javascript" src="/sortie.com/js/lib/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/sortie.com/js/lib/bootstrap-datetimepicker.fr.js"></script>
 	<script type="text/javascript" src='/sortie.com/vendor/bootstrap/js/bootstrap.js'></script>
 	<script src='/sortie.com/js/lib/bootstrap-datepicker.min.js'></script>
@@ -30,7 +32,6 @@
 	<title>Gestion de sortie</title>
 </head>
 <body>
-
 	<input type=hidden id="currentUser" value="${currentUser.id }">
 	<jsp:include page="/WEB-INF/views/parts/navbar.jsp" />
 	<div class='container-fluid'>

@@ -31,7 +31,7 @@ public class SortieDAOImpl implements SortieDAO{
 	private final String GETONEBYID = "SELECT no_sortie,nom,datedebut,duree,datecloture,nbinscriptionsmax,descriptioninfos,organisateur,lieux_no_lieu,etats_no_etat,ville FROM sorties WHERE no_sortie=?;";
 	private final String GETPARTICIPANTOFSORTIE = "SELECT no_participant,p.nom, p.prenom from participants p, sorties, INSCRIPTIONS where no_sortie = sorties_no_sortie and participants_no_participant = no_participant and no_sortie=?;";
 	private final String CANCELSORTIE = "UPDATE sorties set etats_no_etat=5, descriptioninfos=? where no_sortie=?;";
-	private final String UPDATESORTIEINFO = "UPDATE sortie SET nom=?, datedebut=?, duree=?, datecloture=?,nbinscriptionmax=?,descriptioninfos=?,organisateur=?,lieux_no_lieu=?,etats_no_etat, ville=? WHERE no_sortie=?"; 
+	private final String UPDATESORTIEINFO = "UPDATE SORTIES SET nom=?, datedebut=?, duree=?, datecloture=?,nbinscriptionsmax=?,descriptioninfos=?,lieux_no_lieu=?,etats_no_etat=?, ville=? WHERE no_sortie=?"; 
 	
 	@Override
 	public Sortie createSortie(Sortie unSortie) throws SQLException {
@@ -216,9 +216,21 @@ public class SortieDAOImpl implements SortieDAO{
 	public Sortie updateSortie(Sortie unSortie) throws SQLException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(UPDATESORTIE);
+//			 "UPDATE sortie SET nom=?, datedebut=?, duree=?, datecloture=?,nbinscriptionmax=?,descriptioninfos=?,"
+//			 + "organisateur=?,lieux_no_lieu=?,etats_no_etat=?, ville=? WHERE no_sortie=?"; 
+
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATESORTIEINFO);
 			pstmt.setString(1, unSortie.getNom());
-			pstmt.setInt(2, unSortie.getId());
+			pstmt.setDate(2, unSortie.getDateheureDebut());
+			pstmt.setInt(3, unSortie.getDuree());
+			pstmt.setDate(4, unSortie.getDateLimiteInscription());
+			pstmt.setInt(5, unSortie.getNbInscriptionsMax());
+			pstmt.setString(6, unSortie.getInfosSortie());
+			pstmt.setInt(7, unSortie.getLieu().getId());
+			pstmt.setInt(8, unSortie.getEtat().getId());
+			pstmt.setInt(9, unSortie.getVille().getId());
+			pstmt.setInt(10, unSortie.getId());
+
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
