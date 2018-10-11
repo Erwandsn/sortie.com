@@ -84,7 +84,7 @@ $(document).ready(function(){
 			  $('#modifSortieDateInscription').val(data['dateLimiteInscription']);
 			  $('#modifSortieNbPlace').val(data['nbInscriptionsMax']);
 			  $('#modifSortieDuree').val(data['duree']);
-			  $('#modifSortieDesc').val(data['infosSortie']);
+			  CKEDITOR.instances['modifSortieDesc'].setData(data['infosSortie']);
 			  $('#modifSortieVille').html("<option selected>"+data['ville']['nomVille']+"</option>");
 			  $('#modifSortieVille').attr("disabled", "true");
 			  $('#modifSortieLieu').html("<option selected>"+data['lieu']['nom']+"</option>");
@@ -194,7 +194,7 @@ $(document).ready(function(){
 					  $('#titleSortie').html(data['nom']);
 					  $('#dateDeSortie').html(data['dateheureDebut']);
 					  $('#dateFinDinscription').html(data['dateLimiteInscription']);
-					  $('#nbPlacesInscrit').html(data['nbInscriptionsMax']);
+					  $('#nbPlacesInscrit').html(data['listeParticipants'].length+"/"+data['nbInscriptionsMax']);
 					  $('#organisateurSortie').html(data['organisateur']['prenom']+ " "+data['organisateur']['nom']);
 					  $('#etatSortie').html(data['etat']['libelle']);
 					  $('#descriptionSortie').html(data['infosSortie']);
@@ -472,8 +472,6 @@ $(document).ready(function(){
 				$('#modification-sortie-ville').html(html);
 			  }
 		});
-		
-		
 //		On charge la liste déroulante
 		$.ajax({
 			  url: "http://localhost:8080/sortie.com/rest/lieu",

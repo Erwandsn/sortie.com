@@ -1,3 +1,4 @@
+<%@ taglib uri="http://ckeditor.com" prefix="ckeditor" %>
 <div class="container-fluid" id="accueil">
 	<div class='row container-title'>
 		<div class='col-md-2 col-md-offset-5 title'>
@@ -41,7 +42,7 @@
 			</div>
 			<div class='col-lg-2 col-md-2 col-xs-2'>
 				<div class='input-group date' id='debut'>
-					<input type='text' class="form-control" placeholder="D�but"
+					<input type='text' class="form-control" placeholder="D&eacute;but"
 						id="sortie-debut" /> <span class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"></span>
 					</span>
@@ -119,7 +120,7 @@
 			</div>
 			<div class='col-md-4 col-xs-12'>
 				<p>
-					Inscripts/nombre de place <span id='nbPlacesInscrit'></span>
+					<span class='glyphicon glyphicon-user'> </span> <span id='nbPlacesInscrit'></span>
 				</p>
 				<p>
 					Organisateur :<span id='organisateurSortie'></span>
@@ -167,15 +168,13 @@
 	</div>
 </div>
 <div class='container' id='ModificationSortie'>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">
+	<div class='col-md-6 col-md-offset-3 col-xs-12'>
+		<div class="row form-group">
 			<label class='label-control'>Nom</label> <input class="form-control"
 				id="modifSortieNom" aria-describedby="creation-sortie-nom"
 				placeholder="Nom" value="">
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class='col-lg-6 col-md-6 col-xs-6'>
+		<div class="row form-group">
 			<div class='input-group date' id='creation-sortie-date1'>
 				<label class='label-control'>Date de sortie</label> <input
 					type='text' class="form-control"
@@ -185,9 +184,7 @@
 				</span>
 			</div>
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class='col-lg-6 col-md-6 col-xs-6'>
+		<div class="row form-group">
 			<label class='label-control'>Date fin d'inscription</label>
 			<div class='input-group date' id='creation-sortie-date-inscription'>
 				<input type='text' class="form-control"
@@ -197,72 +194,61 @@
 				</span>
 			</div>
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">
+		<div class="row form-group">
 			<label class='label-control'>Nombre de places</label> <input
 				class="form-control" id="modifSortieNbPlace"
 				aria-describedby="creation-sortie-place"
 				placeholder="Nombre de place">
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">
-			<label class='label-control'>Dur�e</label> <input
+		<div class="row form-group">
+			<label class='label-control'>Dur&eacute;e</label> <input
 				class="form-control" id="modifSortieDuree"
-				aria-describedby="creation-sortie-duree" placeholder="Dur�e">
+				aria-describedby="creation-sortie-duree" placeholder="Dur&eacute;e">
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">
+		<div class="row form-group">
 			<label class='label-control'>Description</label>
 			<textarea class="form-control" rows="5" id="modifSortieDesc"
 				placeholder="Description et infos"></textarea>
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">Ville organisatrice:</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">
+		<div class="row form-group">
+			Ville organisatrice:
+		</div>
+		<div class="row form-group">
 			<select class="form-control" id="modifSortieVille"
 				aria-describedby="creation-sortie-ville-help" placeholder="Ville"
 				required>
 			</select>
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">
+		<div class="row form-group">
 			<label class='label-control'>Lieu</label> <select
 				class="form-control" id="modifSortieLieu"
 				aria-describedby="creation-sortie-Lieu-help" placeholder="Lieu"
 				required>
 			</select>
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-lg-6 col-md-6 col-xs-6">
+		<div class="row form-group">
 			<label class='label-control'>Etat de votre sortie</label> <select
 				class="form-control" id="modifSortieEtat"
 				aria-describedby="creation-sortie-etat-help" placeholder="Etat"
 				required>
 			</select>
 		</div>
-	</div>
-	<div class="row form-group" id='raisonAnnulationArea'>
-		<label class='label-control'> Raison de l'annulation </label>
-		<textarea id='raisonAnnulation' class='form-control'>
-		</textarea>
-		<button class='btn btn-success' type='button' id='btnSaveAnnulation'>Enregistrer</button>
-	</div>
-	<div class='row'>
-		<div class='col-md-12'>
-			<div class='col-md-6'>
-				<button class='btn btn-success' type='button'
-					id='btnSaveModifSortie'>Enregistrer</button>
+		<div class="row form-group" id='raisonAnnulationArea'>
+			<label class='label-control'> Raison de l'annulation </label>
+			<textarea id='raisonAnnulation' class='form-control'>
+			</textarea>
+			<button class='btn btn-success' type='button' id='btnSaveAnnulation'>Enregistrer</button>
+		</div>
+		<div class='row'>
+			<div class='col-md-12'>
+				<div class='col-md-6'>
+					<button class='btn btn-success' type='button'
+						id='btnSaveModifSortie'>Enregistrer</button>
+				</div>
 			</div>
 		</div>
 	</div>
+	<ckeditor:replace replace="modifSortieDesc" basePath="/sortie.com/vendor/ckeditor" />
 </div>
 
 
