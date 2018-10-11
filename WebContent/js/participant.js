@@ -69,20 +69,27 @@ $('#saveProfilModif').click(function(){
 	var telephone = $('#modifProfilTelephone').val();
 	var email = $('#modifProfilMail').val();
 	var ville = $('#modifProfilVille').val();
+	var mdp = "";
+	if($('#modifProfilMdp').val() != "" && $('#modifProfilConfirmMdp').val() != "" &&  $('#modifProfilMdp').val() == $('#modifProfilConfirmMdp').val()){
+		mdp = $('#modifProfilMdp').val();
+	}
 	$.ajax({
 		  url: "http://localhost:8080/sortie.com/rest/creationParticipant",
 		  cache: false,
 		  type: "PUT",
-		  data: jQuery.param({pseudo: pseudo, prenom: prenom,nom: nom,telephone: telephone,email: email, ville: ville}),
+		  data: jQuery.param({pseudo: pseudo, prenom: prenom,nom: nom,telephone: telephone,email: email, ville: ville, mdp: mdp}),
 		  beforeSend: function(request) {
 		  	request.setRequestHeader("Accept","application/json");
 		  },
 		  success: function(data){
 			  $('#modifProfilUser').hide();
 			  $('#profilUser').show();
+			  $('#actionSuccessMessage').html("La modification de votre profil a bien ete appliquee");
+			  $('#actionSuccess').show();
 			  window.location="/sortie.com/refreshUser?pseudo="+pseudo;
 		  }
 	});
+	
 });
 
 $('#cancelProfilModif').click(function(){

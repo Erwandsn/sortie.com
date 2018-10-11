@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <div class="container-fluid" id="gestion-ville">
+	<div class='row container-title'>
+		<div class='col-md-2 col-md-offset-5 title'>
+			<h2>Les villes</h2>
+		</div>
+	</div>
+	<div class='container'>
 	<div class='row'>
-		<div class='col-md-6 col-md-offset-3'>
+		<div class='col-md-12'>
 			<div class="row form-group">
 				<div class="col-lg-6 col-md-6 col-xs-6">
 					<input class="form-control" id="hier" aria-describedby="hier"
@@ -62,19 +68,22 @@
 			</h3>
 			<label class='label-control'>Nom du ville</label> <input
 				class='form-control' id='modifVilleName' type='text' />
-			<div class='col-md-6'>
-				<button type='button' class='btn btn-info btn-block'
-					id='saveModifVille'>
-					<span class='glyphicon glyphicon-save'></span> Enregistrer
-				</button>
-			</div>
-			<div class='col-md-6'>
+			<div class='btnModifVille'>
+				<div class='col-md-6'>
+					<button type='button' class='btn btn-info btn-block'
+						id='saveModifVille'>
+						<span class='glyphicon glyphicon-save'></span> Enregistrer
+					</button>
+				</div>
+				<div class='col-md-6'>
 				<button type='button' class='btn btn-warning btn-block'
 					id='cancelModifVille'>
 					<span class='glyphicon glyphicon-remove'></span> Annuler
 				</button>
+				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </div>
 <script src='/sortie.com/js/ville.js'></script>

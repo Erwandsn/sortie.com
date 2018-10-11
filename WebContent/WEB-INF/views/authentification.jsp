@@ -2,7 +2,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%
-
 		Boolean auth = false;
 		String login = "";
 		String mdp = "";
@@ -33,6 +32,17 @@
 			 <img src="./images/sortie3.jpg" >
 			</div>
 			<div id='authentification' class="col-lg-12 col-md-12 col-xs-12">
+				<%
+					if(request.getAttribute("errorMessage") != null){
+				%>
+				<div class='col-lg-12 col-md-12 col-xs-12'>
+					<div class="alert alert-danger">
+					  <strong>Echec ! </strong> Vos identifiants sont invalides
+					</div>
+				</div>
+				<%
+					}
+				%>
 				<div class='col-lg-12 col-md-12 col-xs-12'>
 					<form action='' method='POST' class=''>
 						<div class='row col-lg-12 col-md-12 col-xs-12'>
@@ -134,6 +144,21 @@
 				</div>
 			</div>
 			<jsp:include page="/WEB-INF/views/parts/confirmationInscription.jsp" />
+		</div>
+		<!-- Modal erreur-->
+		<div id="modalErreur" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title" style='color: red;'>Erreur</h4>
+					</div>
+					<div class="modal-body text-center" id="modalErreurMessage">
+	
+					</div>
+				</div>
+			</div>
 		</div>
 		<script type='text/javascript' src='/sortie.com/js/inscription.js'>
 

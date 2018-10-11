@@ -1,5 +1,10 @@
 body{
 	font-family: 'K2D', sans-serif;
+	background-color: #F1F1F2;
+}
+.container{
+	background-color: #fff;
+	padding: 50px 50px 50px 50px;
 }
 
 .card {
@@ -11,7 +16,6 @@ body{
 
 }
 
-
 .card-2 {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   margin-left:33%;
@@ -19,52 +23,55 @@ body{
   border-radius:4px;
 }
 
-
-
-
 button{
 	padding: 0;
     border: none;
     background: none;
-    color: #6D4C41;
+    color: #28A4E2;
     font-weight: bold;
 }
 button:hover, button:active, button:focus{
-	border-bottom: 2px solid #6D4C41;
+	border-bottom: 2px solid #28A4E2;
 }
 
 label{
 	font-weight:normal;
 }
 
-
 .navbar-default {
-	background-color:white;
-	/* border-color:white; */
+	background-color: #fff;
+	color: 
 }
 .navbar-default .navbar-nav > li > a , .navbar-default:hover, .navbar-default:focus, .navbar-default:active{
-    color: #6D4C41;
+	margin-top: 10px;
+    color: #28A4E2;
 }
 
 .btnNavBar{
-	color: #6D4C41;
+	color: #28A4E2;
     font-weight: bold;
-
 }
 
-.btn, .btn:hover, .btn:active, .btn:focus{
+.btn, .btn:active, .btn:focus{
 	/* padding: 0; */
     border: none;
     background: none;
-    color: #6D4C41;
-    border:2px solid #6D4C41;
+    color: #28A4E2;
+    border:2px solid #28A4E2;
     border-radius:2px;
 	
+}
+.btn:hover{
+ 	border: none;
+    background: #28A4E2;
+    color: #fff;
+    border:2px solid #28A4E2;
+    border-radius:2px;
 }
 
 .btnConnexion, .btnConnexion:hover, .btnConnexion:active, .btnConnexion:focus{
 	border-radius: 2px;
-	background-color:#6D4C41;
+	background-color:#28A4E2;
 	color: #fff;
 	font-weight:normal;
 	padding:5px;
@@ -124,8 +131,53 @@ select{
 .btn-active{
 	border: none;
     background: none;
-    color: #6D4C41;
+    color: #28A4E2;
     font-weight: bold;
-    border-bottom:2px solid #6D4C41;
+    border-bottom:2px solid #28A4E2;
     border-radius:0px;
+}
+
+h2{
+	color: #28A4E2;
+}
+.container-title{
+	position: relative;
+	width: 100%;
+	border-top: solid 2px #28A4E2;
+	margin-top: 25px;
+}
+.title{
+	text-align: center;
+	position: relative;
+	top: -40px;
+	background-color: #F1F1F2;
+	z-index: 10;
+	font-weight: light;
+}
+
+.form-control{
+	border-left: none;
+	border-right: none;
+	border-top: none; 
+	border-bottom: 2px solid #A6E1FE;
+	border-radius: 0;
+	box-shadow: none;
+	background: none;
+}
+.form-control:focus{
+	border-bottom: 2px solid #0180C0;
+}
+
+.input-group-addon{
+	background-color: #fff;
+	border-radius: 0;
+	border: none;
+	border-bottom: 2px solid #A6E1FE;
+	color: #0180C0;
+}
+input[type=radio]{
+	color: #A6E1FE;
+}
+.btnModifVille{
+	margin-top: 15px;
 }

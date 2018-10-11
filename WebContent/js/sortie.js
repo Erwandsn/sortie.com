@@ -2,17 +2,26 @@ $(document).ready(function(){
 	const FORMAT = "dd/MM/yyyy HH:mm";
 //Display Functions
 	$('#li-accueil').addClass('btn-active');
-	$('#gestion-ville').hide();
-	$('#gestionSite').hide();
-	$('#creation-participant').hide();
-	$('#confirmationSuppression').hide();
-	$('#creation-sortie').hide();
-	$('#affichage-sortie').hide();
-	$('#modification-sortie').hide();
-	$('#annulation-sortie').hide();
-	$('#detailSortie').hide();
-	$('#ModificationSortie').hide();
+	clearIHM();
+	$('#accueil').show();
 	refreshAccueilSortieTable();
+	
+	function clearIHM(){
+		$('#accueil').hide();
+		$('#gestion-ville').hide();
+		$('#gestionSite').hide();
+		$('#creation-participant').hide();
+		$('#confirmationSuppression').hide();
+		$('#creation-sortie').hide();
+		$('#affichage-sortie').hide();
+		$('#modification-sortie').hide();
+		$('#annulation-sortie').hide();
+		$('#detailSortie').hide();
+		$('#ModificationSortie').hide();
+		$('#modifSiteArea').hide();
+		$('#actionSuccess').hide();
+		$("input[name='radio']:checked").prop("checked", false);
+	}
 	
 //	On ajoute la liste des sorties en page d'accueil
 	function refreshAccueilSortieTable(){
@@ -193,12 +202,16 @@ $(document).ready(function(){
 					  $('#etatSortie').html(data['etat']['libelle']);
 					  $('#descriptionSortie').html(data['infosSortie']);
 					  var html = "";
-					  for(i = 0; i<data['listeParticipants'].length; i++){
-						  html += "<div class='row'>";
-						  html += "<div class='col-md-offset-2 col-md-8'>";
-						  html += "<p>-"+data['listeParticipants'][i]['prenom']+" "+ data['listeParticipants'][i]['nom'] +"</p>";
-						  html += "</div>";
-						  html += "</div>";
+					  if(data['listeParticipants'].length > 0){
+						  for(i = 0; i<data['listeParticipants'].length; i++){
+							  html += "<div class='row'>";
+							  html += "<div class='col-md-offset-2 col-md-8'>";
+							  html += "<p>-"+data['listeParticipants'][i]['prenom']+" "+ data['listeParticipants'][i]['nom'] +"</p>";
+							  html += "</div>";
+							  html += "</div>";
+						  }
+					  }else{
+						 html += "<p>Aucun participant n'est inscrit a cette sortie</p>";
 					  }
 					  $('#modalParticipants').html(html);
 					  $.ajax({
@@ -219,7 +232,8 @@ $(document).ready(function(){
 				  }
 			});
 		}else{
-			alert('Veuillez selectionner une sortie a afficher'); 
+			$('#modalErreurMessage').html("Veuillez selectionner une sortie pour effectuer cette operation");
+			$('#modalErreur').modal('show'); 
 		}
 		
 	});
@@ -236,12 +250,13 @@ $(document).ready(function(){
 			  	request.setRequestHeader("Accept","application/json");
 			  },
 			  success: function(data){
-				  alert('inscription effectuée');
 				  $('#detailSortie').hide();
 				  $('#accueil').show();
 				  $('#modifierMaSortie').show();
 				  $('#seDesinscrireAlaSortie').show();
 				  $('#sinscrireAlaSortie').show();
+				  $('#actionSuccessMessage').html("Vous etes bien inscit de la sortie "+idSortie);
+				  $('#actionSuccess').show();
 				  refreshAccueilSortieTable();
 			  }
 		});
@@ -259,15 +274,17 @@ $(document).ready(function(){
 			  },
 			  success: function(data){
 				  if(data == true){
-					  alert('desinscription effectuée');
 					  $('#detailSortie').hide();
 					  $('#accueil').show();
 					  $('#modifierMaSortie').show();
 					  $('#seDesinscrireAlaSortie').show();
 					  $('#sinscrireAlaSortie').show();
+					  $('#actionSuccessMessage').html("Vous etes bien desinscit de la sortie "+idSortie);
+					  $('#actionSuccess').show();
 					  refreshAccueilSortieTable();
 				  }else{
-					  alert("Echec de la desinscription");
+					  $('#modalErreurMessage').html("Une erreur est survenue, si elle persiste contactez l'administrateur du site");
+					  $('#modalErreur').modal('show'); 
 				  }
 			  }
 		});
@@ -283,16 +300,8 @@ $(document).ready(function(){
 	});
 	
 	$('#btnAccueil').click(function(){
+		clearIHM();
 		$('#accueil').show();
-		$('#gestion-ville').hide();
-		$('#gestionSite').hide();
-		$('#creation-participant').hide();
-		$('#confirmationSuppression').hide();
-		$('#creation-sortie').hide();
-		$('#affichage-sortie').hide();
-		$('#modification-sortie').hide();
-		$('#annulation-sortie').hide();
-		
 		$('#li-accueil').addClass('btn-active');
 		$('#li-ville').removeClass('btn-active');
 		$('#li-site').removeClass('btn-active');
@@ -319,17 +328,8 @@ $(document).ready(function(){
 	});
 	
 	$('#btnVille').click(function(){
-		$('#ModificationSortie').hide();
-		$('#accueil').hide();
+		clearIHM();
 		$('#gestion-ville').show();
-		$('#gestionSite').hide();
-		$('#creation-participant').hide();
-		$('#confirmationSuppression').hide();
-		$('#creation-sortie').hide();
-		$('#affichage-sortie').hide();
-		$('#modification-sortie').hide();
-		$('#annulation-sortie').hide();
-		
 		$('#li-accueil').removeClass('btn-active');
 		$('#li-ville').addClass('btn-active');
 		$('#li-site').removeClass('btn-active');
@@ -339,18 +339,8 @@ $(document).ready(function(){
 	});
 	
 	$('#btnSite').click(function(){
-		$('#ModificationSortie').hide();
-		$('#accueil').hide();
-		$('#gestion-ville').hide();
-		$('#confirmationSuppression').hide();
+		clearIHM();
 		$('#gestionSite').show();
-		$('#creation-participant').hide();
-		$('#modifSiteArea').hide();
-		$('#creation-sortie').hide();
-		$('#affichage-sortie').hide();
-		$('#modification-sortie').hide();
-		$('#annulation-sortie').hide();
-		
 		$('#li-accueil').removeClass('btn-active');
 		$('#li-ville').removeClass('btn-active');
 		$('#li-site').addClass('btn-active');
@@ -360,18 +350,8 @@ $(document).ready(function(){
 	});
 	
 	$('#btnCreationParticipant').click(function(){
-		$('#accueil').hide();
-		$('#gestion-ville').hide();
-		$('#gestionSite').hide();
-		$('#gestion-ville').hide();
+		clearIHM();
 		$('#creation-participant').show();
-		$('#modifSiteArea').hide();
-		$('#confirmationSuppression').hide();
-		$('#creation-sortie').hide();
-		$('#affichage-sortie').hide();
-		$('#modification-sortie').hide();
-		$('#annulation-sortie').hide();
-		
 		$('#li-accueil').removeClass('btn-active');
 		$('#li-ville').removeClass('btn-active');
 		$('#li-site').removeClass('btn-active');
@@ -407,7 +387,8 @@ $(document).ready(function(){
 				$('#gestionSite').show();
 			});
 		}else{
-			alert("Veuillez selectionner un site");
+			$('#modalErreurMessage').html("Veuillez selectionner un site pour effectuer cette action");
+			  $('#modalErreur').modal('show'); 
 		}
 	});
 
@@ -581,15 +562,6 @@ $(document).ready(function(){
 			var dateAr = debut.split(' ');
 			var dateAr2 = dateAr[0].split('/');
 			debut = dateAr2[2] + '-' + dateAr2[1] + '-' + dateAr2[0]+" "+dateAr[1];
-//			alert(debut);
-//			var debut2 = $('#sortie-debut').val();
-//			
-//			
-//			
-//			var dateAr2 = debut2.split(' ');
-//			
-//			debut = debut+" "+dateAr2[1];
-//			alert(debut);
 		}else{
 			debut="1800-01-01 00:00";
 		}
@@ -601,11 +573,6 @@ $(document).ready(function(){
 			var dateArFin = fin.split(' ');
 			var dateArFin2 = dateArFin[0].split('/');
 			fin = dateArFin2[2] + '-' + dateArFin2[1] + '-' + dateArFin2[0]+" "+dateArFin[1];
-			alert(fin);
-//			fin = dateArFin[2] + '-' + dateArFin[1] + '-' + dateArFin[0];
-//			var fin2 = $('#sortie-fin').val();
-//			var dateArFin2 = fin2.split(' ');
-//			fin = fin+" "+dateArFin2[1];
 		}else{
 			fin="2100-01-01 00:00";
 		}
@@ -625,23 +592,33 @@ $(document).ready(function(){
 			},
 			success: function(data){
 				html = "";
-				 for( var i = 0; i < data.length; i++) {
-					 var datedebut = new Date(data[i]["dateheureDebut"]);
-					 var dateFin = new Date(data[i]["dateLimiteInscription"]);
-					 html += "<tr>";
-					 html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";
-					 html += "<td>"+data[i]['nom']+"</td>";
-					 html += "<td>"+data[i]['dateheureDebut'].toString(FORMAT)+"</td>";
-					 html += "<td>"+data[i]['dateLimiteInscription'].toString(FORMAT)+"</td>";
-					 html += "<td>TODO /"+data[i]['nbInscriptionsMax']+"</td>";
-					 html += "<td>"+data[i]['etat']['libelle']+"</td>";
-					 html += "<td>TODO</td>";
-					 html += "<td>"+data[i]['organisateur']['prenom']+" "+data[i]['organisateur']['nom']+"</td>";
-					 html += "<td><button type='button' class='btn btn-info'>Afficher</td>";
-					 html += "</tr>";
-				  }
+				for( var i = 0; i < data.length; i++) {
+					var datedebut = new Date(data[i]["dateheureDebut"]);
+					var dateFin = new Date(data[i]["dateLimiteInscription"]);
+					html += "<tr>";
+					html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";
+					html += "<td>"+data[i]['nom']+"</td>";
+					html += "<td>"+datedebut.toString(FORMAT)+"</td>";
+					html += "<td>"+dateFin.toString(FORMAT)+"</td>";
+					html += "<td><span class='empNbParticipant' data-id='"+data[i]['id']+"'>"+data[i]['listeParticipants'].length+"</span> /"+data[i]['nbInscriptionsMax']+"</td>";
+					html += "<td>"+data[i]['etat']['libelle']+"</td>";
+					var test = false;
+					bloc_is_inscrit:{
+						for (y = 0; y < data[i]['listeParticipants'].length; y++){
+							if(data[i]['listeParticipants'][y]['id'] == currentUser && test == false){
+								html += "<td>X</td>"
+								test = true;
+								break bloc_is_inscrit;
+							}
+						}
+					}
+					if(test == false){
+						html += "<td></td>";
+					}
+					html += "<td>"+data[i]['organisateur']['prenom']+" "+data[i]['organisateur']['nom']+"</td>";
+					html += "</tr>";
+				}
 				 $('#listeSorties').html(html);
-//				 refreshSortieTable();
 			}
 		});
 	});
@@ -660,7 +637,8 @@ $(document).ready(function(){
 
 		if($('#creation-sortie-ville').val() == 0 || $('#creation-sortie-lieu').val() == 0 || 
 				$('#creation-sortie-etat').val() == 0){
-			alert("Veuillez compléter les champs.");
+			$('#modalErreurMessage').html("Veuillez compléter les champs");
+			$('#modalErreur').modal('show'); 
 		}else{
 			$.ajax({
 				url: "http://localhost:8080/sortie.com/rest/sortie/ajoutSortie",
@@ -672,7 +650,8 @@ $(document).ready(function(){
 					request.setRequestHeader("Accept","application/json");
 				},
 				success: function(data){
-				
+					clearIHM();
+					$('#accueil').show();
 				}
 			});
 		}
@@ -719,7 +698,8 @@ $(document).ready(function(){
 				}
 			});
 		}else{
-			alert("Veuillez selectionner un site");
+			$('#modalErreurMessage').html("Veuillez selectionner un site pour effectuer cette action");
+			$('#modalErreur').modal('show'); 
 		}
 	});
 	

@@ -12,7 +12,6 @@
 	<h2 class='text-center' id='pseudoUser'>${currentUser.pseudo}</h2>
 	<div class="row" id='profilUser'>
 		<div class='col-md-2'>
-			 
       		<c:choose>
 			  	<c:when test = "${currentUser.photo == null}">
          			<img  class='img-rounded img-responsive' src='/sortie.com/file/utils/defaultimage.jpg'/>
@@ -21,7 +20,6 @@
 			    	<img  class='img-rounded img-responsive' src='/sortie.com/file/upload/${currentUser.photo}'/>
 			  	</c:otherwise>
 			</c:choose>
-			
 			<button type='button' class='btn btn-primary' id='modifierPhoto' style='margin-top:10px;'><span class='glyphicon glyphicon-pencil' ></span> &nbsp;Modifier ma photo</button>
 		</div>
 		<div class='col-md-offset-2 col-md-2'>
@@ -55,16 +53,20 @@
 		</div>
 		<div class='col-md-offset-2 col-md-2'>
 			<p>Nom : </p>
-			<p>Prénom : </p>
-			<p>Telephone : </p>
-			<p>Mail : </p>
-			<p>Ville de rattachement : </p>
+			<p style='margin-top: 15px;'>Prénom : </p>
+			<p style='margin-top: 15px;'>Telephone : </p>
+			<p style='margin-top: 15px;'>Mail : </p>
+			<p style='margin-top: 15px;'>Mot de passe : </p>
+			<p style='margin-top: 15px;'>Confirmation : </p>
+			<p style='margin-top: 15px;'>Ville de rattachement : </p>
 		</div>
 		<div class='col-md-6'>
 			<input class='form-control' type='text' value='${currentUser.nom}' id='modifProfilNom'/>
 			<input class='form-control' type='text' value='${currentUser.prenom}' id='modifProfilPrenom'/>
 			<input class='form-control' type='text' value='${currentUser.telephone}' id='modifProfilTelephone'/>
 			<input class='form-control' type='text' value='${currentUser.mail}' id='modifProfilMail'/>
+			<input class='form-control' type='password' id='modifProfilMdp'/>
+			<input class='form-control' type='password' id='modifProfilConfirmMdp'/>
 			<input type="hidden" value='${currentUser.ville.id}' id='currentVilleId'/>
 			<select class='form-control' type='text' id='modifProfilVille'>
 				

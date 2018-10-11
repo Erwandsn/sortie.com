@@ -46,10 +46,12 @@ $(document).ready(function(){
 		var ville = $('#ville').val();
 		if(pseudo != "" && prenom != "" && nom!="" && telephone!="" && email!="" && motDePasse!="" && confirmation !="" && ville !=""){
 			if(motDePasse != confirmation){
-				alert("Les deux mots de passe ne sont pas identiques");
+				$('#modalErreurMessage').html("Les deux mots de passe ne sont pas identiques");
+				$('#modalErreur').modal('show'); 
 			}else{
 				if(ville=="0"){
-					alert('Veuillez choisir une ville');
+					$('#modalErreurMessage').html("Veuillez choisir une ville");
+					$('#modalErreur').modal('show'); 
 				}else{
 					$.ajax({
 						url: "http://localhost:8080/sortie.com/rest/creationParticipant",
@@ -67,7 +69,8 @@ $(document).ready(function(){
 				}
 			}
 		}else{
-			alert("Pour compléter votre inscription, veuillez compléter tous les champs");
+			$('#modalErreurMessage').html("Pour completer votre inscription, veuillez completer tous les champs");
+			$('#modalErreur').modal('show'); 
 		}
 	});
 	

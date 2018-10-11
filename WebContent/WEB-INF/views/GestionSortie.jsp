@@ -34,6 +34,11 @@
 	<input type=hidden id="currentUser" value="${currentUser.id }">
 	<jsp:include page="/WEB-INF/views/parts/navbar.jsp" />
 	<div class='container-fluid'>
+		<div class='container' id='actionSuccess'>
+			<div class="alert alert-success">
+			  <strong>Success ! </strong> <span id='actionSuccessMessage'></span>
+			</div>
+		</div>
 		<jsp:include page="/WEB-INF/views/parts/confirmSuppr.jsp" />
 		<jsp:include page="/WEB-INF/views/parts/Accueil.jsp" />
 		<c:if test="${currentUser.admin == true}">
@@ -46,7 +51,21 @@
 		<jsp:include page="/WEB-INF/views/parts/ModificationSortie.jsp" />
 		<jsp:include page="/WEB-INF/views/parts/AnnulationSortie.jsp" />
 	</div>
+	<!-- Modal erreur-->
+	<div id="modalErreur" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header text-center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" style='color: red;'>Erreur</h4>
+				</div>
+				<div class="modal-body text-center" id="modalErreurMessage">
 
+				</div>
+			</div>
+		</div>
+	</div>
 	<script src='/sortie.com/js/sortie.js'></script>
 </body>
 </html>

@@ -64,7 +64,7 @@ public class GestionParticipant {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	public Participant updateParticipant(@FormParam("pseudo") String pseudo, @FormParam("prenom") String prenom, @FormParam("nom") String nom,@FormParam("telephone") String telephone,
-			@FormParam("email") String email,@FormParam("ville") int ville) throws ParseException{
+			@FormParam("email") String email,@FormParam("ville") int ville, @FormParam("mdp") String mdp) throws ParseException{
 		Participant user = new Participant();
 		Ville villeParticipant = new Ville();
 		villeParticipant.setId(ville);
@@ -74,6 +74,11 @@ public class GestionParticipant {
 		user.setTelephone(telephone);
 		user.setMail(email);
 		user.setVille(villeParticipant);
+		if(mdp != "") {
+			String shamdp = org.apache.commons.codec.digest.DigestUtils.sha256Hex(mdp);
+			System.out.println(shamdp);
+			user.setMotDePasse(shamdp);
+		}
 		user = getMgr().updateParticipant(user);
 		return user;
 	}

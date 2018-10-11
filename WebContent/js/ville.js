@@ -14,12 +14,11 @@ $(document).ready(function(){
 			  	request.setRequestHeader("Accept","application/json");
 			  },
 			  success: function(data){
-//				  	alert("cocou");
 				  	var html = "";
 				  	console.log(JSON.stringify(data));
 				  	for( var i = 0; i < data.length; i++) {
 	    	   			html += '<tr>';
-	    	   			html += "<td><input type='radio' name='radio' value='"+data[i]['id']+"'/></td>";
+	    	   			html += "<td><input type='radio'class='actionVille' name='radio' value='"+data[i]['id']+"'/></td>";
 		    	   		html += '<td>' + data[i]["id"] + '</td>';
 		    	   		html += '<td>' + data[i]["nomVille"] + '</td>';
 		    	   		html += '<td>' + data[i]["codePostal"] + '</td>';
@@ -62,7 +61,8 @@ $(document).ready(function(){
 				$('#gestionVille').show();
 			});
 		}else{
-			alert("Veuillez selectionner un ville");
+			$('#modalErreurMessage').html("Veuillez selectionner une ville pour effectuer cette operation");
+			$('#modalErreur').modal('show'); 
 		}
 	});
 
@@ -98,7 +98,8 @@ $(document).ready(function(){
 				}
 			});
 		}else{
-			alert("Veuillez selectionner un ville");
+			$('#modalErreurMessage').html("Veuillez selectionner une ville pour effectuer cette operation");
+			$('#modalErreur').modal('show'); 
 		}
 	});
 	

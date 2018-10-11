@@ -1,19 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<div id='gestionSite'>
+<div class='container-fluid' id='gestionSite'>
+	<div class='row container-title'>
+		<div class='col-md-2 col-md-offset-5 title'>
+			<h2>Les sites</h2>
+		</div>
+	</div>
+	<div class='container'>
 	<div class='row'>
-		<div class='col-md-6 col-md-offset-3'>
+		<div class='col-md-12'>
 			<form action='' method='POST' class='form-inline'>
 				<div class='form-group'>
 					<label class='label-control' for='nomSite'>Nom du site</label>
 					<input class='form-control' name='nomSite' id='addNomSite' />
-					<button type='button' id='submitAddSite' class='btn btn-success'>Ajouter</button>
+					<button type='button' id='submitAddSite' class='btn btn-success'><span class='glyphicon glyphicon-plus'></span> &nbsp;Ajouter</button>
 				</div>
 			</form>
 		</div>
 	</div>
 	<div class='row'>
-		<div class='col-md-6 col-md-offset-3'>
+		<div class='col-md-12'>
 			<table class='table table-striped'>
 				<thead>
 					<tr>
@@ -38,12 +44,15 @@
 			<h3>Modification site <span id='modifSiteIdArea'></span></h3>
 			<label class='label-control'>Nom du site</label>
 			<input class='form-control' id='modifSiteName' type='text'/>
-			<div class='col-md-6'>
-				<button type='button' class='btn btn-info btn-block' id='saveModifSite'><span class='glyphicon glyphicon-save'></span> Enregistrer</button>
-			</div>
-			<div class='col-md-6'>
-				<button type='button' class='btn btn-warning btn-block' id='cancelModifSite'><span class='glyphicon glyphicon-remove'></span> Annuler</button>
+			<div class='btnModifVille'>
+				<div class='col-md-6'>
+					<button type='button' class='btn btn-info btn-block' id='saveModifSite'><span class='glyphicon glyphicon-save'></span> Enregistrer</button>
+				</div>
+				<div class='col-md-6'>
+					<button type='button' class='btn btn-warning btn-block' id='cancelModifSite'><span class='glyphicon glyphicon-remove'></span> Annuler</button>
+				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </div>

@@ -49,9 +49,7 @@ public class authentification extends HttpServlet {
 						request.setAttribute("login", identifiants[0]);
 						request.setAttribute("mdp", identifiants[1]);
 					}
-					
 				}
-				
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/authentification.jsp");
 			rd.forward(request, response);
@@ -83,9 +81,9 @@ public class authentification extends HttpServlet {
 			}
 			session.setMaxInactiveInterval(600);
 			session.setAttribute("currentUser", currentUser);
-			System.out.println(currentUser.getPseudo());
 			response.sendRedirect("/sortie.com/index");
 		}else {
+			request.setAttribute("errorMessage", "Echec de l'authentification, informations invalides");
 			doGet(request, response);
 		}
 	}
