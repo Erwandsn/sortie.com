@@ -21,8 +21,20 @@
 					<li class="btnNavBar" id="li-site"><a href="#" id='btnSite'>Site</a></li>
 				<%}%>
 			<%}%>
-			<li class="btnNavBar" id="li-creation-participant"><a href="#" id="btnCreationParticipant" >Mon profil</a></li>
-			<li><a href="/sortie.com/deconnexion">Se deconnecter</a></li>
+			<li class="btnNavBar" id="li-creation-participant"><div
+					class="dropdown">
+					<button class="dropdown-toggle" type="button"
+						id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false" style="padding:15px;">Profil</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item col-md-12" href="/sortie.com/deconnexion" id="li-creation-participant">Se déconnecter</a> <a
+							class="dropdown-item col-md-12" id="btnModifProfil">Modifier profil</a> <a
+							class="dropdown-item col-md-12" id="modifierPhoto">Modifier image profil</a>
+					</div>
+				</div></li>
+			<!-- <li class="btnNavBar" id="li-creation-participant"><a href="#" id="btnCreationParticipant" >Mon profil</a></li>
+			<li><a href="/sortie.com/deconnexion">Se deconnecter</a></li> -->
 		</ul>
 	</div>
 </nav>
+

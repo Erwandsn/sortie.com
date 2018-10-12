@@ -1,6 +1,7 @@
 $('#modifProfilUser').hide();
 
 $('#btnModifProfil').click(function(){
+
 	$('#profilUser').hide();
 	$('#modifProfilUser').show();
 	var villeId = $('#currentVilleId').val();

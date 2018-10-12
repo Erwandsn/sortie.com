@@ -653,6 +653,20 @@ $(document).ready(function(){
 			});
 		}
 		
+		$('#creation-sortie-nom').val("");
+		$('#creation-sortie-date1-val').val("");
+		$('#creation-sortie-date-inscription-val').val("");
+		$('#creation-sortie-place').val("");
+		$('#creation-sortie-duree').val("");
+		$('#creation-sortie-description').val("");
+		$('#creation-sortie-ville').val("");
+		$('#creation-sortie-lieu').val("");
+		$('#currentUser').val("");
+		$('#creation-sortie-etat').val("");
+		refreshAccueilSortieTable();
+		clearIHM();
+		$('#accueil').show();
+		
 		
 	});
 	
@@ -803,36 +817,52 @@ $(document).ready(function(){
 //	});
 	
 	 $(function () {
-         $('#creation-sortie-date1').datetimepicker({
-        	 format: 'dd/mm/yyyy hh:ii',
-    		 language: 'fr'
-         }
-        		 
-         );
-         
-         $('#creation-sortie-date-inscription').datetimepicker({
+		 $('#creation-sortie-date1').datetimepicker({
+			 format: 'dd/mm/yyyy hh:ii',
+			 language: 'fr'
+		 }
+
+		 );
+
+		 $('#creation-sortie-date-inscription').datetimepicker({
+			 format: 'dd/mm/yyyy',
+			 language: 'fr'
+		 }
+
+		 );
+
+		 $('#debut').datetimepicker({
+			 format: 'dd/mm/yyyy hh:ii',
+			 language: 'fr'
+		 }
+
+		 );
+
+		 $('#fin').datetimepicker({
+			 format: 'dd/mm/yyyy hh:ii',
+			 language: 'fr'
+		 }
+
+		 );
+		 
+		 $('#creation-sortie-date-inscription-val').datetimepicker({
         	 format: 'dd/mm/yyyy',
     		 language: 'fr'
          }
-        
-         );
-         
-         $('#debut').datetimepicker({
-        	 format: 'dd/mm/yyyy hh:ii',
-    		 language: 'fr'
-         }
-        
-         );
-         
-         $('#fin').datetimepicker({
-        	 format: 'dd/mm/yyyy hh:ii',
-    		 language: 'fr'
-         }
-        
-         );
-     });
-	
-	
+		 );
+		 
+		 $('#creation-sortie-date1-val').datetimepicker({
+			 format: 'dd/mm/yyyy hh:ii',
+			 language: 'fr'
+		 }
+
+		 );
+		 
+		 
+		 
+	 });
+
+
 });
 
 
