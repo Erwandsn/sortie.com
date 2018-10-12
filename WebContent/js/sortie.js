@@ -189,6 +189,7 @@ $(document).ready(function(){
 					  if(data['listeParticipants'].length == data['nbInscriptionsMax']){
 						  $('#sinscrireAlaSortie').hide();
 					  }
+					  console.log(JSON.stringify(data));
 					  $('#currentSortie').val(data['id']);
 					  $('#currentDetailSortieId').val(data['id']);
 					  $('#titleSortie').html(data['nom']);
@@ -197,6 +198,7 @@ $(document).ready(function(){
 					  $('#nbPlacesInscrit').html(data['listeParticipants'].length+"/"+data['nbInscriptionsMax']);
 					  $('#organisateurSortie').html(data['organisateur']['prenom']+ " "+data['organisateur']['nom']);
 					  $('#etatSortie').html(data['etat']['libelle']);
+					  $('#villeLieuSortie').html(" "+data['lieu']['nom']+","+data['ville']['nomVille']);
 					  $('#descriptionSortie').html(data['infosSortie']);
 					  var html = "";
 					  if(data['listeParticipants'].length > 0){
@@ -525,9 +527,6 @@ $(document).ready(function(){
 	
 	
 	$('#btnAccueilRecherche').click(function(){
-//		$('#accueil').hide();
-//		$('#affichage-sortie').show();
-		
 		var recherche = $('#recherche').val();
 		if(recherche == ""){
 			recherche = "null";

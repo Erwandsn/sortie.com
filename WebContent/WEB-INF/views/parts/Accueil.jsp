@@ -133,7 +133,14 @@
 				<button type="button" class="btn btnVoirParticipant" data-toggle="modal"
 				data-target="#listeParticipantsSortie">Voir les participants</button>
 			</div>
-			<p id='descriptionSortie'></p>
+			<div class='col-md-4 col-xs-12'>
+				<p>
+					<span class='glyphicon glyphicon-screenshot'></span><span id='villeLieuSortie'></span>
+				</p>
+			</div>
+			<div class='col-md-12'>
+				<p id='descriptionSortie'></p>
+			</div>
 		</div>
 	</div>
 	<div class='row'>
